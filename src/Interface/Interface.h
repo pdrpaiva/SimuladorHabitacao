@@ -4,7 +4,7 @@
 
 #ifndef TRABALHO_COMANDOS_H
 #define TRABALHO_COMANDOS_H
-#endif //TRABALHO_COMANDOS_H
+
 #include <string>
 #include "../../lib/Terminal.h"
 using namespace std;
@@ -17,7 +17,8 @@ private:
     Window wInfo;
     Window wHabitacao;
     int iInfo = 2; //incrementa o y do moveto wInfo
-    bool fichAberto = false; //flag para ler o ficheiro
+    bool fichAberto = false;
+    bool saida = false;
 public:
     Interface(Terminal &t);
     //Comandos
@@ -27,4 +28,6 @@ public:
     void sintaxe(const string& s);
     void sintaxe (const string& s, const string& limite);
     void processa();
+    bool Sair() const;
 };
+#endif //TRABALHO_COMANDOS_H

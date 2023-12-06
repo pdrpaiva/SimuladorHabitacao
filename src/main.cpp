@@ -10,7 +10,8 @@ using namespace term;
 int main() {
     Terminal &t = Terminal::instance();
     Interface TP(t);
-    TP.processaComandos();
+    while (!TP.Sair())
+        TP.processaComandos();
 
     return 0;
 }

@@ -1,6 +1,3 @@
-//
-// Created by Utilizador on 28/10/2023.
-//
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -23,20 +20,18 @@ void Interface::processaComandos() {
     wComandos << move_to(0, 2) << set_color(0) << ">> ";
 
     string comando;
-
-    while(true){
-        wComandos >> comando;
-        //getline(cin, comando);
-
-        if (comando == "sair") {
-            wComandos << move_to(0, 2) << set_color(0) << "A encerrar . . .";
-            sleep(2);
-            wComandos.clear();
-            terminal.clear();
-            exit(0);
-        }
-        executaComandos(comando);
+    saida = false;
+    wComandos >> comando;
+    //getline(cin, comando);
+    if (comando == "sair") {
+        wComandos << move_to(0, 2) << set_color(0) << "A encerrar . . .";
+        sleep(2);
+        wComandos.clear();
+        terminal.clear();
+        saida = true;
     }
+    if (!saida)
+        executaComandos(comando);
 }
 
 void Interface::executaComandos(const std::string &comando) {
@@ -60,10 +55,7 @@ void Interface::executaComandos(const std::string &comando) {
             processa();
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou 1 instante.";
-            if (!fichAberto)
-                processaComandos();
-            else
-                return;
+            return;
         }
     }
     else if (cmd == "avanca") {
@@ -77,10 +69,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou [" << n << "] instantes.";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -98,10 +87,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -116,10 +102,7 @@ void Interface::executaComandos(const std::string &comando) {
             processa();
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
-            if (!fichAberto)
-                processaComandos();
-            else
-                return;
+            return;
         }
     }
     else if (cmd == "znova") {
@@ -134,10 +117,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         }else {
             sintaxe(s);
@@ -154,10 +134,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -172,10 +149,7 @@ void Interface::executaComandos(const std::string &comando) {
             processa();
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
-            if (!fichAberto)
-                processaComandos();
-            else
-                return;
+            return;
         }
     }
     else if (cmd == "zcomp") {
@@ -189,10 +163,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Componentes da zona [" << idZona << "]:";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -209,10 +180,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Propriedades da zona [" << idZona << "]:";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -232,10 +200,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Valor da propriedade [" << nome << "] da zona [" << idZona << "]";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << valor << "].";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         }else {
             sintaxe(s);
@@ -260,10 +225,7 @@ void Interface::executaComandos(const std::string &comando) {
                             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado um processador a zona [" << idZona << "].";
 
-                            if (!fichAberto)
-                                processaComandos();
-                            else
-                                return;
+                            return;
                         }
                         else {
                             sintaxe(s);
@@ -273,19 +235,13 @@ void Interface::executaComandos(const std::string &comando) {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                         wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o aparelho [" << tipoComando << "] a zona [" << idZona << "].";
-                        if (!fichAberto)
-                            processaComandos();
-                        else
-                            return;
+                        return;
                     }
                     else if (spa == 's') {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                         wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor [" << tipoComando << "] a zona [" << idZona << "].";
-                        if (!fichAberto)
-                            processaComandos();
-                        else
-                            return;
+                        return;
                     }
                 }
             }
@@ -309,28 +265,19 @@ void Interface::executaComandos(const std::string &comando) {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                         wInfo << move_to(0, iInfo++) << set_color(10) << "Removido o processador [" << id << "] da zona [" << idZona << "].";
-                        if (!fichAberto)
-                            processaComandos();
-                        else
-                            return;
+                        return;
                     }
                     else if (spa == 'a') {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                         wInfo << move_to(0, iInfo++) << set_color(10) << "Removido o aparelho [" << id << "] da zona [" << idZona << "].";
-                        if (!fichAberto)
-                            processaComandos();
-                        else
-                            return;
+                        return;
                     }
                     else if (spa == 's') {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                         wInfo << move_to(0, iInfo++) << set_color(10) << "Removido o sensor [" << id << "] da zona [" << idZona << "].";
-                        if (!fichAberto)
-                            processaComandos();
-                        else
-                            return;
+                        return;
                     }
                 }
             }
@@ -355,8 +302,8 @@ void Interface::executaComandos(const std::string &comando) {
                 }
             }
             if(!encontrou){
+                char resposta;
                 if(!fichAberto){
-                    char resposta;
                     do{
                         wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
                         wComandos << move_to(0, 2) << set_color(4) << "Sintaxe invalida. Essa regra nao existe. ";
@@ -368,17 +315,11 @@ void Interface::executaComandos(const std::string &comando) {
                             wComandos << move_to(0, 3) << set_color(0) << "Pressione qualquer tecla para continuar . . .    ";
                             wComandos.getchar();
                             wComandos.clear();
-                            if (!fichAberto)
-                                processaComandos();
-                            else
-                                return;
+                            return;
                         }
                         else if (resposta == 'N' || resposta == 'n'){
                             wComandos.clear();
-                            if (!fichAberto)
-                                processaComandos();
-                            else
-                                return;
+                            return;
                         }
                     }while(resposta != 'S' && resposta != 's' && resposta != 'N' && resposta != 'n');
                 }
@@ -395,10 +336,7 @@ void Interface::executaComandos(const std::string &comando) {
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << regra << "(x:" << x << " y:" << y <<")] adicionada";
                             wInfo << move_to(0, iInfo++) << set_color(10) << "ao processador [" << idProcRegras << "] e associada ao sensor [" << idSensor <<"] ";
                             wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "]";
-                            if (!fichAberto)
-                                processaComandos();
-                            else
-                                return;
+                            return;
                         }
                     }
                     else {
@@ -415,10 +353,7 @@ void Interface::executaComandos(const std::string &comando) {
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << regra << "(x:" << x <<")] adicionada";
                             wInfo << move_to(0, iInfo++) << set_color(10) << "ao processador [" << idProcRegras << "] e associada ao sensor [" << idSensor <<"] ";
                             wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "]";
-                            if (!fichAberto)
-                                processaComandos();
-                            else
-                                return;
+                            return;
                         }
                     }
                     else {
@@ -445,10 +380,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Comando do processador [" << idProcRegras << "] da zona [" << idZona << "] ";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << pcomando << "].";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -465,10 +397,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Comandos do processador [" << idProcRegras << "] da zona [" << idZona << "]:";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -486,10 +415,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << idRegra << "] removida do processador [" << idProcRegras << "] ";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona <<"].";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -507,10 +433,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << idProcRegras << "] associado ao aparelho [" << idAparelho << "] ";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -528,10 +451,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << idProcRegras << "] desassociado ao aparelho [" << idAparelho << "] ";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -551,10 +471,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Comando [" << acomando << "] enviado ao aparelho [" << idAparelho << "] ";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -574,10 +491,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Regras do processador [" << idProcRegras << "] da zona [" << idZona << "] ";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "guardadas [" << nome << "] na memoria.";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -595,10 +509,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << nome << "] reposto com sucesso.";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -617,10 +528,7 @@ void Interface::executaComandos(const std::string &comando) {
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Copia [" << nome << "] com as regras do processador ";
                 wInfo << move_to(0, iInfo++) << set_color(10) << "eliminada da memoria.";
-                if (!fichAberto)
-                    processaComandos();
-                else
-                    return;
+                return;
             }
         } else {
             sintaxe(s);
@@ -637,10 +545,7 @@ void Interface::executaComandos(const std::string &comando) {
             processa();
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Copias de processadores guardadas em memoria:";
-            if (!fichAberto)
-                processaComandos();
-            else
-                return;
+            return;
         }
     }
     else if (cmd == "exec") {
@@ -702,7 +607,7 @@ void Interface::carregaComandos(const std::string &nomeFich) {
         }
         fichAberto = false;
         fich.close();
-        processaComandos();
+        return;
     } else {
         wComandos << move_to(0, 2) << set_color(4) << "Erro ao abrir o arquivo: " << nomeFich;
     }
@@ -715,10 +620,6 @@ void Interface::sintaxe(const std::string &s) {
     if(!fichAberto)
         wComandos.getchar();
     wComandos.clear();
-    if (!fichAberto)
-        processaComandos();
-    else
-        return;
 }
 
 void Interface::sintaxe(const string &s, const string &limite) {
@@ -728,10 +629,6 @@ void Interface::sintaxe(const string &s, const string &limite) {
     if(!fichAberto)
         wComandos.getchar();
     wComandos.clear();
-    if (!fichAberto)
-        processaComandos();
-    else
-        return;
 }
 
 void Interface::processa() {
@@ -740,4 +637,11 @@ void Interface::processa() {
     wComandos << move_to(0, 2) << set_color(10) << "A processar . . .";
     sleep(1);
     wComandos.clear();
+}
+
+bool Interface::Sair() const{
+    if (!saida)
+        return false;
+    else
+        return true;
 }
