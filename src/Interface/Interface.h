@@ -19,6 +19,7 @@ private:
     int iInfo = 2; //incrementa o y do moveto wInfo
     bool fichAberto = false;
     bool saida = false;
+    bool jaExistiuHab = false;
 public:
     Interface(Terminal &t);
     //Comandos

@@ -85,8 +85,14 @@ void Interface::executaComandos(const std::string &comando) {
                 sintaxe(s,limite);
             } else {
                 processa();
+
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                if(jaExistiuHab){
+                    wInfo << move_to(0, iInfo++) << set_color(4) << "Habitacao atual foi apagada.";
+                }
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
+
+                jaExistiuHab = true;
                 return;
             }
         } else {
