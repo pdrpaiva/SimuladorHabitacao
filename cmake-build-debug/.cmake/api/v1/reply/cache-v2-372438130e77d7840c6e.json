@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/Trabalho/cmake-build-debug"
+			"value" : "c:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/SimularHabitacao/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -623,7 +623,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/Trabalho"
+			"value" : "C:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/SimularHabitacao"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1239,7 +1239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/Trabalho/cmake-build-debug"
+			"value" : "C:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/SimularHabitacao/cmake-build-debug"
 		},
 		{
 			"name" : "Trabalho_IS_TOP_LEVEL",
@@ -1263,7 +1263,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/Trabalho"
+			"value" : "C:/Users/Utilizador/Desktop/Pedro/ISEC/2oAno/1oSemestre/POO/SimularHabitacao"
 		}
 	],
 	"kind" : "cache",
