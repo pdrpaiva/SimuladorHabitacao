@@ -21,8 +21,11 @@ private:
     int iInfo = 2; //incrementa o y do moveto wInfo
     bool fichAberto = false;
     bool saida = false;
+
+    //habitacao
     bool existeHab = false;
     int instancia = 0;
+    int idZona = 0;
 public:
     Interface(Terminal &t);
     //Comandos
@@ -30,7 +33,7 @@ public:
     void executaComandos(const string& comando);
     void carregaComandos(const string& nomeFich);
     void sintaxe(const string& s);
-    void sintaxe (const string& s, const string& limite);
+    void sintaxe (const string& s, const string& s2);
     void processa();
     bool Sair() const;
     void criaHabitacao(int nLinhas,int nColunas);

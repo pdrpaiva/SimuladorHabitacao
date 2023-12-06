@@ -3,7 +3,6 @@
 #include <sstream>
 #include <fstream>
 #include <unistd.h>
-#include <vector>
 #include "../../lib/Terminal.h"
 #include "Interface.h"
 using namespace std;
@@ -49,9 +48,11 @@ void Interface::executaComandos(const std::string &comando) {
         wInfo << move_to(0, 0) << set_color(3) << "Logs:";
     }
 
+    string naoExisteHab = "Nao existe nenhuma habitacao neste momento. 'hnova' para criar uma.";
+
     if(cmd == "prox") {
         string extra;
-        string s = "prox";
+        string s = "Uso correto: prox";
         if(iss >> extra){
             sintaxe(s);
         }
@@ -65,7 +66,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "avanca") {
         int n;
-        string s = "avanca <n>";
+        string s = "Uso correto: avanca <n>";
         if (iss >> n) {
             string extra;
             if (iss >> extra) {
@@ -83,7 +84,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "hnova") {
         int numLinhas, numColunas;
-        string s = "hnova <num linhas> <num colunas> ";
+        string s = "Uso correto: hnova <num linhas> <num colunas> ";
         string limite = ", com 2 <= num linhas <= 4 e 2 <= num colunas <= 4";
         if (iss >> numLinhas >> numColunas) {
             string extra;
@@ -111,7 +112,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if(cmd == "hrem") {
         string extra;
-        string s = "hrem";
+        string s = "Uso correto: hrem";
         if(iss >> extra){
             sintaxe(s);
         } else{
@@ -129,17 +130,25 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "znova") {
         int linha, coluna;
-        string s = "znova <linha> <coluna>";
+        string s = "Uso correto: znova <linha> <coluna>";
         string limite = ", com 2 <= linha <= 4 e 2 <= coluna <= 4";
         if (iss >> linha >> coluna){
             string extra;
             if(iss >> extra || linha < 2 || linha > 4 || coluna < 2 || coluna > 4){
                 sintaxe(s,limite);
             } else{
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
-                return;
+                if(!existeHab){
+                    sintaxe(naoExisteHab);
+                }
+                else{
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
+
+                    criaZona(linha,coluna);
+
+                    return;
+                }
             }
         }else {
             sintaxe(s);
@@ -147,16 +156,21 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "zrem"){
         int idZona;
-        string s = "zrem <ID zona>";
+        string s = "Uso correto: zrem <ID zona>";
         if(iss >> idZona){
             string extra;
             if(iss >> extra){
                 sintaxe(s);
             } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
-                return;
+                if(!existeHab){
+                    sintaxe(naoExisteHab);
+                }
+                else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
+                    return;
+                }
             }
         } else {
             sintaxe(s);
@@ -164,28 +178,38 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if(cmd == "zlista"){
         string extra;
-        string s = "zlista";
+        string s = "Uso correto: zlista";
         if(iss >> extra){
             sintaxe(s);
         } else{
-            processa();
-            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-            wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
-            return;
+            if(!existeHab){
+                sintaxe(naoExisteHab);
+            }
+            else {
+                processa();
+                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
+                return;
+            }
         }
     }
     else if (cmd == "zcomp") {
         int idZona;
-        string s = "zcomp <ID zona>";
+        string s = "Uso correto: zcomp <ID zona>";
         if(iss >> idZona){
             string extra;
             if(iss >> extra){
                 sintaxe(s);
             } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Componentes da zona [" << idZona << "]:";
-                return;
+                if(!existeHab){
+                    sintaxe(naoExisteHab);
+                }
+                else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Componentes da zona [" << idZona << "]:";
+                    return;
+                }
             }
         } else {
             sintaxe(s);
@@ -193,16 +217,21 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "zprops") {
         int idZona;
-        string s = "zprops <ID zona>";
+        string s = "Uso correto: zprops <ID zona>";
         if(iss >> idZona){
             string extra;
             if(iss >> extra){
                 sintaxe(s);
             } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Propriedades da zona [" << idZona << "]:";
-                return;
+                if(!existeHab){
+                    sintaxe(naoExisteHab);
+                }
+                else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Propriedades da zona [" << idZona << "]:";
+                    return;
+                }
             }
         } else {
             sintaxe(s);
@@ -212,7 +241,7 @@ void Interface::executaComandos(const std::string &comando) {
         int idZona;
         string nome;
         int valor;
-        string s = "pmod <ID zona> <nome> <valor>";
+        string s = "Uso correto: pmod <ID zona> <nome> <valor>";
         if (iss >> idZona >> nome >> valor){
             string extra;
             if(iss >> extra){
@@ -232,7 +261,7 @@ void Interface::executaComandos(const std::string &comando) {
         int idZona;
         char spa;
         string tipoComando;
-        string s = "cnovo <ID zona> <s | p | a> <tipo | comando>";
+        string s = "Uso correto: cnovo <ID zona> <s | p | a> <tipo | comando>";
         if(iss >> idZona >> spa >> tipoComando){
             string extra;
             if (iss >> extra) {
@@ -274,7 +303,7 @@ void Interface::executaComandos(const std::string &comando) {
     else if (cmd == "crem") {
         int idZona,id;
         char spa;
-        string s = "crem <ID zona> <s | p | a> <ID>";
+        string s = "Uso correto: crem <ID zona> <s | p | a> <ID>";
         if(iss >> idZona >> spa >> id) {
             string extra;
             if (iss >> extra) {
@@ -313,7 +342,7 @@ void Interface::executaComandos(const std::string &comando) {
         bool encontrou = false; //bool para saber se encontrou uma das regras
 
         string arrayRegras[] = {"igual_a","menor_que","maior_que","entre","fora"};
-        string s = "rnova <ID zona> <ID proc. regras> <regra> <ID sensor> [param1] [param2] [...]";
+        string s = "Uso correto: rnova <ID zona> <ID proc. regras> <regra> <ID sensor> [param1] [param2] [...]";
 
         //rnova <ID zona> <ID proc. regras> <regra> <ID sensor> [param1] [param2] [...]
         if(iss >> idZona >> idProcRegras >> regra >> idSensor){
@@ -391,7 +420,7 @@ void Interface::executaComandos(const std::string &comando) {
     else if (cmd == "pmuda") {
         int idZona,idProcRegras;
         string pcomando;
-        string s = "pmuda <ID zona> <ID proc. regras> <novo comando>";
+        string s = "Uso correto: pmuda <ID zona> <ID proc. regras> <novo comando>";
 
         if(iss >> idZona >> idProcRegras >> pcomando) {
             string extra;
@@ -410,7 +439,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "rlista") {
         int idZona,idProcRegras;
-        string s = "rlista <ID zona> <ID proc. regras>";
+        string s = "Uso correto: rlista <ID zona> <ID proc. regras>";
         if(iss >> idZona >> idProcRegras) {
             string extra;
             if (iss >> extra) {
@@ -427,7 +456,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "rrem") {
         int idZona,idProcRegras,idRegra;
-        string s = "rrem <ID zona> <ID proc. regras> <ID regra>";
+        string s = "Uso correto: rrem <ID zona> <ID proc. regras> <ID regra>";
         if(iss >> idZona >> idProcRegras >> idRegra) {
             string extra;
             if (iss >> extra) {
@@ -445,7 +474,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "asoc") {
         int idZona,idProcRegras,idAparelho;
-        string s = "asoc <ID zona> <ID proc. regras> <ID aparelho>";
+        string s = "Uso correto: asoc <ID zona> <ID proc. regras> <ID aparelho>";
         if(iss >> idZona >> idProcRegras >> idAparelho) {
             string extra;
             if (iss >> extra) {
@@ -463,7 +492,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "ades") {
         int idZona,idProcRegras,idAparelho;
-        string s = "ades <ID zona> <ID proc. regras> <ID aparelho>";
+        string s = "Uso correto: ades <ID zona> <ID proc. regras> <ID aparelho>";
         if(iss >> idZona >> idProcRegras >> idAparelho) {
             string extra;
             if (iss >> extra) {
@@ -482,7 +511,7 @@ void Interface::executaComandos(const std::string &comando) {
     else if (cmd == "acom") {
         int idZona,idAparelho;
         string acomando;
-        string s = "acom <ID zona> <ID aparelho> <comando>";
+        string s = "Uso correto: acom <ID zona> <ID aparelho> <comando>";
 
         if(iss >> idZona >> idAparelho >> acomando) {
             string extra;
@@ -502,7 +531,7 @@ void Interface::executaComandos(const std::string &comando) {
     else if (cmd == "psalva") {
         int idZona,idProcRegras;
         string nome;
-        string s = "psalva <ID zona> <ID proc. regras> <nome>";
+        string s = "Uso correto: psalva <ID zona> <ID proc. regras> <nome>";
 
         if(iss >> idZona >> idProcRegras >> nome) {
             string extra;
@@ -521,7 +550,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "prepoe") {
         string nome;
-        string s = "prepoe <nome>";
+        string s = "Uso correto: prepoe <nome>";
 
         if(iss >> nome) {
             string extra;
@@ -539,7 +568,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "prem") {
         string nome;
-        string s = "prem <nome>";
+        string s = "Uso correto: prem <nome>";
 
         if(iss >> nome) {
             string extra;
@@ -558,7 +587,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if(cmd == "plista") {
         string extra;
-        string s = "plista";
+        string s = "Uso correto: plista";
 
         if(iss >> extra){
             sintaxe(s);
@@ -572,7 +601,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "exec") {
         string nomeFich;
-        string s = "exec <nome de ficheiro>";
+        string s = "Uso correto: exec <nome de ficheiro>";
         if(iss >> nomeFich) {
             string extra;
             if (iss >> extra) {
@@ -586,7 +615,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
     else if (cmd == "clearLogs") {
         string extra;
-        string s = "prox";
+        string s = "Uso correto: clearLogs";
         if(iss >> extra){
             sintaxe(s);
         }
@@ -637,16 +666,16 @@ void Interface::carregaComandos(const std::string &nomeFich) {
 
 void Interface::sintaxe(const std::string &s) {
     wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
-    wComandos << move_to(0, 2) << set_color(4) << "Sintaxe invalida. Uso correto: " << s;
+    wComandos << move_to(0, 2) << set_color(4) << "Sintaxe invalida. " << s;
     wComandos << move_to(0, 3) << set_color(0) << "Pressione qualquer tecla para continuar . . .";
     if(!fichAberto)
         wComandos.getchar();
     wComandos.clear();
 }
 
-void Interface::sintaxe(const string &s, const string &limite) {
+void Interface::sintaxe(const string &s, const string &s2) {
     wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
-    wComandos << move_to(0, 2) << set_color(4) << "Sintaxe invalida. Uso correto: " << s << limite;
+    wComandos << move_to(0, 2) << set_color(4) << "Sintaxe invalida. " << s << s2;
     wComandos << move_to(0, 3) << set_color(0) << "Pressione qualquer tecla para continuar . . .";
     if(!fichAberto)
         wComandos.getchar();
@@ -677,12 +706,18 @@ void Interface::criaHabitacao(int nLinhas, int nColunas) {
         for (int j = 0; j < nColunas; j++) {
             wZonas.emplace_back(x, y, w, h,true);
             x += 29;
+            idZona++;
         }
         y += 17;
     }
 }
 
 void Interface::criaZona(int nLinhas, int nColunas) {
+    int x = 3 + 29 * nColunas - 29;
+    int y = 8 + 17 * ( nLinhas - 1 ) - 17;
+    int w = 27, h = 17;
+
+    wZonas.emplace_back(x , y, w, h,true);
 
 }
 
