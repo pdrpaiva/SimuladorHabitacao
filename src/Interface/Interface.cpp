@@ -20,10 +20,13 @@ void Interface::processaComandos() {
     wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
     wComandos << move_to(0, 2) << set_color(0) << ">> ";
 
+    if(existeHab)
+        wHabitacao << move_to(3, 0) << set_color(0) << "Instancia: " << instancia;
+
     string comando;
     saida = false;
     wComandos >> comando;
-    //getline(cin, comando);
+
     if (comando == "sair") {
         wComandos << move_to(0, 2) << set_color(0) << "A encerrar . . .";
         sleep(2);
@@ -56,6 +59,7 @@ void Interface::executaComandos(const std::string &comando) {
             processa();
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou 1 instante.";
+            instancia++;
             return;
         }
     }
@@ -70,6 +74,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou [" << n << "] instantes.";
+                instancia += n;
                 return;
             }
         } else {
@@ -88,15 +93,16 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
 
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                if(jaExistiuHab){
+                if(existeHab){
                     wInfo << move_to(0, iInfo++) << set_color(4) << "Habitacao atual foi apagada.";
                 }
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
 
+                instancia = 0;
                 wZonas.clear();
                 criaHabitacao(numLinhas,numColunas);
 
-                jaExistiuHab = true;
+                existeHab = true;
                 return;
             }
         } else {
