@@ -1,0 +1,99 @@
+prox
+prox 1
+avanca
+avanca 2
+avanca 2 3
+hnova
+hnova 1
+hnova 1 2
+hnova 1 2 3
+hrem
+hrem 1
+znova
+znova 1
+znova 1 2
+znova 1 2 3
+zrem
+zrem 5
+zrem 5 6
+zlista
+zlista 1
+zcomp
+zcomp 4
+zcomp 4 5
+zprops
+zprops 1
+zprops 1 2
+pmod
+pmod 1
+pmod 1 teste
+pmod 1 teste 3
+pmod 1 teste 3 4
+cnovo
+cnovo 1
+cnovo 1 s
+cnovo 1 b comando
+cnovo 1 s comando
+cnovo 1 s comando 1
+cnovo 1 a comando
+cnovo 1 a comando 1
+cnovo 1 p comando
+cnovo 1 p comando 1
+cnovo 1 p liga
+cnovo 1 p comando
+cnovo 1 p comando 1
+cnovo 1 p liga 1
+cnovo 1 p desliga
+cnovo 1 p desliga 1
+crem
+crem 1
+crem 1 s
+crem 1 x 1
+crem 1   1
+crem 1 s 1
+crem 1 a 1
+crem 1 p 1
+crem 1 p 1 2
+rnova
+rnova 1 2 3 4 5
+rnova 1 2
+rnova 1 2 asd 4 5 1 2 3
+rnova 1 2 igual_a 2
+rnova 1 2 igual_a 2 1
+rnova 1 2 igual_a 2 2 3
+rnova 1 2 menor_que 2 1
+rnova 1 2 maior_que 2 1
+rnova 1 2 entre 2 1 1
+rnova 1 2 entre 2 1 
+rnova 1 2 entre 2 1 2 3
+rnova 1 2 fora 2 1 1
+pmuda 1 2 teste
+pmuda
+pmuda 1 2
+rlista 1 2
+rlista 1
+rlista
+rrem 1 2 3
+rrem 1
+rrem 1 2
+asoc 1 2 3
+asoc 1 2
+asoc
+ades 1 2 3
+ades 1
+ades 1 2
+ades 1 2 3 4
+acom 1 2 teste
+acom 1 2
+acom
+acom 1 
+acom 1 2 rteste 2
+psalva 1 2 teste
+psalva
+psalva 1 2 teste 1
+prepoe teste
+prepoe
+prem teste
+prem
+plista 1
+plista
