@@ -6,6 +6,7 @@
 #define TRABALHO_COMANDOS_H
 
 #include <string>
+#include <vector>
 #include "../../lib/Terminal.h"
 using namespace std;
 using namespace term;
@@ -16,6 +17,7 @@ private:
     Window wComandos;
     Window wInfo;
     Window wHabitacao;
+    vector <Window> wZonas;
     int iInfo = 2; //incrementa o y do moveto wInfo
     bool fichAberto = false;
     bool saida = false;

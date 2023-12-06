@@ -14,7 +14,6 @@ using namespace std;
 using namespace term;
 
 Habitacao::Habitacao() {
-
 }
 
 Habitacao::~Habitacao() {

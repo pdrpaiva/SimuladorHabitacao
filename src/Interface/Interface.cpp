@@ -93,6 +93,7 @@ void Interface::executaComandos(const std::string &comando) {
                 }
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
 
+                wZonas.clear();
                 criaHabitacao(numLinhas,numColunas);
 
                 jaExistiuHab = true;
@@ -656,19 +657,16 @@ bool Interface::Sair() const{
 }
 
 void Interface::criaHabitacao(int nLinhas, int nColunas) {
-    int x = 0, y = 0, w = 2, h = 2;
-
-    vector <vector <Window> > matrizDeJanelas;
+    //wHabitacao(x 0 ,y 6,w 120,h 37)
+    int x, y = 8, w = 27, h = 17;
 
     for (int i = 0; i < nLinhas; i++) {
-        x += 4;
-        vector<Window> linhaDeJanelas;
+        x = 3;
         for (int j = 0; j < nColunas; j++) {
-            Window wHZ(2 + x, 6 + y, 120 + w, 37 + h);
-            linhaDeJanelas.push_back(wHZ);
-            x += 120; // Ajuste conforme necessário
+            wZonas.emplace_back(x, y, w, h,true);
+            x += 29;
         }
-        matrizDeJanelas.push_back(linhaDeJanelas);
-        y += 4; // Ajuste conforme necessário
+        y += 17;
     }
 }
+
