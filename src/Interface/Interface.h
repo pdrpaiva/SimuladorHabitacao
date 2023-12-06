@@ -18,11 +18,11 @@ private:
     Window wInfo;
     Window wHabitacao;
     vector <Window> wZonas;
-    int instancia = 0;
     int iInfo = 2; //incrementa o y do moveto wInfo
     bool fichAberto = false;
     bool saida = false;
     bool existeHab = false;
+    int instancia = 0;
 public:
     Interface(Terminal &t);
     //Comandos
@@ -34,5 +34,6 @@ public:
     void processa();
     bool Sair() const;
     void criaHabitacao(int nLinhas,int nColunas);
+    void criaZona(int nLinhas,int nColunas);
 };
 #endif //TRABALHO_COMANDOS_H

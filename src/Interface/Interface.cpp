@@ -118,6 +118,12 @@ void Interface::executaComandos(const std::string &comando) {
             processa();
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
+
+            wHabitacao.clear();
+            wZonas.clear();
+            instancia = 0;
+            existeHab = false;
+
             return;
         }
     }
@@ -674,5 +680,9 @@ void Interface::criaHabitacao(int nLinhas, int nColunas) {
         }
         y += 17;
     }
+}
+
+void Interface::criaZona(int nLinhas, int nColunas) {
+
 }
 
