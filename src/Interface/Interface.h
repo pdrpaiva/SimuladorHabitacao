@@ -30,5 +30,6 @@ public:
     void sintaxe (const string& s, const string& limite);
     void processa();
     bool Sair() const;
+    void criaHabitacao(int nLinhas,int nColunas);
 };
 #endif //TRABALHO_COMANDOS_H

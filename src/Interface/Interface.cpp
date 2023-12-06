@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <unistd.h>
+#include <vector>
 #include "../../lib/Terminal.h"
 #include "Interface.h"
 using namespace std;
@@ -91,6 +92,8 @@ void Interface::executaComandos(const std::string &comando) {
                     wInfo << move_to(0, iInfo++) << set_color(4) << "Habitacao atual foi apagada.";
                 }
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
+
+                criaHabitacao(numLinhas,numColunas);
 
                 jaExistiuHab = true;
                 return;
@@ -650,4 +653,22 @@ bool Interface::Sair() const{
         return false;
     else
         return true;
+}
+
+void Interface::criaHabitacao(int nLinhas, int nColunas) {
+    int x = 0, y = 0, w = 2, h = 2;
+
+    vector <vector <Window> > matrizDeJanelas;
+
+    for (int i = 0; i < nLinhas; i++) {
+        x += 4;
+        vector<Window> linhaDeJanelas;
+        for (int j = 0; j < nColunas; j++) {
+            Window wHZ(2 + x, 6 + y, 120 + w, 37 + h);
+            linhaDeJanelas.push_back(wHZ);
+            x += 120; // Ajuste conforme necessário
+        }
+        matrizDeJanelas.push_back(linhaDeJanelas);
+        y += 4; // Ajuste conforme necessário
+    }
 }
