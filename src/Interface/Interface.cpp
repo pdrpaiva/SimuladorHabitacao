@@ -8,7 +8,7 @@
 using namespace std;
 using namespace term;
 
-Interface::Interface(Terminal &t) : terminal(t), wComandos(0, 0, 120, 6), wInfo(121, 0, 47, 43), wHabitacao(0,6,120,37){
+Interface::Interface(Terminal &t) : terminal(t), wComandos(3, 0, 114, 6), wInfo(120, 0, 45, 43), wHabitacao(0,6,120,38,false){
     for(int i=1; i<20; i++) {
         t.init_color(i, i, 0);
     }
@@ -20,7 +20,7 @@ void Interface::processaComandos() {
     wComandos << move_to(0, 2) << set_color(0) << ">> ";
 
     if(existeHab)
-        wHabitacao << move_to(3, 0) << set_color(0) << "Instancia: " << instancia;
+        wHabitacao << move_to(4, 0) << set_color(0) << "Instante: " << instancia << "                     ";
 
     string comando;
     saida = false;
@@ -131,10 +131,10 @@ void Interface::executaComandos(const std::string &comando) {
     else if (cmd == "znova") {
         int linha, coluna;
         string s = "Uso correto: znova <linha> <coluna>";
-        string limite = ", com 2 <= linha <= 4 e 2 <= coluna <= 4";
+        string limite = ", com 1 <= linha <= 4 e 1 <= coluna <= 4";
         if (iss >> linha >> coluna){
             string extra;
-            if(iss >> extra || linha < 2 || linha > 4 || coluna < 2 || coluna > 4){
+            if(iss >> extra || linha < 1 || linha > 4 || coluna < 1 || coluna > 4){
                 sintaxe(s,limite);
             } else{
                 if(!existeHab){
@@ -699,7 +699,7 @@ bool Interface::Sair() const{
 
 void Interface::criaHabitacao(int nLinhas, int nColunas) {
     //wHabitacao(x 0 ,y 6,w 120,h 37)
-    int x, y = 8, w = 27, h = 17;
+    int x, y = 7, w = 27, h = 9;
 
     for (int i = 0; i < nLinhas; i++) {
         x = 3;
@@ -708,14 +708,14 @@ void Interface::criaHabitacao(int nLinhas, int nColunas) {
             x += 29;
             idZona++;
         }
-        y += 17;
+        y += 9;
     }
 }
 
 void Interface::criaZona(int nLinhas, int nColunas) {
     int x = 3 + 29 * nColunas - 29;
-    int y = 8 + 17 * ( nLinhas - 1 ) - 17;
-    int w = 27, h = 17;
+    int y = 7 + 9 * nLinhas - 9;
+    int w = 27, h = 9;
 
     wZonas.emplace_back(x , y, w, h,true);
 
