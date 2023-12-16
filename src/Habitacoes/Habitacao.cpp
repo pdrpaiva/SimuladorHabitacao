@@ -18,9 +18,9 @@ Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColuna
 }
 
 Habitacao::~Habitacao() {
-    for (auto zona : zonas) {
-        delete zona;
-    }
+    //for (auto zona : zonas) {
+        //delete zona;
+    //}
 }
 
 int Habitacao::adicionaZona(int linha, int coluna) {
