@@ -13,14 +13,20 @@ using namespace std;
 
 class Zona {
 private:
+    int idZona;
+    static int nextIdZona;
+    int linhaZona;
+    int colunaZona;
     vector<Sensor*> sensores;
     vector<ProcessadorRegras*> processadores;
     vector<Aparelho*> aparelhos;
-    int id;
 public:
-    Zona(int id);
-
-    int getID() const;
+    Zona(int linha, int coluna);
+    ~Zona();
+    int getIdZona() const;
+    void setIdZona(int idZona);
+    int getLinhaZona() const;
+    int getColunaZona() const;
 };
 
 

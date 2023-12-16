@@ -4,7 +4,24 @@
 
 #include "Zona.h"
 
-Zona::Zona(int _id)
-:id(_id){}
+int Zona::nextIdZona = 1;
 
-int Zona::getID() const {return id;}
+Zona::Zona(int linha, int coluna) : linhaZona(linha),colunaZona(coluna){
+    idZona = nextIdZona++;
+}
+
+int Zona::getIdZona() const {
+    return idZona;
+}
+
+void Zona::setIdZona(int idZona) {
+    Zona::idZona = idZona;
+}
+
+int Zona::getLinhaZona() const {
+    return linhaZona;
+}
+
+int Zona::getColunaZona() const {
+    return colunaZona;
+}

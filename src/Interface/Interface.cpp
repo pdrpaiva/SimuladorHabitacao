@@ -8,11 +8,15 @@
 using namespace std;
 using namespace term;
 
-Interface::Interface(Terminal &t) : terminal(t), wComandos(3, 0, 114, 6), wInfo(120, 0, 45, 43), wHabitacao(0,6,120,38,false){
+Interface::Interface(Terminal &t,GestorHabitacao* gestor) : terminal(t), gestorHabitacao(gestor), wComandos(3, 0, 114, 6), wInfo(120, 0, 45, 43), wHabitacao(0,6,120,38,false){
     for(int i=1; i<20; i++) {
         t.init_color(i, i, 0);
     }
     wInfo << move_to(0, 0) << set_color(3) << "Logs:";
+}
+
+Interface::~Interface() {
+    delete gestorHabitacao;
 }
 
 void Interface::processaComandos() {
@@ -97,13 +101,15 @@ void Interface::executaComandos(const std::string &comando) {
                 if(existeHab){
                     wInfo << move_to(0, iInfo++) << set_color(4) << "Habitacao atual foi apagada.";
                 }
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
-
-                instancia = 0;
-                wZonas.clear();
-                criaHabitacao(numLinhas,numColunas);
 
                 existeHab = true;
+                instancia = 0;
+                wZonas.clear();
+                //dar delete da habitacao anteriormente criada
+                desenhaHabitacao(numLinhas,numColunas);
+
+                wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
+
                 return;
             }
         } else {
@@ -143,10 +149,7 @@ void Interface::executaComandos(const std::string &comando) {
                 else{
                     processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
-
-                    criaZona(linha,coluna);
-
+                    desenhaZona(linha,coluna);
                     return;
                 }
             }
@@ -697,7 +700,7 @@ bool Interface::Sair() const{
         return true;
 }
 
-void Interface::criaHabitacao(int nLinhas, int nColunas) {
+void Interface::desenhaHabitacao(int nLinhas, int nColunas) {
     //wHabitacao(x 0 ,y 6,w 120,h 37)
     int x, y = 7, w = 27, h = 9;
 
@@ -706,18 +709,35 @@ void Interface::criaHabitacao(int nLinhas, int nColunas) {
         for (int j = 0; j < nColunas; j++) {
             wZonas.emplace_back(x, y, w, h,true);
             x += 29;
-            idZona++;
         }
         y += 9;
     }
+
+    gestorHabitacao->criaHabitacao(nLinhas,nColunas);
 }
 
-void Interface::criaZona(int nLinhas, int nColunas) {
-    int x = 3 + 29 * nColunas - 29;
-    int y = 7 + 9 * nLinhas - 9;
-    int w = 27, h = 9;
+void Interface::desenhaZona(int linha, int coluna) {
+    int x = 4 + 29 * coluna - 29;
+    int y = 2 + 9 * linha - 9;
 
-    wZonas.emplace_back(x , y, w, h,true);
+    int zona = gestorHabitacao->getHabitacao()->getNZonas();
 
+    switch(gestorHabitacao->getHabitacao()->adicionaZona(linha,coluna)) {
+        case 1: //valido
+            wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
+            wHabitacao << move_to(x, y) << set_color(0) << "ID: " << gestorHabitacao->getHabitacao()->getZonas()[zona]->getIdZona();
+            wHabitacao << move_to(x, y+1) << set_color(0) << "S: " ;
+            wHabitacao << move_to(x, y+2) << set_color(0) << "P: " ;
+            wHabitacao << move_to(x, y+3) << set_color(0) << "A: " ;
+            break;
+        case 2: //zona fora da habitacao
+            wInfo << move_to(0, iInfo++) << set_color(4) << "Impossivel adicionar uma zona fora da";
+            wInfo << move_to(0, iInfo++) << set_color(4) << "habitacao.";
+            break;
+
+        case 3: //ja existe uma zona nessa posicao
+            wInfo << move_to(0, iInfo++) << set_color(4) << "Ja existe uma zona nessa posicao.";
+            break;
+    }
 }
 

@@ -8,10 +8,17 @@ using namespace std;
 using namespace term;
 
 int main() {
-    Terminal &t = Terminal::instance();
-    Interface TP(t);
-    while (!TP.Sair())
-        TP.processaComandos();
+    Terminal &terminal = Terminal::instance();
+
+    GestorHabitacao* gestor = new GestorHabitacao();
+
+    Interface* interface = new Interface(terminal,gestor);
+
+    while (!interface->Sair())
+        interface->processaComandos();
+
+    delete gestor;
+    delete interface;
 
     return 0;
 }

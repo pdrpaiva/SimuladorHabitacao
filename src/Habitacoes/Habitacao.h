@@ -11,10 +11,16 @@
 
 class Habitacao {
 private:
-    vector<Zona *> zonas;
+    vector<Zona*> zonas;
+    int nZonas = 0;
+    int habLinhas;
+    int habColunas;
 public:
-    Habitacao();
+    Habitacao(int nLinhas, int nColunas);
     ~Habitacao();
+    int adicionaZona(int linha, int coluna);
+    const vector<Zona *> &getZonas() const;
+    int getNZonas() const;
 };
 
 
