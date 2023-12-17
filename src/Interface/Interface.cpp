@@ -8,15 +8,15 @@
 using namespace std;
 using namespace term;
 
-Interface::Interface(Terminal &t,GestorHabitacao* gestor) : terminal(t), gestorHabitacao(gestor), wComandos(3, 0, 114, 6), wInfo(120, 0, 45, 43), wHabitacao(0,6,120,38,false){
+Interface::Interface(Terminal &terminal, Terreno* terreno) : terminal(terminal), terreno(terreno), wComandos(3, 0, 114, 6), wInfo(120, 0, 45, 43), wHabitacao(0, 6, 120, 38, false){
     for(int i=1; i<20; i++) {
-        t.init_color(i, i, 0);
+        terminal.init_color(i, i, 0);
     }
     wInfo << move_to(0, 0) << set_color(3) << "Logs:";
 }
 
 Interface::~Interface() {
-    delete gestorHabitacao;
+    delete terreno;
 }
 
 void Interface::processaComandos() {
@@ -126,6 +126,7 @@ void Interface::executaComandos(const std::string &comando) {
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
 
+            delete terreno->getHabitacao();
             wHabitacao.clear();
             wZonas.clear();
             instancia = 0;
@@ -713,19 +714,19 @@ void Interface::desenhaHabitacao(int nLinhas, int nColunas) {
         y += 9;
     }
 
-    gestorHabitacao->criaHabitacao(nLinhas,nColunas);
+    terreno->criaHabitacao(nLinhas,nColunas);
 }
 
 void Interface::desenhaZona(int linha, int coluna) {
     int x = 4 + 29 * coluna - 29;
     int y = 2 + 9 * linha - 9;
 
-    int zona = gestorHabitacao->getHabitacao()->getNZonas();
+    int zona = terreno->getHabitacao()->getNZonas();
 
-    switch(gestorHabitacao->getHabitacao()->adicionaZona(linha,coluna)) {
+    switch(terreno->getHabitacao()->adicionaZona(linha,coluna)) {
         case 1: //valido
             wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
-            wHabitacao << move_to(x, y) << set_color(0) << "ID: " << gestorHabitacao->getHabitacao()->getZonas()[zona]->getIdZona();
+            wHabitacao << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas()[zona]->getIdZona();
             wHabitacao << move_to(x, y+1) << set_color(0) << "S: " ;
             wHabitacao << move_to(x, y+2) << set_color(0) << "P: " ;
             wHabitacao << move_to(x, y+3) << set_color(0) << "A: " ;

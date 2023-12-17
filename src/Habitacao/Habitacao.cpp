@@ -13,7 +13,7 @@
 using namespace std;
 using namespace term;
 
-Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas){
+Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas),nZonas(0){
 
 }
 

@@ -8,15 +8,14 @@
 #include <string>
 #include <vector>
 #include "../../lib/Terminal.h"
-//#include "../Habitacoes/Habitacao.h"
-#include "../Habitacoes/GestorHabitacao.h"
+#include "../Terreno/Terreno.h"
 
 using namespace std;
 using namespace term;
 
 class Interface{
 private:
-    GestorHabitacao* gestorHabitacao;
+    Terreno* terreno;
 
     Terminal &terminal;
     Window wComandos;
@@ -34,7 +33,7 @@ private:
     bool saida = false;
 
 public:
-    Interface(Terminal &t,GestorHabitacao* gestorHabitacao);
+    Interface(Terminal &t, Terreno* terreno);
     ~Interface();
     //Comandos
     void processaComandos();
