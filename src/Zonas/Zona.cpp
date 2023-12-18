@@ -10,6 +10,18 @@ Zona::Zona(int linha, int coluna) : linhaZona(linha),colunaZona(coluna){
     idZona = nextIdZona++;
 }
 
+Zona::~Zona() {
+    for (auto sensor : sensores) {
+        delete sensor;
+    }
+    for (auto processador : processadores) {
+        delete processador;
+    }
+    for (auto aparelho : aparelhos) {
+        delete aparelho;
+    }
+}
+
 int Zona::getIdZona() const {
     return idZona;
 }
@@ -24,4 +36,8 @@ int Zona::getLinhaZona() const {
 
 int Zona::getColunaZona() const {
     return colunaZona;
+}
+
+void Zona::resetNextIdZona() const {
+    nextIdZona = 1;
 }

@@ -24,7 +24,7 @@ void Interface::processaComandos() {
     wComandos << move_to(0, 2) << set_color(0) << ">> ";
 
     if(existeHab)
-        wHabitacao << move_to(4, 0) << set_color(0) << "Instante: " << instancia << "                     ";
+        wHabitacao << move_to(4, 0) << set_color(0) << "Instante: " << terreno->getHabitacao()->getInstancia() << "                     ";
 
     string comando;
     saida = false;
@@ -64,7 +64,7 @@ void Interface::executaComandos(const std::string &comando) {
             processa();
             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
             wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou 1 instante.";
-            instancia++;
+            terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + 1);
             return;
         }
     }
@@ -79,7 +79,7 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou [" << n << "] instantes.";
-                instancia += n;
+                terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + n);
                 return;
             }
         } else {
@@ -99,11 +99,12 @@ void Interface::executaComandos(const std::string &comando) {
 
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 if(existeHab){
+                    delete terreno->getHabitacao();
+                    wHabitacao.clear();
                     wInfo << move_to(0, iInfo++) << set_color(4) << "Habitacao atual foi apagada.";
                 }
 
                 existeHab = true;
-                instancia = 0;
                 wZonas.clear();
                 //dar delete da habitacao anteriormente criada
                 desenhaHabitacao(numLinhas,numColunas);
@@ -127,9 +128,12 @@ void Interface::executaComandos(const std::string &comando) {
             wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
 
             delete terreno->getHabitacao();
+
             wHabitacao.clear();
-            wZonas.clear();
-            instancia = 0;
+            for(int i= 0; i < wZonas.size() ; i++){
+                wZonas[i].clear();
+            }
+
             existeHab = false;
 
             return;
@@ -721,7 +725,7 @@ void Interface::desenhaZona(int linha, int coluna) {
     int x = 4 + 29 * coluna - 29;
     int y = 2 + 9 * linha - 9;
 
-    int zona = terreno->getHabitacao()->getNZonas();
+    int zona = terreno->getHabitacao()->getiZonas();
 
     switch(terreno->getHabitacao()->adicionaZona(linha,coluna)) {
         case 1: //valido

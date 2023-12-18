@@ -27,6 +27,7 @@ public:
     void setIdZona(int idZona);
     int getLinhaZona() const;
     int getColunaZona() const;
+    void resetNextIdZona() const;
 };
 
 

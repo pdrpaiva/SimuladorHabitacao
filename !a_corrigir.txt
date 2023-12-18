@@ -1,0 +1,3 @@
+bug quando o primeiro comando é prox ou avanca x
+
+acho que o vetor de zonas tipo window no habitacao.h não é preciso, fazer testes

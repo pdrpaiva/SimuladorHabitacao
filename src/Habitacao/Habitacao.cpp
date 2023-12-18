@@ -7,20 +7,21 @@
 #include <sstream>
 #include <fstream>
 #include <unistd.h>
-#include "../../lib/Terminal.h"
-#include "../Interface/Interface.h"
 #include "Habitacao.h"
 using namespace std;
 using namespace term;
 
-Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas),nZonas(0){
+Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas),iZonas(0), instancia(0){
 
 }
 
 Habitacao::~Habitacao() {
-    //for (auto zona : zonas) {
-        //delete zona;
-    //}
+
+    getZonas()[0]->resetNextIdZona(); //nsei se isto é 100 % correto
+
+    for (auto zona : zonas) {
+        delete zona;
+    }
 }
 
 int Habitacao::adicionaZona(int linha, int coluna) {
@@ -35,7 +36,7 @@ int Habitacao::adicionaZona(int linha, int coluna) {
             }
         }
         zonas.push_back(new Zona(linha,coluna));
-        nZonas++;
+        iZonas++;
         return 1;
     }
     else {
@@ -47,6 +48,14 @@ const vector<Zona *> &Habitacao::getZonas() const {
     return zonas;
 }
 
-int Habitacao::getNZonas() const {
-    return nZonas;
+int Habitacao::getiZonas() const {
+    return iZonas;
+}
+
+int Habitacao::getInstancia() const {
+    return instancia;
+}
+
+void Habitacao::setInstancia(int instancia) {
+    Habitacao::instancia = instancia;
 }
