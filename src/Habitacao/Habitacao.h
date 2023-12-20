@@ -26,6 +26,7 @@ public:
     int getiZonas() const;
     int getInstancia() const;
     void setInstancia(int instancia);
+    int removeZona(int idZona);
 };
 
 

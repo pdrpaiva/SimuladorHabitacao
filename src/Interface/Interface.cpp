@@ -176,7 +176,19 @@ void Interface::executaComandos(const std::string &comando) {
                 else {
                     processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
+
+                    switch(terreno->getHabitacao()->removeZona(idZona)){
+                        case 1: //valido
+                            wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
+                            break;
+                        case 2: // nao existe nenhuma zona
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                            break;
+                        case 3: // nao existe nenhuma zona com esse id
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhuma zona com esse ID.";
+                            break;
+                    }
                     return;
                 }
             }

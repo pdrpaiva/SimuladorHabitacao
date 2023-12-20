@@ -59,3 +59,26 @@ int Habitacao::getInstancia() const {
 void Habitacao::setInstancia(int instancia) {
     Habitacao::instancia = instancia;
 }
+
+int Habitacao::removeZona(int idZona) {
+    //return 1 - valido
+    //return 2 - a habitacao nao tem zonas inicializadas
+    //return 3 - nao existe nenhuma zona com esse id
+
+    bool existe = false;
+
+    if(zonas.empty())
+        return 2;
+
+    for (auto zona : zonas) {
+        if(idZona == zona->getIdZona())
+            existe = true;
+    }
+
+    if(existe){
+        //zonas.erase(zonas.begin() + idZona);
+        return 1;
+    }else{
+        return 3;
+    }
+}
