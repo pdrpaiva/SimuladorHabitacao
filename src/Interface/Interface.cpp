@@ -101,13 +101,16 @@ void Interface::executaComandos(const std::string &comando) {
                 if(existeHab){
                     delete terreno->getHabitacao();
                     wHabitacao.clear();
+                    for (auto& w : wZonas) {
+                        w.clear();
+                    }
+                    wZonas.clear();
                     wInfo << move_to(0, iInfo++) << set_color(4) << "Habitacao atual foi apagada.";
                 }
 
                 existeHab = true;
-                wZonas.clear();
-                //dar delete da habitacao anteriormente criada
-                desenhaHabitacao(numLinhas,numColunas);
+
+                constroiHabitacao(numLinhas,numColunas);
 
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Criada nova habitacao.";
 
@@ -128,11 +131,11 @@ void Interface::executaComandos(const std::string &comando) {
             wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
 
             delete terreno->getHabitacao();
-
             wHabitacao.clear();
-            for(int i= 0; i < wZonas.size() ; i++){
-                wZonas[i].clear();
+            for (auto& w : wZonas) {
+                w.clear();
             }
+            wZonas.clear();
 
             existeHab = false;
 
@@ -154,7 +157,7 @@ void Interface::executaComandos(const std::string &comando) {
                 else{
                     processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    desenhaZona(linha,coluna);
+                    constroiZona(linha,coluna);
                     return;
                 }
             }
@@ -179,6 +182,7 @@ void Interface::executaComandos(const std::string &comando) {
 
                     switch(terreno->getHabitacao()->removeZona(idZona)){
                         case 1: //valido
+                            wZonas[idZona-1].clear();
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
                             break;
                         case 2: // nao existe nenhuma zona
@@ -717,7 +721,7 @@ bool Interface::Sair() const{
         return true;
 }
 
-void Interface::desenhaHabitacao(int nLinhas, int nColunas) {
+void Interface::constroiHabitacao(int nLinhas, int nColunas) {
     //wHabitacao(x 0 ,y 6,w 120,h 37)
     int x, y = 7, w = 27, h = 9;
 
@@ -733,13 +737,13 @@ void Interface::desenhaHabitacao(int nLinhas, int nColunas) {
     terreno->criaHabitacao(nLinhas,nColunas);
 }
 
-void Interface::desenhaZona(int linha, int coluna) {
+void Interface::constroiZona(int linha, int coluna) {
     int x = 0, y = 0;
 
     int numColunas = terreno->getHabitacao()->getHabColunas();
     int posZona = (linha - 1) * numColunas + (coluna - 1);
 
-    int idZona = terreno->getHabitacao()->getiZonas();
+    int idZona = terreno->getHabitacao()->getZonas().size();
 
     switch(terreno->getHabitacao()->adicionaZona(linha,coluna)) {
         case 1: //valido

@@ -16,14 +16,11 @@ private:
     int habColunas;
 
     int instancia = 0;
-    int iZonas = 0; //ajuda a conseguir o id de cada zona
-
 public:
     Habitacao(int nLinhas, int nColunas);
     ~Habitacao();
     int adicionaZona(int linha, int coluna);
     const vector<Zona *> &getZonas() const;
-    int getiZonas() const;
     int getInstancia() const;
     void setInstancia(int instancia);
     int removeZona(int idZona);

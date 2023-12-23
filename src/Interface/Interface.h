@@ -43,7 +43,7 @@ public:
     void sintaxe (const string& s, const string& s2);
     void processa();
     bool Sair() const;
-    void desenhaHabitacao(int nLinhas,int nColunas);
-    void desenhaZona(int nLinhas,int nColunas);
+    void constroiHabitacao(int nLinhas,int nColunas);
+    void constroiZona(int nLinhas,int nColunas);
 };
 #endif //TRABALHO_COMANDOS_H

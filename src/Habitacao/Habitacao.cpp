@@ -11,14 +11,11 @@
 using namespace std;
 using namespace term;
 
-Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas),iZonas(0), instancia(0){
+Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas), instancia(0){
 
 }
 
 Habitacao::~Habitacao() {
-
-    getZonas()[0]->resetNextIdZona(); //opcional
-
     for (auto zona : zonas) {
         delete zona;
     }
@@ -36,7 +33,6 @@ int Habitacao::adicionaZona(int linha, int coluna) {
             }
         }
         zonas.push_back(new Zona(linha,coluna));
-        iZonas++;
         return 1;
     }
     else {
@@ -44,12 +40,28 @@ int Habitacao::adicionaZona(int linha, int coluna) {
     }
 }
 
-const vector<Zona *> &Habitacao::getZonas() const {
-    return zonas;
+int Habitacao::removeZona(int idZona) {
+    //return 1 - válido
+    //return 2 - a habitacao nao tem zonas inicializadas
+    //return 3 - nao existe nenhuma zona com esse id
+
+    if (zonas.empty())
+        return 2;
+
+    for (auto it = zonas.begin(); it != zonas.end(); ++it) {
+        if ((*it)->getIdZona() == idZona) {
+            delete *it;
+            zonas.erase(it);
+            return 1;
+        }
+    }
+
+    return 3;
 }
 
-int Habitacao::getiZonas() const {
-    return iZonas;
+
+const vector<Zona *> &Habitacao::getZonas() const {
+    return zonas;
 }
 
 int Habitacao::getInstancia() const {
@@ -58,29 +70,6 @@ int Habitacao::getInstancia() const {
 
 void Habitacao::setInstancia(int instancia) {
     Habitacao::instancia = instancia;
-}
-
-int Habitacao::removeZona(int idZona) {
-    //return 1 - valido
-    //return 2 - a habitacao nao tem zonas inicializadas
-    //return 3 - nao existe nenhuma zona com esse id
-
-    bool existe = false;
-
-    if(zonas.empty())
-        return 2;
-
-    for (auto zona : zonas) {
-        if(idZona == zona->getIdZona())
-            existe = true;
-    }
-
-    if(existe){
-        //zonas.erase(zonas.begin() + idZona);
-        return 1;
-    }else{
-        return 3;
-    }
 }
 
 int Habitacao::getHabLinhas() const {
