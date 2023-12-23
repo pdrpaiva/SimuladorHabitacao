@@ -219,10 +219,10 @@ void Interface::executaComandos(const std::string &comando) {
                 for(int i = 0; i < idZonas.size() ; i++){
                     if (idZonas[i] != -1)
                     {
-                        wInfo << move_to(0, iInfo++) << set_color(5) << "Zona [" << idZonas[i] << "] -";
-                        wInfo << move_to(0, iInfo++) << set_color(1) << "Numero de Sensores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumSensores();
-                        wInfo << move_to(0, iInfo++) << set_color(1) << "Numero de Processadores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumProcessadores();
-                        wInfo << move_to(0, iInfo++) << set_color(1) << "Numero de Aparelhos: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumAparelhos();
+                        wInfo << move_to(0, iInfo++) << set_color(13) << "Zona [" << idZonas[i] << "]";
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Sensores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumSensores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Processadores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumProcessadores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Aparelhos: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumAparelhos();
                         iInfo++;
                     }
                 }
@@ -655,9 +655,9 @@ void Interface::executaComandos(const std::string &comando) {
             sintaxe(s);
         }
     }
-    else if (cmd == "clearLogs") {
+    else if (cmd == "clearlogs") {
         string extra;
-        string s = "Uso correto: clearLogs";
+        string s = "Uso correto: clearlogs";
         if(iss >> extra){
             sintaxe(s);
         }
@@ -771,11 +771,6 @@ void Interface::constroiZona(int linha, int coluna) {
             }
 
             idZonas[posZona] = id;
-
-            wInfo << move_to(0, iInfo++) << "---------------------";
-            wInfo << move_to(0, iInfo++) << "posZona = " << posZona;
-            wInfo << move_to(0, iInfo++) << "id = " << id;
-            wInfo << move_to(0, iInfo++) << "idZonas[posZona] = " << idZonas[posZona];
 
             wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
             wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas().back()->getIdZona();
