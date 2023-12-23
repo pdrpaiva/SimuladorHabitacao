@@ -214,20 +214,18 @@ void Interface::executaComandos(const std::string &comando) {
             {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
-                int iInfotmp = iInfo;
-                for(int i = 0; i < idZonas.size() ; i++){
-                    if (idZonas[i] != -1)
-                    {
-                        wInfo << move_to(0, iInfo++) << set_color(13) << "Zona [" << idZonas[i] << "]";
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Sensores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumSensores();
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Processadores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumProcessadores();
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Aparelhos: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumAparelhos();
+
+                if(!terreno->getHabitacao()->getZonas().empty()){
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
+                    for (auto& z : terreno->getHabitacao()->getZonas()) {
+                        wInfo << move_to(0, iInfo++) << set_color(13) << "Zona [" << z->getIdZona() << "]";
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Sensores: " << z->getNumSensores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Processadores: " << z->getNumProcessadores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Aparelhos: " << z->getNumAparelhos();
                         iInfo++;
                     }
                 }
-                if (iInfo == iInfotmp)
-                {
+                else{
                     wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                     wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
                 }
