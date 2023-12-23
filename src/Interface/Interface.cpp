@@ -182,7 +182,13 @@ void Interface::executaComandos(const std::string &comando) {
 
                     switch(terreno->getHabitacao()->removeZona(idZona)){
                         case 1: //valido
-                            wZonas[idZona-1].clear();
+                            //wZonas[idZona-1].clear();
+                            for(int i = 0; i < idZonas.size() ; i++){
+                                if(idZonas[i] == idZona){
+                                    wZonas[i].clear();
+                                    break;
+                                }
+                            }
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
                             break;
                         case 2: // nao existe nenhuma zona
@@ -724,6 +730,7 @@ bool Interface::Sair() const{
 void Interface::constroiHabitacao(int nLinhas, int nColunas) {
     //wHabitacao(x 0 ,y 6,w 120,h 37)
     int x, y = 7, w = 27, h = 9;
+    idZonas.resize(nLinhas*nColunas,-1);
 
     for (int i = 0; i < nLinhas; i++) {
         x = 3;
@@ -743,12 +750,14 @@ void Interface::constroiZona(int linha, int coluna) {
     int numColunas = terreno->getHabitacao()->getHabColunas();
     int posZona = (linha - 1) * numColunas + (coluna - 1);
 
-    int idZona = terreno->getHabitacao()->getZonas().size();
+    int id = terreno->getHabitacao()->getZonas().size();
+
+    idZonas[posZona] = id + 1;
 
     switch(terreno->getHabitacao()->adicionaZona(linha,coluna)) {
         case 1: //valido
             wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
-            wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas()[idZona]->getIdZona();
+            wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas()[id]->getIdZona();
             wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S: " ;
             wZonas[posZona] << move_to(x, y+2) << set_color(0) << "P: " ;
             wZonas[posZona] << move_to(x, y+3) << set_color(0) << "A: " ;

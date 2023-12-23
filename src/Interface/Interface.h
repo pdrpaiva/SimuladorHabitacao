@@ -27,6 +27,9 @@ private:
     bool existeHab = false;
     int instancia = 0;
 
+    //zonas
+    vector <int> idZonas;
+
     //info / outros
     int iInfo = 2; //incrementa o y do moveto wInfo
     bool fichAberto = false;
