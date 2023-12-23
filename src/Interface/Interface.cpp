@@ -219,6 +219,16 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
+                for(int i = 0; i < idZonas.size() ; i++){
+                    if (idZonas[i] != -1)
+                    {
+                        wInfo << move_to(0, iInfo++) << set_color(5) << "Zona [" << idZonas[i] << "] -";
+                        wInfo << move_to(0, iInfo++) << set_color(1) << "Numero de Sensores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumSensores();
+                        wInfo << move_to(0, iInfo++) << set_color(1) << "Numero de Processadores: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumProcessadores();
+                        wInfo << move_to(0, iInfo++) << set_color(1) << "Numero de Aparelhos: " << terreno->getHabitacao()->getZona(idZonas[i])->getNumAparelhos();
+                        iInfo++;
+                    }
+                }
                 return;
             }
         }

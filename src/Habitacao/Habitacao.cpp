@@ -79,3 +79,11 @@ int Habitacao::getHabLinhas() const {
 int Habitacao::getHabColunas() const {
     return habColunas;
 }
+
+Zona* Habitacao::getZona(int idZona) {
+    for (auto zona : zonas) {
+        if (zona->getIdZona() == idZona)
+            return zona;
+    }
+    return nullptr;
+}

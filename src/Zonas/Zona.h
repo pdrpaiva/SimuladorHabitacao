@@ -28,6 +28,9 @@ public:
     int getLinhaZona() const;
     int getColunaZona() const;
     void resetNextIdZona() const;
+    int getNumSensores() const;
+    int getNumProcessadores() const;
+    int getNumAparelhos() const;
 };
 
 

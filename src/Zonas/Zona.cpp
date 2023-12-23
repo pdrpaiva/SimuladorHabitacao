@@ -41,3 +41,15 @@ int Zona::getColunaZona() const {
 void Zona::resetNextIdZona() const {
     nextIdZona = 1;
 }
+
+int Zona::getNumSensores() const {
+    return sensores.size();
+}
+
+int Zona::getNumProcessadores() const {
+    return processadores.size();
+}
+
+int Zona::getNumAparelhos() const {
+    return aparelhos.size();
+}

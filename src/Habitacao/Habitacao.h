@@ -26,6 +26,7 @@ public:
     int removeZona(int idZona);
     int getHabLinhas() const;
     int getHabColunas() const;
+    Zona* getZona(int idZona);
 };
 
 
