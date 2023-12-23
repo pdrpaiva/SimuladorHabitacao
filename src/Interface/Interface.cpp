@@ -211,14 +211,17 @@ void Interface::executaComandos(const std::string &comando) {
         string s = "Uso correto: zlista";
         if(iss >> extra){
             sintaxe(s);
-        } else{
+        } else
+        {
             if(!existeHab){
                 sintaxe(naoExisteHab);
             }
-            else {
+            else
+            {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
+                int iInfotmp = iInfo;
                 for(int i = 0; i < idZonas.size() ; i++){
                     if (idZonas[i] != -1)
                     {
@@ -229,8 +232,13 @@ void Interface::executaComandos(const std::string &comando) {
                         iInfo++;
                     }
                 }
-                return;
+                if (iInfo == iInfotmp)
+                {
+                    wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                    wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                }
             }
+                return;
         }
     }
     else if (cmd == "zcomp") {
