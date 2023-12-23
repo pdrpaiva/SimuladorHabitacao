@@ -182,13 +182,7 @@ void Interface::executaComandos(const std::string &comando) {
 
                     switch(terreno->getHabitacao()->removeZona(idZona)){
                         case 1: //valido
-                            //wZonas[idZona-1].clear();
-                            for(int i = 0; i < idZonas.size() ; i++){
-                                if(idZonas[i] == idZona){
-                                    wZonas[i].clear();
-                                    break;
-                                }
-                            }
+                            limpaZona(idZona);
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
                             break;
                         case 2: // nao existe nenhuma zona
@@ -764,21 +758,31 @@ void Interface::constroiHabitacao(int nLinhas, int nColunas) {
 
 void Interface::constroiZona(int linha, int coluna) {
     int x = 0, y = 0;
-
+    int id = 0;
     int numColunas = terreno->getHabitacao()->getHabColunas();
-    int posZona = (linha - 1) * numColunas + (coluna - 1);
-
-    int id = terreno->getHabitacao()->getZonas().size();
-
-    idZonas[posZona] = id + 1;
+    int posZona = 0;
 
     switch(terreno->getHabitacao()->adicionaZona(linha,coluna)) {
         case 1: //valido
+            posZona = (linha - 1) * numColunas + (coluna - 1);
+
+            if(!terreno->getHabitacao()->getZonas().empty()){
+                id = terreno->getHabitacao()->getZonas().back()->getIdZona();
+            }
+
+            idZonas[posZona] = id;
+
+            wInfo << move_to(0, iInfo++) << "---------------------";
+            wInfo << move_to(0, iInfo++) << "posZona = " << posZona;
+            wInfo << move_to(0, iInfo++) << "id = " << id;
+            wInfo << move_to(0, iInfo++) << "idZonas[posZona] = " << idZonas[posZona];
+
             wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
-            wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas()[id]->getIdZona();
+            wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas().back()->getIdZona();
             wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S: " ;
             wZonas[posZona] << move_to(x, y+2) << set_color(0) << "P: " ;
             wZonas[posZona] << move_to(x, y+3) << set_color(0) << "A: " ;
+
             break;
         case 2: //zona fora da habitacao
             wInfo << move_to(0, iInfo++) << set_color(4) << "Impossivel adicionar uma zona fora da";
@@ -788,6 +792,22 @@ void Interface::constroiZona(int linha, int coluna) {
         case 3: //ja existe uma zona nessa posicao
             wInfo << move_to(0, iInfo++) << set_color(4) << "Ja existe uma zona nessa posicao.";
             break;
+    }
+}
+
+void Interface::limpaZona(int linha, int coluna) {
+    int posZona = (linha - 1) * terreno->getHabitacao()->getHabColunas() + (coluna - 1);
+    wZonas[posZona].clear();
+}
+
+void Interface::limpaZona(int idZona) {
+    for(int i = 0; i < idZonas.size(); i++){
+        if(idZonas[i] == idZona){
+            //wInfo << move_to(0, iInfo++) << "encontrou";
+            wZonas[i].clear();
+            idZonas[i] = -1;
+            break;
+        }
     }
 }
 
