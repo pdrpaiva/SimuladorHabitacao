@@ -734,18 +734,20 @@ void Interface::desenhaHabitacao(int nLinhas, int nColunas) {
 }
 
 void Interface::desenhaZona(int linha, int coluna) {
-    int x = 4 + 29 * coluna - 29;
-    int y = 2 + 9 * linha - 9;
+    int x = 0, y = 0;
 
-    int zona = terreno->getHabitacao()->getiZonas();
+    int numColunas = terreno->getHabitacao()->getHabColunas();
+    int posZona = (linha - 1) * numColunas + (coluna - 1);
+
+    int idZona = terreno->getHabitacao()->getiZonas();
 
     switch(terreno->getHabitacao()->adicionaZona(linha,coluna)) {
         case 1: //valido
             wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
-            wHabitacao << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas()[zona]->getIdZona();
-            wHabitacao << move_to(x, y+1) << set_color(0) << "S: " ;
-            wHabitacao << move_to(x, y+2) << set_color(0) << "P: " ;
-            wHabitacao << move_to(x, y+3) << set_color(0) << "A: " ;
+            wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas()[idZona]->getIdZona();
+            wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S: " ;
+            wZonas[posZona] << move_to(x, y+2) << set_color(0) << "P: " ;
+            wZonas[posZona] << move_to(x, y+3) << set_color(0) << "A: " ;
             break;
         case 2: //zona fora da habitacao
             wInfo << move_to(0, iInfo++) << set_color(4) << "Impossivel adicionar uma zona fora da";

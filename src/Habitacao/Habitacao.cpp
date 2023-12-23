@@ -17,7 +17,7 @@ Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColuna
 
 Habitacao::~Habitacao() {
 
-    getZonas()[0]->resetNextIdZona(); //nsei se isto é 100 % correto
+    getZonas()[0]->resetNextIdZona(); //opcional
 
     for (auto zona : zonas) {
         delete zona;
@@ -81,4 +81,12 @@ int Habitacao::removeZona(int idZona) {
     }else{
         return 3;
     }
+}
+
+int Habitacao::getHabLinhas() const {
+    return habLinhas;
+}
+
+int Habitacao::getHabColunas() const {
+    return habColunas;
 }

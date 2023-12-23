@@ -27,6 +27,8 @@ public:
     int getInstancia() const;
     void setInstancia(int instancia);
     int removeZona(int idZona);
+    int getHabLinhas() const;
+    int getHabColunas() const;
 };
 
 
