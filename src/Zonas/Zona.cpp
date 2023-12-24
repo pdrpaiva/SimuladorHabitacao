@@ -12,6 +12,7 @@
 #include "../Sensores/SomSensor.h"
 #include "../Sensores/FumoSensor.h"
 
+
 using namespace std;
 
 int Zona::nextIdZona = 1;

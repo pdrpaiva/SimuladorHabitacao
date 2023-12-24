@@ -331,7 +331,7 @@ void Interface::executaComandos(const std::string &comando) {
                     else if (spa == 's') {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                        if (tipoComando == 't' || tipoComando == 'v' || tipoComando == 'm' || tipoComando == 'd' || tipoComando == 'h' || tipoComando == 'o' || tipoComando == 'v'|| tipoComando == 'f') {
+                        if (tipoComando == 't') {
                             if (terreno->getHabitacao()->getZonas()[idZona]->adicionaSensor(tipoComando)) {
                                 wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor [" << tipoComando
                                       << "] a zona [" << idZona << "].";

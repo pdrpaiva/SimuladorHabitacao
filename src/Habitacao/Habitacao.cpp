@@ -59,7 +59,6 @@ int Habitacao::removeZona(int idZona) {
     return 3;
 }
 
-
 const vector<Zona *> &Habitacao::getZonas() const {
     return zonas;
 }
