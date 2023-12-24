@@ -10,7 +10,7 @@ class HumidadeSensor : public Sensor {
 private:
     float humidade; // %
 public:
-    HumidadeSensor(int id);
+    HumidadeSensor();
     float getHumidade() const;
     void setHumidade(float humidade);
 };

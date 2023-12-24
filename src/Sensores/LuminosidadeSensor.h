@@ -10,7 +10,7 @@ class LuminosidadeSensor : public Sensor{
 private:
     float luz; //lumens
 public:
-    LuminosidadeSensor(int id);
+    LuminosidadeSensor();
 
     float getLuz() const;
 

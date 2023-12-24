@@ -300,7 +300,7 @@ void Interface::executaComandos(const std::string &comando) {
     else if (cmd == "cnovo") {
         int idZona;
         char spa;
-        string tipoComando;
+        char tipoComando;
         string s = "Uso correto: cnovo <ID zona> <s | p | a> <tipo | comando>";
         if(iss >> idZona >> spa >> tipoComando){
             string extra;
@@ -311,7 +311,7 @@ void Interface::executaComandos(const std::string &comando) {
                     sintaxe(s);
                 } else{
                     if (spa == 'p'){
-                        if (tipoComando == "liga" || tipoComando == "desliga"){
+                        if (tipoComando == 'l' || tipoComando == 'd'){
                             processa();
                             wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado um processador a zona [" << idZona << "].";
@@ -331,7 +331,17 @@ void Interface::executaComandos(const std::string &comando) {
                     else if (spa == 's') {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                        wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor [" << tipoComando << "] a zona [" << idZona << "].";
+                        if (tipoComando == 't' || tipoComando == 'v' || tipoComando == 'm' || tipoComando == 'd' || tipoComando == 'h' || tipoComando == 'o' || tipoComando == 'v'|| tipoComando == 'f') {
+                            if (terreno->getHabitacao()->getZonas()[idZona]->adicionaSensor(tipoComando)) {
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor [" << tipoComando
+                                      << "] a zona [" << idZona << "].";
+                            } else {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao foi possivel adicionar o sensor.";
+                            }
+                        }
+                        else {
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Esse sensor nao existe.";
+                        }
                         return;
                     }
                 }

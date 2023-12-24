@@ -4,7 +4,7 @@
 
 #include "LuminosidadeSensor.h"
 
-LuminosidadeSensor::LuminosidadeSensor(int id) : Sensor(id){}
+LuminosidadeSensor::LuminosidadeSensor() : Sensor(){}
 
 float LuminosidadeSensor::getLuz() const {
     return luz;

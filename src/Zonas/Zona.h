@@ -32,10 +32,12 @@ private:
 public:
     Zona(int linha, int coluna);
     ~Zona();
+    bool adicionaSensor(char tipo);
+
+    //Getters e Setters
     int getIdZona() const;
     int getLinhaZona() const;
     int getColunaZona() const;
-    void resetNextIdZona() const;
     int getNumSensores() const;
     int getNumProcessadores() const;
     int getNumAparelhos() const;

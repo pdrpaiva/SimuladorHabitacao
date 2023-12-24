@@ -10,7 +10,7 @@ class TemperaturaSensor : public Sensor{
 private:
     float temperatura; //celsius
 public:
-    TemperaturaSensor(int id);
+    TemperaturaSensor();
     double getTemperatura() const;
     void setTemperatura(float temperatura);
 };

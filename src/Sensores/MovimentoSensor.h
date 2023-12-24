@@ -10,7 +10,7 @@ class MovimentoSensor : public Sensor{
 private:
     float vibracao; //hertz
 public:
-    MovimentoSensor(int id);
+    MovimentoSensor();
 
     float getVibracao() const;
 

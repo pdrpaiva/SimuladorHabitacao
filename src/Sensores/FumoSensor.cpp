@@ -4,7 +4,7 @@
 
 #include "FumoSensor.h"
 
-FumoSensor::FumoSensor(int id) : Sensor(id){}
+FumoSensor::FumoSensor() : Sensor(){}
 
 float FumoSensor::getFumo() const {
     return fumo;

@@ -4,7 +4,11 @@
 
 #include "Sensor.h"
 
-Sensor::Sensor(int id) : idSensor(id){}
+int Sensor::nextIdSensor = 1;
+
+Sensor::Sensor(){
+    idSensor = nextIdSensor;
+}
 
 int Sensor::getIdSensor() const {
     return idSensor;

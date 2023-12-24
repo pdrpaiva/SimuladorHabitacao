@@ -10,7 +10,7 @@ class RadiacaoSensor : public Sensor{
 private:
     float radiacao; //Becquerel
 public:
-    RadiacaoSensor(int id);
+    RadiacaoSensor();
 
     float getRadiacao() const;
 

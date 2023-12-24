@@ -4,7 +4,7 @@
 
 #include "RadiacaoSensor.h"
 
-RadiacaoSensor::RadiacaoSensor(int id) : Sensor(id){}
+RadiacaoSensor::RadiacaoSensor() : Sensor(){}
 
 float RadiacaoSensor::getRadiacao() const {
     return radiacao;

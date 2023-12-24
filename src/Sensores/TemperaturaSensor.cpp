@@ -4,7 +4,7 @@
 
 #include "TemperaturaSensor.h"
 
-TemperaturaSensor::TemperaturaSensor(int id) : Sensor(id){}
+TemperaturaSensor::TemperaturaSensor() : Sensor(), temperatura(0.0) {}
 
 double TemperaturaSensor::getTemperatura() const {
     return temperatura;

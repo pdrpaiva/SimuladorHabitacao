@@ -4,7 +4,7 @@
 
 #include "SomSensor.h"
 
-SomSensor::SomSensor(int id) : Sensor(id){}
+SomSensor::SomSensor() : Sensor(){}
 
 float SomSensor::getSom() const {
     return som;

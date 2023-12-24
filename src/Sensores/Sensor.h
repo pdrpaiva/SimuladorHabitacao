@@ -9,8 +9,9 @@
 class Sensor {
 private:
     int idSensor;
+    static int nextIdSensor;
 public:
-    Sensor(int id);
+    Sensor();
     int getIdSensor() const;
 };
 

@@ -10,7 +10,7 @@ class FumoSensor : public Sensor{
 private:
     float fumo; //%
 public:
-    FumoSensor(int id);
+    FumoSensor();
     float getFumo() const;
     void setFumo(float fumo);
 };

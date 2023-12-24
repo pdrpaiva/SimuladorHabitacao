@@ -10,7 +10,7 @@ class SomSensor : public Sensor{
 private:
     float som; //decibeis
 public:
-    SomSensor(int id);
+    SomSensor();
 
     float getSom() const;
 
