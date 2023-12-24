@@ -78,7 +78,6 @@ int Zona::getIdZona() const {
     return idZona;
 }
 
->>>>>>> Stashed changes
 int Zona::getLinhaZona() const {
     return linhaZona;
 }
