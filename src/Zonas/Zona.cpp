@@ -3,6 +3,16 @@
 //
 
 #include "Zona.h"
+#include "../Sensores/Sensor.h"
+#include "../Sensores/TemperaturaSensor.h"
+#include "../Sensores/MovimentoSensor.h"
+#include "../Sensores/LuminosidadeSensor.h"
+#include "../Sensores/RadiacaoSensor.h"
+#include "../Sensores/HumidadeSensor.h"
+#include "../Sensores/SomSensor.h"
+#include "../Sensores/FumoSensor.h"
+
+using namespace std;
 
 int Zona::nextIdZona = 1;
 
@@ -32,20 +42,51 @@ Zona::~Zona() {
     }
 }
 
+bool Zona::adicionaSensor(char tipo) {
+    switch (tipo) {
+        case 't':
+            sensores.push_back(new TemperaturaSensor());
+            break;
+        case 'v':
+            sensores.push_back(new MovimentoSensor());
+            break;
+        case 'm':
+            sensores.push_back(new LuminosidadeSensor());
+            break;
+        case 'd':
+            sensores.push_back(new RadiacaoSensor());
+            break;
+        case 'h':
+            sensores.push_back(new HumidadeSensor());
+            break;
+        case 'o':
+            sensores.push_back(new SomSensor());
+            break;
+        case 'f':
+            sensores.push_back(new FumoSensor());
+            break;
+        default:
+            // Tipo desconhecido
+            return false;
+    }
+    return true;
+}
+
+<<<<<<< Updated upstream
+=======
+//Getters e Setters
+
 int Zona::getIdZona() const {
     return idZona;
 }
 
+>>>>>>> Stashed changes
 int Zona::getLinhaZona() const {
     return linhaZona;
 }
 
 int Zona::getColunaZona() const {
     return colunaZona;
-}
-
-void Zona::resetNextIdZona() const {
-    nextIdZona = 1;
 }
 
 int Zona::getNumSensores() const {
