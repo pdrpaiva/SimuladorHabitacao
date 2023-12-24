@@ -72,8 +72,6 @@ bool Zona::adicionaSensor(char tipo) {
     return true;
 }
 
-<<<<<<< Updated upstream
-=======
 //Getters e Setters
 
 int Zona::getIdZona() const {
