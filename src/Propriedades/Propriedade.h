@@ -15,6 +15,8 @@ public:
     string getUnidade() const;
     int getMin() const;
     int getMax() const;
+    int getValor() const;
+    void setValor(int valor);
 
 
 private:
@@ -22,6 +24,7 @@ private:
     string unidade;
     int min;
     int max;
+    int valor;
 };
 
 

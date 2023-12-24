@@ -8,6 +8,14 @@
 #include "../Sensores/Sensor.h"
 #include "../Aparelhos/Aparelho.h"
 #include "../Processadores/ProcessadorRegras.h"
+#include "../Propriedades/Propriedade.h"
+#include "../Propriedades/Temperatura.h"
+#include "../Propriedades/Humidade.h"
+#include "../Propriedades/Luz.h"
+#include "../Propriedades/Fumo.h"
+#include "../Propriedades/Som.h"
+#include "../Propriedades/Vibracao.h"
+#include "../Propriedades/Radiacao.h"
 
 using namespace std;
 
@@ -20,11 +28,11 @@ private:
     vector<Sensor*> sensores;
     vector<ProcessadorRegras*> processadores;
     vector<Aparelho*> aparelhos;
+    vector<Propriedade*> propriedades;
 public:
     Zona(int linha, int coluna);
     ~Zona();
     int getIdZona() const;
-    void setIdZona(int idZona);
     int getLinhaZona() const;
     int getColunaZona() const;
     void resetNextIdZona() const;

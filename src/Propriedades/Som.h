@@ -1,0 +1,18 @@
+//
+// Created by Usuario on 24/12/2023.
+//
+
+#ifndef TRABALHO_SOM_H
+#define TRABALHO_SOM_H
+
+#include "string"
+#include "Propriedade.h"
+using namespace std;
+
+class Som: public Propriedade {
+public:
+    Som();
+};
+
+
+#endif //TRABALHO_SOM_H
