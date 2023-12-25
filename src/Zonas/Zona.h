@@ -34,14 +34,16 @@ public:
     ~Zona();
 
     bool adicionaSensor(char tipo);
-    bool removeSensor(char tipo);
     bool adicionaAparelho(char tipo);
-    bool removeAparelho(char tipo);
+
+    int removeComp(char tipo, int idComp);
 
     const vector<Sensor *> &getSensores() const;
     const vector<ProcessadorRegras *> &getProcessadores() const;
     const vector<Aparelho *> &getAparelhos() const;
     const vector<Propriedade *> &getPropriedades() const;
+
+    Sensor* getSensor(int idSens);
 
     //Getters e Setters
     int getIdZona() const;

@@ -401,19 +401,55 @@ void Interface::executaComandos(const std::string &comando) {
                     if (spa == 'p'){
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                        wInfo << move_to(0, iInfo++) << set_color(10) << "Removido o processador [" << id << "] da zona [" << idZona << "].";
+
+                        switch(terreno->getHabitacao()->getZona(idZona)->removeComp(spa,id)){
+                            case 1: //valido
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "O processador [" << id << "] foi removido da zona.";
+                                break;
+                            case 2: // nao existe nenhuma zona
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum processador";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
+                                break;
+                            case 3: // nao existe nenhuma zona com esse id
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum processador com esse ID.";
+                                break;
+                        }
                         return;
                     }
                     else if (spa == 'a') {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                        wInfo << move_to(0, iInfo++) << set_color(10) << "Removido o aparelho [" << id << "] da zona [" << idZona << "].";
+
+                        switch(terreno->getHabitacao()->getZona(idZona)->removeComp(spa,id)){
+                            case 1: //valido
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho [" << id << "] foi removido da zona.";
+                                break;
+                            case 2: // nao existe nenhuma zona
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum aparelho";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
+                                break;
+                            case 3: // nao existe nenhuma zona com esse id
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum aparelho com esse ID.";
+                                break;
+                        }
                         return;
                     }
                     else if (spa == 's') {
                         processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                        wInfo << move_to(0, iInfo++) << set_color(10) << "Removido o sensor [" << id << "] da zona [" << idZona << "].";
+
+                        switch(terreno->getHabitacao()->getZona(idZona)->removeComp(spa,id)){
+                            case 1: //valido
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "O sensor [" << id << "] foi removido da zona.";
+                                break;
+                            case 2: // nao existe nenhuma zona
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum sensor";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
+                                break;
+                            case 3: // nao existe nenhuma zona com esse id
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum sensor com esse ID.";
+                                break;
+                        }
                         return;
                     }
                 }

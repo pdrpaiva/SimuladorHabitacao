@@ -77,10 +77,6 @@ bool Zona::adicionaSensor(char tipo) {
     return true;
 }
 
-bool Zona::removeSensor(char tipo) {
-
-}
-
 bool Zona::adicionaAparelho(char tipo) {
     switch (tipo) {
         case 'a':
@@ -102,7 +98,42 @@ bool Zona::adicionaAparelho(char tipo) {
     return true;
 }
 
-bool Zona::removeAparelho(char tipo) {}
+int Zona::removeComp(char tipo, int idComp) {
+    //return 1 - válido
+    //return 2 - nao ha sensores/aparelhos/processadores
+    //return 3 - nao existe nenhum sensor/aparelho/processador com esse id
+
+    //penso q este funcao de para simplificar, mas nao estava a conseguir
+
+    if(tipo == 's'){
+        if (sensores.empty())
+            return 2;
+
+        for (auto it = sensores.begin(); it != sensores.end(); ++it) {
+            if ((*it)->getIdSensor() == idComp) {
+                delete *it;
+                sensores.erase(it);
+                return 1;
+            }
+        }
+
+        return 3;
+    }
+    else if(tipo == 'a'){
+        if (sensores.empty())
+            return 2;
+
+        for (auto it = aparelhos.begin(); it != aparelhos.end(); ++it) {
+            if ((*it)->getIdAparelho() == idComp) {
+                delete *it;
+                aparelhos.erase(it);
+                return 1;
+            }
+        }
+
+        return 3;
+    }
+}
 
 //Getters e Setters
 

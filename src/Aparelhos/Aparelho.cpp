@@ -6,9 +6,7 @@
 
 int Aparelho::nextIdAparelho = 1;
 
-Aparelho::Aparelho(const string& tipo) : idAparelho(nextIdAparelho++),ligado(false),tipo(tipo){
-
-}
+Aparelho::Aparelho(const string& tipo) : idAparelho(nextIdAparelho++),ligado(false),tipo(tipo){}
 
 Aparelho::~Aparelho() {
 

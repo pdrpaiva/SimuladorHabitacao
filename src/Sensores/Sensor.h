@@ -15,7 +15,8 @@ private:
     string tipo;
 public:
     Sensor(const string& tipo);
-    ~Sensor();
+    virtual ~Sensor();
+
     int getIdSensor() const;
     const string &getTipo() const;
 };

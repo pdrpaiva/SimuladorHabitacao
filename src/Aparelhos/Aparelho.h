@@ -16,7 +16,7 @@ private:
     bool ligado;
 public:
     Aparelho(const string& tipo);
-    ~Aparelho();
+    virtual ~Aparelho();
 
     //getters e setters
     const string &getTipo() const;
