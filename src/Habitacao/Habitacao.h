@@ -20,7 +20,10 @@ public:
     Habitacao(int nLinhas, int nColunas);
     ~Habitacao();
     int adicionaZona(int linha, int coluna);
+
+    //eu acho que aqui não devia ser const uma vez q as vamos mudar
     const vector<Zona *> &getZonas() const;
+
     int getInstancia() const;
     void setInstancia(int instancia);
     int removeZona(int idZona);

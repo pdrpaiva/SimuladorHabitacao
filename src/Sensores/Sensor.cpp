@@ -6,10 +6,13 @@
 
 int Sensor::nextIdSensor = 1;
 
-Sensor::Sensor(){
-    idSensor = nextIdSensor;
+Sensor::Sensor(const string& tipo) : idSensor(nextIdSensor++), tipo(tipo){
 }
 
 int Sensor::getIdSensor() const {
     return idSensor;
+}
+
+const string &Sensor::getTipo() const {
+    return tipo;
 }

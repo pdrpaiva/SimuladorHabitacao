@@ -4,7 +4,7 @@
 
 #include "MovimentoSensor.h"
 
-MovimentoSensor::MovimentoSensor() : Sensor(){}
+MovimentoSensor::MovimentoSensor() : Sensor("Movimento"){}
 
 float MovimentoSensor::getVibracao() const {
     return vibracao;

@@ -11,6 +11,10 @@
 #include "../Sensores/HumidadeSensor.h"
 #include "../Sensores/SomSensor.h"
 #include "../Sensores/FumoSensor.h"
+#include "../Aparelhos/AspersorAparelho.h"
+#include "../Aparelhos/AquecedorAparelho.h"
+#include "../Aparelhos/RefrigeradorAparelho.h"
+#include "../Aparelhos/LampadaAparelho.h"
 
 
 using namespace std;
@@ -73,6 +77,33 @@ bool Zona::adicionaSensor(char tipo) {
     return true;
 }
 
+bool Zona::removeSensor(char tipo) {
+
+}
+
+bool Zona::adicionaAparelho(char tipo) {
+    switch (tipo) {
+        case 'a':
+            aparelhos.push_back(new AquecedorAparelho());
+            break;
+        case 's':
+            aparelhos.push_back(new AspersorAparelho());
+            break;
+        case 'r':
+            aparelhos.push_back(new RefrigeradorAparelho());
+            break;
+        case 'l':
+            aparelhos.push_back(new LampadaAparelho());
+            break;
+        default:
+            // Tipo desconhecido
+            return false;
+    }
+    return true;
+}
+
+bool Zona::removeAparelho(char tipo) {}
+
 //Getters e Setters
 
 int Zona::getIdZona() const {
@@ -97,4 +128,20 @@ int Zona::getNumProcessadores() const {
 
 int Zona::getNumAparelhos() const {
     return aparelhos.size();
+}
+
+const vector<Sensor *> &Zona::getSensores() const {
+    return sensores;
+}
+
+const vector<ProcessadorRegras *> &Zona::getProcessadores() const {
+    return processadores;
+}
+
+const vector<Aparelho *> &Zona::getAparelhos() const {
+    return aparelhos;
+}
+
+const vector<Propriedade *> &Zona::getPropriedades() const {
+    return propriedades;
 }

@@ -4,15 +4,20 @@
 
 #ifndef TRABALHO_SENSOR_H
 #define TRABALHO_SENSOR_H
+#include <string>
 
+using namespace std;
 
 class Sensor {
 private:
     int idSensor;
     static int nextIdSensor;
+    string tipo;
 public:
-    Sensor();
+    Sensor(const string& tipo);
+    ~Sensor();
     int getIdSensor() const;
+    const string &getTipo() const;
 };
 
 
