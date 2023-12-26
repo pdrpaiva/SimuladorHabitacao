@@ -19,14 +19,16 @@ private:
 public:
     Habitacao(int nLinhas, int nColunas);
     ~Habitacao();
+
     int adicionaZona(int linha, int coluna);
+    int removeZona(int idZona);
 
     const vector<Zona *> &getZonas() const;
     Zona* getZona(int idZona);
 
+    //getters e setteers
     int getInstancia() const;
     void setInstancia(int instancia);
-    int removeZona(int idZona);
     int getHabLinhas() const;
     int getHabColunas() const;
 };

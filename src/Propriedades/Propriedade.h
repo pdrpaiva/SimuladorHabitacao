@@ -9,6 +9,13 @@
 using namespace std;
 
 class Propriedade {
+private:
+    string nome;
+    string unidade;
+    int min;
+    int max;
+    int valor;
+
 public:
     Propriedade(string nome, string unidade,int min, int max);
     string getNome() const;
@@ -17,14 +24,6 @@ public:
     int getMax() const;
     int getValor() const;
     void setValor(int valor);
-
-
-private:
-    string nome;
-    string unidade;
-    int min;
-    int max;
-    int valor;
 };
 
 

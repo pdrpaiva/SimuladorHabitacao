@@ -20,6 +20,7 @@ Interface::~Interface() {
 }
 
 void Interface::processaComandos() {
+    wComandos.clear();
     wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
     wComandos << move_to(0, 2) << set_color(0) << ">> ";
 
@@ -55,35 +56,42 @@ void Interface::executaComandos(const std::string &comando) {
     string naoExisteHab = "Nao existe nenhuma habitacao neste momento. 'hnova' para criar uma.";
 
     if(cmd == "prox") {
-        string extra;
-        string s = "Uso correto: prox";
-        if(iss >> extra){
-            sintaxe(s);
-        }
-        else{
-            processa();
-            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-            wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou 1 instante.";
-            terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + 1);
-            return;
-        }
-    }
-    else if (cmd == "avanca") {
-        int n;
-        string s = "Uso correto: avanca <n>";
-        if (iss >> n) {
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
             string extra;
+            string s = "Uso correto: prox";
             if (iss >> extra) {
                 sintaxe(s);
             } else {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou [" << n << "] instantes.";
-                terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + n);
+                wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou 1 instante.";
+                terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + 1);
                 return;
             }
+        }
+    }
+    else if (cmd == "avanca") {
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int n;
+            string s = "Uso correto: avanca <n>";
+            if (iss >> n) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou [" << n << "] instantes.";
+                    terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + n);
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "hnova") {
@@ -121,66 +129,68 @@ void Interface::executaComandos(const std::string &comando) {
         }
     }
     else if(cmd == "hrem") {
-        string extra;
-        string s = "Uso correto: hrem";
-        if(iss >> extra){
-            sintaxe(s);
-        } else{
-            processa();
-            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-            wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            string extra;
+            string s = "Uso correto: hrem";
+            if (iss >> extra) {
+                sintaxe(s);
+            } else {
+                processa();
+                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
 
-            delete terreno->getHabitacao();
-            wHabitacao.clear();
-            for (auto& w : wZonas) {
-                w.clear();
+                delete terreno->getHabitacao();
+                wHabitacao.clear();
+                for (auto &w: wZonas) {
+                    w.clear();
+                }
+                wZonas.clear();
+
+                existeHab = false;
+
+                return;
             }
-            wZonas.clear();
-
-            existeHab = false;
-
-            return;
         }
     }
     else if (cmd == "znova") {
-        int linha, coluna;
-        string s = "Uso correto: znova <linha> <coluna>";
-        string limite = ", com 1 <= linha <= 4 e 1 <= coluna <= 4";
-        if (iss >> linha >> coluna){
-            string extra;
-            if(iss >> extra || linha < 1 || linha > 4 || coluna < 1 || coluna > 4){
-                sintaxe(s,limite);
-            } else{
-                if(!existeHab){
-                    sintaxe(naoExisteHab);
-                }
-                else{
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int linha, coluna;
+            string s = "Uso correto: znova <linha> <coluna>";
+            string limite = ", com 1 <= linha <= 4 e 1 <= coluna <= 4";
+            if (iss >> linha >> coluna) {
+                string extra;
+                if (iss >> extra || linha < 1 || linha > 4 || coluna < 1 || coluna > 4) {
+                    sintaxe(s, limite);
+                } else {
                     processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    constroiZona(linha,coluna);
+                    constroiZona(linha, coluna);
                     return;
                 }
+            } else {
+                sintaxe(s);
             }
-        }else {
-            sintaxe(s);
         }
     }
     else if (cmd == "zrem"){
-        int idZona;
-        string s = "Uso correto: zrem <ID zona>";
-        if(iss >> idZona){
-            string extra;
-            if(iss >> extra){
-                sintaxe(s);
-            } else {
-                if(!existeHab){
-                    sintaxe(naoExisteHab);
-                }
-                else {
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int idZona;
+            string s = "Uso correto: zrem <ID zona>";
+            if (iss >> idZona) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
                     processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
 
-                    switch(terreno->getHabitacao()->removeZona(idZona)){
+                    switch (terreno->getHabitacao()->removeZona(idZona)) {
                         case 1: //valido
                             limpaZona(idZona);
                             wInfo << move_to(0, iInfo++) << set_color(10) << "Zona [" << idZona << "] eliminada.";
@@ -195,530 +205,647 @@ void Interface::executaComandos(const std::string &comando) {
                     }
                     return;
                 }
+            } else {
+                sintaxe(s);
             }
-        } else {
-            sintaxe(s);
         }
     }
     else if(cmd == "zlista"){
-        string extra;
-        string s = "Uso correto: zlista";
-        if(iss >> extra){
-            sintaxe(s);
-        } else
-        {
-            if(!existeHab){
-                sintaxe(naoExisteHab);
-            }
-            else
-            {
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            string extra;
+            string s = "Uso correto: zlista";
+            if (iss >> extra) {
+                sintaxe(s);
+            } else {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
 
-                if(!terreno->getHabitacao()->getZonas().empty()){
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Zonas da habitacao:";
-                    for (auto& z : terreno->getHabitacao()->getZonas()) {
-                        wInfo << move_to(0, iInfo++) << set_color(13) << "Zona [" << z->getIdZona() << "]";
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Sensores: " << z->getNumSensores();
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Processadores: " << z->getNumProcessadores();
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Aparelhos: " << z->getNumAparelhos();
+                if (!terreno->getHabitacao()->getZonas().empty()) {
+                    wInfo << move_to(0, iInfo++) << set_color(11) << "Zonas da habitacao:";
+                    for (auto &z: terreno->getHabitacao()->getZonas()) {
                         iInfo++;
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Zona [" << z->getIdZona() << "]";
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Sensores: " << z->getNumSensores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Processadores: "
+                              << z->getNumProcessadores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Aparelhos: "
+                              << z->getNumAparelhos();
                     }
-                }
-                else{
+                } else {
                     wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                     wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
                 }
-            }
                 return;
+            }
         }
     }
     else if (cmd == "zcomp") {
-        int idZona;
-        string s = "Uso correto: zcomp <ID zona>";
-        if(iss >> idZona){
-            string extra;
-            if(iss >> extra){
-                sintaxe(s);
-            } else {
-                if(!existeHab){
-                    sintaxe(naoExisteHab);
-                }
-                else {
-                    processa();
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int idZona;
+            string s = "Uso correto: zcomp <ID zona>";
+            if (iss >> idZona) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    if(terreno->getHabitacao()->getZonas().empty()){
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                    }
+                    else {
+                        if(terreno->getHabitacao()->getZona(idZona) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                        }
+                        else {
+                            if (terreno->getHabitacao()->getZona(idZona)->getNumAparelhos() != 0 || terreno->getHabitacao()->getZona(idZona)->getNumProcessadores() != 0 || terreno->getHabitacao()->getZona(idZona)->getNumSensores() != 0) {
+                                processa();
+                                wInfo << move_to(0, iInfo++) << set_color(11) << "Componentes da zona [" << idZona << "]:";
+                                if (!terreno->getHabitacao()->getZona(idZona)->getSensores().empty()) {
+                                    wInfo << move_to(0, iInfo++) << set_color(11) << "Sensores: ";
+                                    for (auto &sensor: terreno->getHabitacao()->getZona(idZona)->getSensores()) {
+                                        wInfo << move_to(0, iInfo++) << set_color(11) << "- ID: " << sensor->getIdSensor()
+                                              << " Tipo: " << sensor->getTipo();
+                                    }
+                                }
+                                if (!terreno->getHabitacao()->getZona(idZona)->getAparelhos().empty()) {
+                                    wInfo << move_to(0, iInfo++) << set_color(11) << "Aparelhos: ";
+                                    for (auto &aparelho: terreno->getHabitacao()->getZona(idZona)->getAparelhos()) {
+                                        wInfo << move_to(0, iInfo++) << set_color(11) << "- ID: " << aparelho->getIdAparelho()
+                                              << " Tipo: " << aparelho->getTipo();
+                                    }
+                                }
+                                if (!terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()) {
 
-                    if(terreno->getHabitacao()->getZona(idZona)->getNumAparelhos() != 0
-                    || terreno->getHabitacao()->getZona(idZona)->getNumProcessadores() != 0
-                    || terreno->getHabitacao()->getZona(idZona)->getNumSensores() != 0 ){
-
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Componentes da zona [" << idZona << "]:";
-                        if(!terreno->getHabitacao()->getZona(idZona)->getSensores().empty()){
-                            wInfo << move_to(0, iInfo++) << set_color(11) << "Sensores: ";
-                            for (auto& sensor : terreno->getHabitacao()->getZona(idZona)->getSensores()) {
-                                wInfo << move_to(0, iInfo++) << set_color(11) << "- ID: " << sensor->getIdSensor() << " Tipo: " << sensor->getTipo();
+                                }
+                            } else {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona [" << idZona
+                                      << "] ainda nao tem nenhum componente.";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
                             }
                         }
-                        if(!terreno->getHabitacao()->getZona(idZona)->getAparelhos().empty()){
-                            wInfo << move_to(0, iInfo++) << set_color(11) << "Aparelhos: ";
-                            for (auto& aparelho : terreno->getHabitacao()->getZona(idZona)->getAparelhos()) {
-                                wInfo << move_to(0, iInfo++) << set_color(11) << "- ID: " << aparelho->getIdAparelho() << " Tipo: " << aparelho->getTipo();
-                            }
-                        }
-                        if(!terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()){
-
-                        }
                     }
-                    else{
-                        wInfo << move_to(0, iInfo++) << set_color(4) << "A zona [" << idZona << "] ainda nao tem nenhum componente.";
-                        wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
-                    }
-
                     return;
                 }
+            } else {
+                sintaxe(s);
             }
-        } else {
-            sintaxe(s);
         }
     }
     else if (cmd == "zprops") {
-        int idZona;
-        string s = "Uso correto: zprops <ID zona>";
-        if(iss >> idZona){
-            string extra;
-            if(iss >> extra){
-                sintaxe(s);
-            } else {
-                if(!existeHab){
-                    sintaxe(naoExisteHab);
-                }
-                else {
-                    processa();
-                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(11) << "Propriedades da zona [" << idZona << "]:";
-                    return;
-                }
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona;
+            string s = "Uso correto: zprops <ID zona>";
+            if (iss >> idZona) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+
+                    if(terreno->getHabitacao()->getZonas().empty()){
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                    }
+                    else {
+                        if(terreno->getHabitacao()->getZona(idZona) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                        }
+                        else {
+                            processa();
+
+                            wInfo << move_to(0, iInfo++) << set_color(11) << "Propriedades da zona [" << idZona << "]:";
+                            for (auto &propriedade: terreno->getHabitacao()->getZona(idZona)->getPropriedades()) {
+                                //if(propriedade->getValor() != NULL)
+                                iInfo++;
+                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Nome: " << propriedade->getNome();
+                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Valor: " << propriedade->getValor()
+                                      << " "
+                                      << propriedade->getUnidade();
+                            }
+                            return;
+                        }
+                    }
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "pmod") {
-        int idZona;
-        string nome;
-        int valor;
-        string s = "Uso correto: pmod <ID zona> <nome> <valor>";
-        if (iss >> idZona >> nome >> valor){
-            string extra;
-            if(iss >> extra){
-                sintaxe(s);
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int idZona;
+            string nome;
+            int valor;
+            string s = "Uso correto: pmod <ID zona> <nome> <valor>";
+            if (iss >> idZona >> nome >> valor) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Valor da propriedade [" << nome << "] da zona ["
+                          << idZona << "]";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << valor << "].";
+                    return;
+                }
             } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Valor da propriedade [" << nome << "] da zona [" << idZona << "]";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << valor << "].";
-                return;
+                sintaxe(s);
             }
-        }else {
-            sintaxe(s);
         }
     }
     else if (cmd == "cnovo") {
-        int idZona;
-        char spa;
-        char tipoComando;
-        string s = "Uso correto: cnovo <ID zona> <s | p | a> <tipo | comando>";
-        if(iss >> idZona >> spa >> tipoComando){
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                if (spa != 's' && spa != 'p' && spa != 'a'){
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int idZona;
+            char spa;
+            char tipoComando;
+            string s = "Uso correto: cnovo <ID zona> <s | p | a> <tipo | comando>";
+            if (iss >> idZona >> spa >> tipoComando) {
+                string extra;
+                if (iss >> extra) {
                     sintaxe(s);
-                } else{
-                    if (spa == 'p'){
-                        if (tipoComando == 'l' || tipoComando == 'd'){
-                            processa();
-                            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado um processador a zona [" << idZona << "].";
+                } else {
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
 
+                    if(terreno->getHabitacao()->getZonas().empty()){
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                    }
+                    else {
+                        if (terreno->getHabitacao()->getZona(idZona) == nullptr) {
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                             return;
-                        }
-                        else {
-                            sintaxe(s);
-                        }
-                    }
-                    else if (spa == 'a') {
-                        processa();
-                        wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                        if (tipoComando == 'a' || tipoComando == 's' || tipoComando == 'r' || tipoComando == 'l') {
-                            if (terreno->getHabitacao()->getZona(idZona)->adicionaAparelho(tipoComando)) {
-                                wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o aparelho [" << tipoComando
-                                      << "] a zona [" << idZona << "].";
+                        } else {
+                            if (spa != 's' && spa != 'p' && spa != 'a') {
+                                sintaxe(s);
                             } else {
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao foi possivel adicionar o aparelho.";
+                                if (spa == 'p') {
+                                    if (tipoComando == 'l' || tipoComando == 'd') {
+                                        processa();
+                                        wInfo << move_to(0, iInfo++) << set_color(10)
+                                              << "Adicionado um processador a zona [" << idZona << "].";
+                                        return;
+                                    } else {
+                                        sintaxe(s);
+                                    }
+                                } else if (spa == 'a') {
+                                    processa();
+                                    if (tipoComando == 'a' || tipoComando == 's' || tipoComando == 'r' ||
+                                        tipoComando == 'l') {
+                                        if (terreno->getHabitacao()->getZona(idZona)->adicionaAparelho(tipoComando)) {
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o aparelho ["
+                                                  << tipoComando
+                                                  << "] a zona [" << idZona << "].";
+                                        } else {
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "Nao foi possivel adicionar o aparelho.";
+                                        }
+                                    } else {
+                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Esse aparelho nao existe.";
+                                    }
+                                    return;
+                                } else if (spa == 's') {
+                                    processa();
+                                    if (tipoComando == 't' || tipoComando == 'v' || tipoComando == 'm' ||
+                                        tipoComando == 'd' || tipoComando == 'h' || tipoComando == 'o' ||
+                                        tipoComando == 'f') {
+                                        if (terreno->getHabitacao()->getZona(idZona)->adicionaSensor(tipoComando)) {
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor ["
+                                                  << tipoComando
+                                                  << "] a zona [" << idZona << "].";
+                                        } else {
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "Nao foi possivel adicionar o sensor.";
+                                        }
+                                    } else {
+                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Esse sensor nao existe.";
+                                    }
+                                    return;
+                                }
                             }
                         }
-                        else {
-                            wInfo << move_to(0, iInfo++) << set_color(4) << "Esse aparelho nao existe.";
-                        }
-                        return;
-                    }
-                    else if (spa == 's') {
-                        processa();
-                        wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                        if (tipoComando == 't' || tipoComando == 'v' || tipoComando == 'm' || tipoComando == 'd' || tipoComando == 'h' || tipoComando == 'o' || tipoComando == 'f' ) {
-                            if (terreno->getHabitacao()->getZona(idZona)->adicionaSensor(tipoComando)) {
-                                wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor [" << tipoComando
-                                      << "] a zona [" << idZona << "].";
-                            } else {
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao foi possivel adicionar o sensor.";
-                            }
-                        }
-                        else {
-                            wInfo << move_to(0, iInfo++) << set_color(4) << "Esse sensor nao existe.";
-                        }
-                        return;
                     }
                 }
+            } else {
+                sintaxe(s);
             }
-        } else {
-            sintaxe(s);
         }
     }
     else if (cmd == "crem") {
-        int idZona,id;
-        char spa;
-        string s = "Uso correto: crem <ID zona> <s | p | a> <ID>";
-        if(iss >> idZona >> spa >> id) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                if (spa != 's' && spa != 'p' && spa != 'a'){
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int idZona, id;
+            char spa;
+            string s = "Uso correto: crem <ID zona> <s | p | a> <ID>";
+            if (iss >> idZona >> spa >> id) {
+                string extra;
+                if (iss >> extra) {
                     sintaxe(s);
-                } else{
-                    if (spa == 'p'){
-                        processa();
+                } else {
+                    if (spa != 's' && spa != 'p' && spa != 'a') {
+                        sintaxe(s);
+                    } else {
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-
-                        switch(terreno->getHabitacao()->getZona(idZona)->removeComp(spa,id)){
-                            case 1: //valido
-                                wInfo << move_to(0, iInfo++) << set_color(10) << "O processador [" << id << "] foi removido da zona.";
-                                break;
-                            case 2: // nao existe nenhuma zona
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum processador";
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
-                                break;
-                            case 3: // nao existe nenhuma zona com esse id
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum processador com esse ID.";
-                                break;
+                        if(terreno->getHabitacao()->getZonas().empty()){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
                         }
-                        return;
-                    }
-                    else if (spa == 'a') {
-                        processa();
-                        wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-
-                        switch(terreno->getHabitacao()->getZona(idZona)->removeComp(spa,id)){
-                            case 1: //valido
-                                wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho [" << id << "] foi removido da zona.";
-                                break;
-                            case 2: // nao existe nenhuma zona
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum aparelho";
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
-                                break;
-                            case 3: // nao existe nenhuma zona com esse id
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum aparelho com esse ID.";
-                                break;
+                        else {
+                            if (terreno->getHabitacao()->getZona(idZona) == nullptr) {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                                return;
+                            } else {
+                                if (spa == 'p') {
+                                    switch (terreno->getHabitacao()->getZona(idZona)->removeComp(spa, id)) {
+                                        case 1: //valido
+                                            processa();
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "O processador [" << id
+                                                  << "] foi removido da zona.";
+                                            break;
+                                        case 2: // nao existe nenhuma zona
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "A zona ainda nao tem nenhum processador";
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "'cnovo' para adicionar um.";
+                                            break;
+                                        case 3: // nao existe nenhuma zona com esse id
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "Nao existe nenhum processador com esse ID.";
+                                            break;
+                                    }
+                                    return;
+                                } else if (spa == 'a') {
+                                    switch (terreno->getHabitacao()->getZona(idZona)->removeComp(spa, id)) {
+                                        case 1: //valido
+                                            processa();
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho [" << id
+                                                  << "] foi removido da zona.";
+                                            break;
+                                        case 2: // nao existe nenhuma zona
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "A zona ainda nao tem nenhum aparelho";
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "'cnovo' para adicionar um.";
+                                            break;
+                                        case 3: // nao existe nenhuma zona com esse id
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "Nao existe nenhum aparelho com esse ID.";
+                                            break;
+                                    }
+                                    return;
+                                } else if (spa == 's') {
+                                    switch (terreno->getHabitacao()->getZona(idZona)->removeComp(spa, id)) {
+                                        case 1: //valido
+                                            processa();
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "O sensor [" << id
+                                                  << "] foi removido da zona.";
+                                            break;
+                                        case 2: // nao existe nenhuma zona
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "A zona ainda nao tem nenhum sensor";
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "'cnovo' para adicionar um.";
+                                            break;
+                                        case 3: // nao existe nenhuma zona com esse id
+                                            wInfo << move_to(0, iInfo++) << set_color(4)
+                                                  << "Nao existe nenhum sensor com esse ID.";
+                                            break;
+                                    }
+                                    return;
+                                }
+                            }
                         }
-                        return;
-                    }
-                    else if (spa == 's') {
-                        processa();
-                        wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-
-                        switch(terreno->getHabitacao()->getZona(idZona)->removeComp(spa,id)){
-                            case 1: //valido
-                                wInfo << move_to(0, iInfo++) << set_color(10) << "O sensor [" << id << "] foi removido da zona.";
-                                break;
-                            case 2: // nao existe nenhuma zona
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum sensor";
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
-                                break;
-                            case 3: // nao existe nenhuma zona com esse id
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum sensor com esse ID.";
-                                break;
-                        }
-                        return;
                     }
                 }
+            } else {
+                sintaxe(s);
             }
-        } else {
-            sintaxe(s);
         }
     }
     else if (cmd == "rnova") {
-        int idZona,idProcRegras,idSensor,x,y;
-        string regra,extra;
-        bool encontrou = false; //bool para saber se encontrou uma das regras
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int idZona, idProcRegras, idSensor, x, y;
+            string regra, extra;
+            bool encontrou = false; //bool para saber se encontrou uma das regras
 
-        string arrayRegras[] = {"igual_a","menor_que","maior_que","entre","fora"};
-        string s = "Uso correto: rnova <ID zona> <ID proc. regras> <regra> <ID sensor> [param1] [param2] [...]";
+            string arrayRegras[] = {"igual_a", "menor_que", "maior_que", "entre", "fora"};
+            string s = "Uso correto: rnova <ID zona> <ID proc. regras> <regra> <ID sensor> [param1] [param2] [...]";
 
-        //rnova <ID zona> <ID proc. regras> <regra> <ID sensor> [param1] [param2] [...]
-        if(iss >> idZona >> idProcRegras >> regra >> idSensor){
-            for (const auto& valor : arrayRegras) {
-                if (regra == valor) {
-                    encontrou = true;
-                    break;
+            //rnova <ID zona> <ID proc. regras> <regra> <ID sensor> [param1] [param2] [...]
+            if (iss >> idZona >> idProcRegras >> regra >> idSensor) {
+                for (const auto &valor: arrayRegras) {
+                    if (regra == valor) {
+                        encontrou = true;
+                        break;
+                    }
                 }
-            }
-            if(!encontrou){
-                char resposta;
-                if(!fichAberto){
-                    do{
-                        wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
-                        wComandos << move_to(0, 2) << set_color(4) << "Sintaxe invalida. Essa regra nao existe. ";
-                        wComandos << move_to(0, 3) << set_color(0) << "Pretende ver as regras dos processadores? (S/N)";
-                        resposta = wComandos.getchar();
-                        if(resposta == 'S' || resposta == 's'){
+                if (!encontrou) {
+                    char resposta;
+                    if (!fichAberto) {
+                        do {
                             wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
-                            wComandos << move_to(0, 2) << set_color(0) << "Regras atuais: igual_a (x) , menor_que (x) , maior_que (x), entre (x,y) , fora (x,y)";
-                            wComandos << move_to(0, 3) << set_color(0) << "Pressione qualquer tecla para continuar . . .    ";
-                            wComandos.getchar();
-                            wComandos.clear();
-                            return;
-                        }
-                        else if (resposta == 'N' || resposta == 'n'){
-                            wComandos.clear();
-                            return;
-                        }
-                    }while(resposta != 'S' && resposta != 's' && resposta != 'N' && resposta != 'n');
-                }
-            }
-            else{
-                if(regra == "entre" || regra == "fora"){
-                    if(iss >> x >> y){
-                        if (iss >> extra) {
-                            sintaxe(s);
-                        }
-                        else {
-                            processa();
-                            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << regra << "(x:" << x << " y:" << y <<")] adicionada";
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "ao processador [" << idProcRegras << "] e associada ao sensor [" << idSensor <<"] ";
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "]";
-                            return;
-                        }
+                            wComandos << move_to(0, 2) << set_color(4) << "Sintaxe invalida. Essa regra nao existe. ";
+                            wComandos << move_to(0, 3) << set_color(0)
+                                      << "Pretende ver as regras dos processadores? (S/N)";
+                            resposta = wComandos.getchar();
+                            if (resposta == 'S' || resposta == 's') {
+                                wComandos << move_to(0, 0) << set_color(3) << "Comandos:";
+                                wComandos << move_to(0, 2) << set_color(0)
+                                          << "Regras atuais: igual_a (x) , menor_que (x) , maior_que (x), entre (x,y) , fora (x,y)";
+                                wComandos << move_to(0, 3) << set_color(0)
+                                          << "Pressione qualquer tecla para continuar . . .    ";
+                                wComandos.getchar();
+                                wComandos.clear();
+                                return;
+                            } else if (resposta == 'N' || resposta == 'n') {
+                                wComandos.clear();
+                                return;
+                            }
+                        } while (resposta != 'S' && resposta != 's' && resposta != 'N' && resposta != 'n');
                     }
-                    else {
-                        sintaxe(s);
-                    }
-                }
-                else {
-                    if(iss >> x) {
-                        if (iss >> extra) {
-                            sintaxe(s);
+                } else {
+                    if (regra == "entre" || regra == "fora") {
+                        if (iss >> x >> y) {
+                            if (iss >> extra) {
+                                sintaxe(s);
+                            } else {
+                                processa();
+                                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << regra << "(x:" << x
+                                      << " y:" << y << ")] adicionada";
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "ao processador [" << idProcRegras
+                                      << "] e associada ao sensor [" << idSensor << "] ";
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "]";
+                                return;
+                            }
                         } else {
-                            processa();
-                            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << regra << "(x:" << x <<")] adicionada";
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "ao processador [" << idProcRegras << "] e associada ao sensor [" << idSensor <<"] ";
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "]";
-                            return;
+                            sintaxe(s);
+                        }
+                    } else {
+                        if (iss >> x) {
+                            if (iss >> extra) {
+                                sintaxe(s);
+                            } else {
+                                processa();
+                                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << regra << "(x:" << x
+                                      << ")] adicionada";
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "ao processador [" << idProcRegras
+                                      << "] e associada ao sensor [" << idSensor << "] ";
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "]";
+                                return;
+                            }
+                        } else {
+                            sintaxe(s);
                         }
                     }
-                    else {
-                        sintaxe(s);
-                    }
                 }
+            } else {
+                sintaxe(s);
             }
-        }
-        else {
-            sintaxe (s);
         }
     }
     else if (cmd == "pmuda") {
-        int idZona,idProcRegras;
-        string pcomando;
-        string s = "Uso correto: pmuda <ID zona> <ID proc. regras> <novo comando>";
-
-        if(iss >> idZona >> idProcRegras >> pcomando) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Comando do processador [" << idProcRegras << "] da zona [" << idZona << "] ";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << pcomando << "].";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona,idProcRegras;
+            string pcomando;
+            string s = "Uso correto: pmuda <ID zona> <ID proc. regras> <novo comando>";
+
+            if(iss >> idZona >> idProcRegras >> pcomando) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Comando do processador [" << idProcRegras << "] da zona [" << idZona << "] ";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << pcomando << "].";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "rlista") {
-        int idZona,idProcRegras;
-        string s = "Uso correto: rlista <ID zona> <ID proc. regras>";
-        if(iss >> idZona >> idProcRegras) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Comandos do processador [" << idProcRegras << "] da zona [" << idZona << "]:";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona, idProcRegras;
+            string s = "Uso correto: rlista <ID zona> <ID proc. regras>";
+            if (iss >> idZona >> idProcRegras) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Comandos do processador [" << idProcRegras
+                          << "] da zona [" << idZona << "]:";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "rrem") {
-        int idZona,idProcRegras,idRegra;
-        string s = "Uso correto: rrem <ID zona> <ID proc. regras> <ID regra>";
-        if(iss >> idZona >> idProcRegras >> idRegra) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << idRegra << "] removida do processador [" << idProcRegras << "] ";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona <<"].";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona, idProcRegras, idRegra;
+            string s = "Uso correto: rrem <ID zona> <ID proc. regras> <ID regra>";
+            if (iss >> idZona >> idProcRegras >> idRegra) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << idRegra
+                          << "] removida do processador [" << idProcRegras << "] ";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "asoc") {
-        int idZona,idProcRegras,idAparelho;
-        string s = "Uso correto: asoc <ID zona> <ID proc. regras> <ID aparelho>";
-        if(iss >> idZona >> idProcRegras >> idAparelho) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << idProcRegras << "] associado ao aparelho [" << idAparelho << "] ";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona, idProcRegras, idAparelho;
+            string s = "Uso correto: asoc <ID zona> <ID proc. regras> <ID aparelho>";
+            if (iss >> idZona >> idProcRegras >> idAparelho) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << idProcRegras
+                          << "] associado ao aparelho [" << idAparelho << "] ";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "ades") {
-        int idZona,idProcRegras,idAparelho;
-        string s = "Uso correto: ades <ID zona> <ID proc. regras> <ID aparelho>";
-        if(iss >> idZona >> idProcRegras >> idAparelho) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << idProcRegras << "] desassociado ao aparelho [" << idAparelho << "] ";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona, idProcRegras, idAparelho;
+            string s = "Uso correto: ades <ID zona> <ID proc. regras> <ID aparelho>";
+            if (iss >> idZona >> idProcRegras >> idAparelho) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << idProcRegras
+                          << "] desassociado ao aparelho [" << idAparelho << "] ";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "acom") {
-        int idZona,idAparelho;
-        string acomando;
-        string s = "Uso correto: acom <ID zona> <ID aparelho> <comando>";
-
-        if(iss >> idZona >> idAparelho >> acomando) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Comando [" << acomando << "] enviado ao aparelho [" << idAparelho << "] ";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona, idAparelho;
+            string acomando;
+            string s = "Uso correto: acom <ID zona> <ID aparelho> <comando>";
+
+            if (iss >> idZona >> idAparelho >> acomando) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Comando [" << acomando
+                          << "] enviado ao aparelho [" << idAparelho << "] ";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "psalva") {
-        int idZona,idProcRegras;
-        string nome;
-        string s = "Uso correto: psalva <ID zona> <ID proc. regras> <nome>";
-
-        if(iss >> idZona >> idProcRegras >> nome) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Regras do processador [" << idProcRegras << "] da zona [" << idZona << "] ";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "guardadas [" << nome << "] na memoria.";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            int idZona, idProcRegras;
+            string nome;
+            string s = "Uso correto: psalva <ID zona> <ID proc. regras> <nome>";
+
+            if (iss >> idZona >> idProcRegras >> nome) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Regras do processador [" << idProcRegras
+                          << "] da zona [" << idZona << "] ";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "guardadas [" << nome << "] na memoria.";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "prepoe") {
-        string nome;
-        string s = "Uso correto: prepoe <nome>";
-
-        if(iss >> nome) {
-            string extra;
-            if (iss >> extra) {
-                sintaxe(s);
-            } else {
-                processa();
-                wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << nome << "] reposto com sucesso.";
-                return;
-            }
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
         } else {
-            sintaxe(s);
+            string nome;
+            string s = "Uso correto: prepoe <nome>";
+
+            if (iss >> nome) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << nome
+                          << "] reposto com sucesso.";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
         }
     }
     else if (cmd == "prem") {
-        string nome;
-        string s = "Uso correto: prem <nome>";
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            string nome;
+            string s = "Uso correto: prem <nome>";
 
-        if(iss >> nome) {
+            if (iss >> nome) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    processa();
+                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Copia [" << nome
+                          << "] com as regras do processador ";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "eliminada da memoria.";
+                    return;
+                }
+            } else {
+                sintaxe(s);
+            }
+        }
+    }
+    else if(cmd == "plista") {
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
             string extra;
+            string s = "Uso correto: plista";
+
             if (iss >> extra) {
                 sintaxe(s);
             } else {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Copia [" << nome << "] com as regras do processador ";
-                wInfo << move_to(0, iInfo++) << set_color(10) << "eliminada da memoria.";
+                wInfo << move_to(0, iInfo++) << set_color(10) << "Copias de processadores guardadas em memoria:";
                 return;
             }
-        } else {
-            sintaxe(s);
-        }
-    }
-    else if(cmd == "plista") {
-        string extra;
-        string s = "Uso correto: plista";
-
-        if(iss >> extra){
-            sintaxe(s);
-        }
-        else{
-            processa();
-            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-            wInfo << move_to(0, iInfo++) << set_color(10) << "Copias de processadores guardadas em memoria:";
-            return;
         }
     }
     else if (cmd == "exec") {
@@ -735,9 +862,9 @@ void Interface::executaComandos(const std::string &comando) {
             sintaxe(s);
         }
     }
-    else if (cmd == "clearlogs") {
+    else if (cmd == "clear") {
         string extra;
-        string s = "Uso correto: clearlogs";
+        string s = "Uso correto: clear";
         if(iss >> extra){
             sintaxe(s);
         }
