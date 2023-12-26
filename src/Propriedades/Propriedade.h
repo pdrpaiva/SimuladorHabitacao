@@ -14,7 +14,6 @@ private:
     string unidade;
     int min;
     int max;
-    int valor;
 
 public:
     Propriedade(string nome, string unidade,int min, int max);

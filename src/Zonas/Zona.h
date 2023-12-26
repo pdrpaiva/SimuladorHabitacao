@@ -5,6 +5,7 @@
 #ifndef TRABALHO_ZONA_H
 #define TRABALHO_ZONA_H
 #include <vector>
+#include <map>
 #include "../Sensores/Sensor.h"
 #include "../Aparelhos/Aparelho.h"
 #include "../Processadores/ProcessadorRegras.h"
@@ -28,7 +29,7 @@ private:
     vector<Sensor*> sensores;
     vector<ProcessadorRegras*> processadores;
     vector<Aparelho*> aparelhos;
-    vector<Propriedade*> propriedades;
+    map<Propriedade*,int> propriedades;
 public:
     Zona(int linha, int coluna);
     ~Zona();
@@ -41,7 +42,7 @@ public:
     const vector<Sensor *> &getSensores() const;
     const vector<ProcessadorRegras *> &getProcessadores() const;
     const vector<Aparelho *> &getAparelhos() const;
-    const vector<Propriedade *> &getPropriedades() const;
+    const map<Propriedade *, int> &getPropriedades() const;
 
     //Sensor* getSensor(int idSens);
     Propriedade* getPropriedade(string nome);

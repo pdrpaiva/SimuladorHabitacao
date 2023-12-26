@@ -324,10 +324,10 @@ void Interface::executaComandos(const std::string &comando) {
                             for (auto &propriedade: terreno->getHabitacao()->getZona(idZona)->getPropriedades()) {
                                 //if(propriedade->getValor() != NULL)
                                 iInfo++;
-                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Nome: " << propriedade->getNome();
-                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Valor: " << propriedade->getValor()
+                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Nome: " << propriedade.first->getNome();
+                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Valor: " << propriedade.second
                                       << " "
-                                      << propriedade->getUnidade();
+                                      << propriedade.first->getUnidade();
                             }
                             return;
                         }

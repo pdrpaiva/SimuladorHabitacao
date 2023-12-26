@@ -6,7 +6,7 @@
 using namespace std;
 
 Propriedade::Propriedade(string _nome, string _unidade, int _min, int _max)
-:nome(_nome), unidade(_unidade), min(_min), max(_max), valor(NULL){}
+:nome(_nome), unidade(_unidade), min(_min), max(_max){}
 
 string Propriedade::getNome() const {return nome;}
 
@@ -15,7 +15,3 @@ string Propriedade::getUnidade() const {return unidade;}
 int Propriedade::getMin() const {return min;}
 
 int Propriedade::getMax() const {return max;}
-
-int Propriedade::getValor() const {return valor;}
-
-void Propriedade::setValor(int _valor) {valor = _valor;}

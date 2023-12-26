@@ -23,13 +23,13 @@ int Zona::nextIdZona = 1;
 
 Zona::Zona(int linha, int coluna) : linhaZona(linha),colunaZona(coluna){
     idZona = nextIdZona++;
-    propriedades.push_back(new Temperatura());
-    propriedades.push_back(new Humidade());
-    propriedades.push_back(new Luz());
-    propriedades.push_back(new Fumo());
-    propriedades.push_back(new Som());
-    propriedades.push_back(new Vibracao());
-    propriedades.push_back(new Radiacao());
+    propriedades[new Temperatura] = 0;
+    propriedades[new Humidade] = 0;
+    propriedades[new Luz] = 0;
+    propriedades[new Fumo] = 0;
+    propriedades[new Som] = 0;
+    propriedades[new Vibracao] = 0;
+    propriedades[new Radiacao] = 0;
 }
 
 Zona::~Zona() {
@@ -42,8 +42,8 @@ Zona::~Zona() {
     for (auto aparelho : aparelhos) {
         delete aparelho;
     }
-    for (auto propriedade : propriedades) {
-        delete propriedade;
+    for (auto & propriedade : propriedades) {
+        delete &propriedade;
     }
 }
 
@@ -136,9 +136,9 @@ int Zona::removeComp(char tipo, int idComp) {
 }
 
 Propriedade *Zona::getPropriedade(std::string nome) {
-    for (auto propriedade : propriedades) {
-        if (propriedade->getNome() == nome)
-            return propriedade;
+    for (auto & propriedade : propriedades) {
+        if (propriedade.first->getNome() == nome)
+            return propriedade.first;
     }
     return nullptr;
 }
@@ -149,10 +149,10 @@ int Zona::alteraPropriedade(const string& nome, int valor) {
     //return 3 - nao encontrou o nome
 
     for (auto & propriedade : propriedades) {
-        if (propriedade->getNome() == nome) {
-            if(valor >= propriedade->getMin()){
-                if(valor <= propriedade->getMax() || propriedade->getMax() == NULL){
-                    propriedade->setValor(valor);
+        if (propriedade.first->getNome() == nome) {
+            if(valor >= propriedade.first->getMin()){
+                if(valor <= propriedade.first->getMax() || propriedade.first->getMax() == NULL){
+                    propriedade.second = valor;
                     return 1;
                 }
                 else {
@@ -205,6 +205,6 @@ const vector<Aparelho *> &Zona::getAparelhos() const {
     return aparelhos;
 }
 
-const vector<Propriedade *> &Zona::getPropriedades() const {
+const map<Propriedade *, int> &Zona::getPropriedades() const {
     return propriedades;
 }
