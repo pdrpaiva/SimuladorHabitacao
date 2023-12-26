@@ -351,12 +351,35 @@ void Interface::executaComandos(const std::string &comando) {
                 if (iss >> extra) {
                     sintaxe(s);
                 } else {
-                    processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Valor da propriedade [" << nome << "] da zona ["
-                          << idZona << "]";
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << valor << "].";
-                    return;
+
+                    if(terreno->getHabitacao()->getZonas().empty()){
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                    }
+                    else {
+                        if (terreno->getHabitacao()->getZona(idZona) == nullptr) {
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                            return;
+                        } else {
+                            processa();
+                            switch (terreno->getHabitacao()->getZona(idZona)->alteraPropriedade(nome,valor)) {
+                                case 1:
+                                    wInfo << move_to(0, iInfo++) << set_color(10) << "O valor da propriedade " << nome << " foi atualizado.";
+                                    break;
+                                case 2:
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. O valor nao esta no intervalo";
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "permitido ["
+                                    << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << ","
+                                    << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() << "].";
+                                    break;
+                                case 3:
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "A propriedade '" << nome << "' nao existe.";
+                                    break;
+                            }
+                            return;
+                        }
+                    }
                 }
             } else {
                 sintaxe(s);
@@ -981,9 +1004,9 @@ void Interface::constroiZona(int linha, int coluna) {
 
             wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
             wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas().back()->getIdZona();
-            wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S: " ;
-            wZonas[posZona] << move_to(x, y+2) << set_color(0) << "P: " ;
-            wZonas[posZona] << move_to(x, y+3) << set_color(0) << "A: " ;
+            wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S: ";
+            wZonas[posZona] << move_to(x, y+2) << set_color(0) << "P: ";
+            wZonas[posZona] << move_to(x, y+3) << set_color(0) << "A: ";
 
             break;
         case 2: //zona fora da habitacao

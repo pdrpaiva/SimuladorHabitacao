@@ -135,6 +135,38 @@ int Zona::removeComp(char tipo, int idComp) {
     }
 }
 
+Propriedade *Zona::getPropriedade(std::string nome) {
+    for (auto propriedade : propriedades) {
+        if (propriedade->getNome() == nome)
+            return propriedade;
+    }
+    return nullptr;
+}
+
+int Zona::alteraPropriedade(const string& nome, int valor) {
+    //return 1 - valido
+    //return 2 - o valor nao esta no intervalo permitido
+    //return 3 - nao encontrou o nome
+
+    for (auto & propriedade : propriedades) {
+        if (propriedade->getNome() == nome) {
+            if(valor >= propriedade->getMin()){
+                if(valor <= propriedade->getMax() || propriedade->getMax() == NULL){
+                    propriedade->setValor(valor);
+                    return 1;
+                }
+                else {
+                    return 2;
+                }
+            }
+            else {
+                return 2;
+            }
+        }
+    }
+    return 3;
+}
+
 //Getters e Setters
 
 int Zona::getIdZona() const {

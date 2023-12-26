@@ -43,7 +43,9 @@ public:
     const vector<Aparelho *> &getAparelhos() const;
     const vector<Propriedade *> &getPropriedades() const;
 
-    Sensor* getSensor(int idSens);
+    //Sensor* getSensor(int idSens);
+    Propriedade* getPropriedade(string nome);
+    int alteraPropriedade(const string& nome,int valor);
 
     //Getters e Setters
     int getIdZona() const;
