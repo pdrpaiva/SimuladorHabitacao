@@ -1015,8 +1015,8 @@ void Interface::constroiZona(int linha, int coluna) {
             wInfo << move_to(0, iInfo++) << set_color(10) << "Criada uma nova zona. Linha [" << linha << "] Coluna [" << coluna << "]";
             wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas().back()->getIdZona();
             wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S: -";
-            wZonas[posZona] << move_to(x, y+2) << set_color(0) << "P: -";
-            wZonas[posZona] << move_to(x, y+3) << set_color(0) << "A: -";
+            wZonas[posZona] << move_to(x, y+2) << set_color(0) << "A: -";
+            //wZonas[posZona] << move_to(x, y+3) << set_color(0) << "P: -";
 
             break;
         case 2: //zona fora da habitacao
@@ -1031,12 +1031,12 @@ void Interface::constroiZona(int linha, int coluna) {
 }
 
 void Interface::atualizaZona(int idZona) {
-    int x = 0 , y = 0;
+    int x = 0 , y = 0 ;
     int posZona = terreno->getHabitacao()->getZona(idZona)->getPosZona();
 
     wZonas[posZona].clear();
 
-    wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZonas().back()->getIdZona();
+    wZonas[posZona] << move_to(x, y) << set_color(0) << "ID: " << terreno->getHabitacao()->getZona(idZona)->getIdZona();
 
     wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S:";
     if(terreno->getHabitacao()->getZona(idZona)->getSensores().empty()){
@@ -1045,34 +1045,47 @@ void Interface::atualizaZona(int idZona) {
     else {
         for (auto& s : terreno->getHabitacao()->getZona(idZona)->getSensores()) {
             x += 3;
+            if(x == 24){
+                wZonas[posZona] << move_to(x, y+1) << set_color(0) << "*";
+                break;
+            }
             wZonas[posZona] << move_to(x, y+1) << set_color(0) << s->getIdSensor() << " ";
         }
     }
     x = 0;
 
-    wZonas[posZona] << move_to(x, y+2) << set_color(0) << "P: -";
-    /*
-    if(terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()){
-        wZonas[posZona] << move_to(x+3, y+2) << set_color(0) << "- ";
-    }
-    else {
-        for (auto& p : terreno->getHabitacao()->getZona(idZona)->getProcessadores()) {
-            x += 3;
-            wZonas[posZona] << move_to(x, y+2) << set_color(0) << p-> << " ";
-        }
-    }
-    x = 0;
-    */
-    wZonas[posZona] << move_to(x, y+3) << set_color(0) << "A:";
+    wZonas[posZona] << move_to(x, y+2) << set_color(0) << "A:";
     if(terreno->getHabitacao()->getZona(idZona)->getAparelhos().empty()){
-        wZonas[posZona] << move_to(x+2, y+3) << set_color(0) << " - ";
+        wZonas[posZona] << move_to(x+3, y+2) << set_color(0) << "- ";
     }
     else {
         for (auto &a: terreno->getHabitacao()->getZona(idZona)->getAparelhos()) {
             x += 3;
-            wZonas[posZona] << move_to(x, y + 3) << set_color(0) << a->getIdAparelho() << " ";
+            if(x == 24){
+                wZonas[posZona] << move_to(x, y+2) << set_color(0) << "*";
+                break;
+            }
+            wZonas[posZona] << move_to(x, y + 2) << set_color(0) << a->getIdAparelho() << " ";
         }
     }
+    /*
+    wZonas[posZona] << move_to(x, y+3) << set_color(0) << "P: -";
+    if(terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()){
+        wZonas[posZona] << move_to(x+3, y+3) << set_color(0) << "- ";
+    }
+    else {
+        for (auto& p : terreno->getHabitacao()->getZona(idZona)->getProcessadores()) {
+            x += 3;
+            if(x == 24){
+                y++;
+                x=3;
+            }
+            wZonas[posZona] << move_to(x, y+3) << set_color(0) << p-> << " ";
+        }
+    }
+    x = 0;
+    */
+
 }
 
 void Interface::limpaZona(int linha, int coluna) {
