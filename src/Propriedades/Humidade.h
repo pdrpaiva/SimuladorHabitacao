@@ -12,7 +12,7 @@ using namespace std;
 class Humidade: public Propriedade {
 public:
     Humidade();
-
+    ~Humidade() override;
 };
 
 

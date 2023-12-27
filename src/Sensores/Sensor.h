@@ -10,14 +10,14 @@ using namespace std;
 
 class Sensor {
 private:
-    int idSensor;
+    string idSensor;
     static int nextIdSensor;
     string tipo;
 public:
     Sensor(const string& tipo);
     virtual ~Sensor();
 
-    int getIdSensor() const;
+    const string &getIdSensor() const;
     const string &getTipo() const;
 };
 

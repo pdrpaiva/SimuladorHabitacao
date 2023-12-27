@@ -50,5 +50,6 @@ public:
     void constroiZona(int nLinhas,int nColunas);
     void limpaZona(int linha, int coluna);
     void limpaZona(int idZona);
+    void atualizaZona(int idZona);
 };
 #endif //TRABALHO_COMANDOS_H

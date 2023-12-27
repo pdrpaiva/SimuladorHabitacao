@@ -5,12 +5,13 @@
 #ifndef TRABALHO_APARELHO_H
 #define TRABALHO_APARELHO_H
 #include <string>
+#include <cctype>
 
 using namespace std;
 
 class Aparelho {
 private:
-    int idAparelho;
+    string idAparelho;
     static int nextIdAparelho;
     string tipo;
     bool ligado;
@@ -19,10 +20,11 @@ public:
     virtual ~Aparelho();
 
     //getters e setters
+    const string &getIdAparelho() const;
     const string &getTipo() const;
     bool isLigado() const;
-    void setLigado(bool ligado);
-    int getIdAparelho() const;
+    void setLigado();
+    void setDesligado();
 };
 
 

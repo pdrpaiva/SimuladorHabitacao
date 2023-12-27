@@ -12,6 +12,7 @@ using namespace std;
 class Som: public Propriedade {
 public:
     Som();
+    ~Som() override;
 };
 
 

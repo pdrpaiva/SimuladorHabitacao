@@ -6,7 +6,10 @@
 
 int Aparelho::nextIdAparelho = 1;
 
-Aparelho::Aparelho(const string& tipo) : idAparelho(nextIdAparelho++),ligado(false),tipo(tipo){}
+Aparelho::Aparelho(const string& tipo) : ligado(false),tipo(tipo){
+    string idString = to_string(nextIdAparelho++);
+    idAparelho = 'a' + idString;
+}
 
 Aparelho::~Aparelho() {
 
@@ -20,10 +23,17 @@ bool Aparelho::isLigado() const {
     return ligado;
 }
 
-void Aparelho::setLigado(bool ligado) {
-    Aparelho::ligado = ligado;
+void Aparelho::setLigado() {
+    Aparelho::ligado = true;
+    Aparelho::idAparelho[0] = toupper(Aparelho::idAparelho[0]);
 }
 
-int Aparelho::getIdAparelho() const {
+void Aparelho::setDesligado() {
+    Aparelho::ligado = false;
+    Aparelho::idAparelho[0] = tolower(Aparelho::idAparelho[0]);
+}
+
+const string &Aparelho::getIdAparelho() const {
     return idAparelho;
 }
+

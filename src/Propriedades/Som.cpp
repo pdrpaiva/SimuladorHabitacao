@@ -5,3 +5,5 @@
 #include "Som.h"
 
 Som::Som(): Propriedade("Som", "Decibeis", 0, NULL) {}
+
+Som::~Som() = default;

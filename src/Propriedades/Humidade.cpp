@@ -5,3 +5,5 @@
 #include "Humidade.h"
 
 Humidade::Humidade(): Propriedade("Humidade", "%", 0, 100) {}
+
+Humidade::~Humidade() = default;

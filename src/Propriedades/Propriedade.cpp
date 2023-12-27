@@ -15,3 +15,5 @@ string Propriedade::getUnidade() const {return unidade;}
 int Propriedade::getMin() const {return min;}
 
 int Propriedade::getMax() const {return max;}
+
+Propriedade::~Propriedade() = default;

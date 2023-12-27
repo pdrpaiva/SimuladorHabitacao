@@ -5,3 +5,5 @@
 #include "Vibracao.h"
 
 Vibracao::Vibracao(): Propriedade("Vibracao", "Hertz", 0, NULL) {}
+
+Vibracao::~Vibracao() = default;

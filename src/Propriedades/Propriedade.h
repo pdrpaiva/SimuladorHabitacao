@@ -17,6 +17,8 @@ private:
 
 public:
     Propriedade(string nome, string unidade,int min, int max);
+    virtual ~Propriedade();
+
     string getNome() const;
     string getUnidade() const;
     int getMin() const;

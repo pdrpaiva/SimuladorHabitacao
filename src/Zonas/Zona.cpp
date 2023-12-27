@@ -23,8 +23,8 @@ int Zona::nextIdZona = 1;
 
 Zona::Zona(int linha, int coluna) : linhaZona(linha),colunaZona(coluna){
     idZona = nextIdZona++;
-    nextPosAp = 1;
-    NextPosS = 1;
+    //nextPosAp = 1;
+    //NextPosS = 1;
     propriedades[new Temperatura] = 0;
     propriedades[new Humidade] = 0;
     propriedades[new Luz] = 0;
@@ -44,9 +44,12 @@ Zona::~Zona() {
     for (auto aparelho : aparelhos) {
         delete aparelho;
     }
-    for (auto & propriedade : propriedades) {
-        delete &propriedade;
+
+    for (auto& propriedade : propriedades) {
+        delete propriedade.first;
     }
+
+    propriedades.clear();
 }
 
 bool Zona::adicionaSensor(char tipo) {
@@ -100,7 +103,7 @@ bool Zona::adicionaAparelho(char tipo) {
     return true;
 }
 
-int Zona::removeComp(char tipo, int idComp) {
+int Zona::removeComp(char tipo, string idComp) {
     //return 1 - válido
     //return 2 - nao ha sensores/aparelhos/processadores
     //return 3 - nao existe nenhum sensor/aparelho/processador com esse id
@@ -122,7 +125,7 @@ int Zona::removeComp(char tipo, int idComp) {
         return 3;
     }
     else if(tipo == 'a'){
-        if (sensores.empty())
+        if (aparelhos.empty())
             return 2;
 
         for (auto it = aparelhos.begin(); it != aparelhos.end(); ++it) {
@@ -218,7 +221,7 @@ void Zona::setPosZona(int pos) {
 int Zona::getPosZona() const {
     return posZona;
 }
-
+/*
 int Zona::getNextPosAp() {
     ++nextPosAp;
     return nextPosAp++;
@@ -228,3 +231,4 @@ int Zona::getNextPosS() {
     ++NextPosS;
     return NextPosS++;
 }
+*/

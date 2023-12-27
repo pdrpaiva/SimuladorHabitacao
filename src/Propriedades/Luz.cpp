@@ -5,3 +5,5 @@
 #include "Luz.h"
 
 Luz::Luz(): Propriedade("Luz", "Lumens", 0, NULL) {}
+
+Luz::~Luz() = default;
