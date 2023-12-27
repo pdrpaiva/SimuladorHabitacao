@@ -23,6 +23,8 @@ int Zona::nextIdZona = 1;
 
 Zona::Zona(int linha, int coluna) : linhaZona(linha),colunaZona(coluna){
     idZona = nextIdZona++;
+    nextPosAp = 1;
+    NextPosS = 1;
     propriedades[new Temperatura] = 0;
     propriedades[new Humidade] = 0;
     propriedades[new Luz] = 0;
@@ -207,4 +209,22 @@ const vector<Aparelho *> &Zona::getAparelhos() const {
 
 const map<Propriedade *, int> &Zona::getPropriedades() const {
     return propriedades;
+}
+
+void Zona::setPosZona(int pos) {
+    posZona = pos;
+}
+
+int Zona::getPosZona() const {
+    return posZona;
+}
+
+int Zona::getNextPosAp() {
+    ++nextPosAp;
+    return nextPosAp++;
+}
+
+int Zona::getNextPosS() {
+    ++NextPosS;
+    return NextPosS++;
 }

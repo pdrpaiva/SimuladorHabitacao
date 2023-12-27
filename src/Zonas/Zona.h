@@ -24,8 +24,11 @@ class Zona {
 private:
     int idZona;
     static int nextIdZona;
+    int nextPosAp;
+    int NextPosS;
     int linhaZona;
     int colunaZona;
+    int posZona;
     vector<Sensor*> sensores;
     vector<ProcessadorRegras*> processadores;
     vector<Aparelho*> aparelhos;
@@ -55,6 +58,10 @@ public:
     int getNumSensores() const;
     int getNumProcessadores() const;
     int getNumAparelhos() const;
+    void setPosZona(int pos);
+    int getPosZona() const;
+    int getNextPosAp();
+    int getNextPosS();
 };
 
 

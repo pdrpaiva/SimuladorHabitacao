@@ -430,6 +430,7 @@ void Interface::executaComandos(const std::string &comando) {
                                             wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o aparelho ["
                                                   << tipoComando
                                                   << "] a zona [" << idZona << "].";
+                                            wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosAp(),3) << set_color(14) << tipoComando;
                                         } else {
                                             wInfo << move_to(0, iInfo++) << set_color(4)
                                                   << "Nao foi possivel adicionar o aparelho.";
@@ -447,6 +448,7 @@ void Interface::executaComandos(const std::string &comando) {
                                             wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor ["
                                                   << tipoComando
                                                   << "] a zona [" << idZona << "].";
+                                            wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosS(),3) << set_color(14) << tipoComando;
                                         } else {
                                             wInfo << move_to(0, iInfo++) << set_color(4)
                                                   << "Nao foi possivel adicionar o sensor.";
@@ -998,6 +1000,7 @@ void Interface::constroiZona(int linha, int coluna) {
 
             if(!terreno->getHabitacao()->getZonas().empty()){
                 id = terreno->getHabitacao()->getZonas().back()->getIdZona();
+                terreno->getHabitacao()->getZonas().back()->setPosZona(posZona);
             }
 
             idZonas[posZona] = id;
