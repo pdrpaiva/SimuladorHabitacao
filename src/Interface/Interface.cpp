@@ -1,9 +1,3 @@
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <fstream>
-#include <unistd.h>
-#include "../../lib/Terminal.h"
 #include "Interface.h"
 using namespace std;
 using namespace term;
@@ -368,11 +362,20 @@ void Interface::executaComandos(const std::string &comando) {
                                     wInfo << move_to(0, iInfo++) << set_color(10) << "O valor da propriedade " << nome << " foi atualizado.";
                                     break;
                                 case 2:
-                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. O valor nao esta no intervalo";
-                                    wInfo << move_to(0, iInfo++) << set_color(4) << "permitido ["
-                                    << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << ","
-                                    << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() << "].";
-                                    break;
+                                    if (terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() != 0)
+                                    {
+                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. O valor nao esta no intervalo";
+                                        wInfo << move_to(0, iInfo++) << set_color(4) << "permitido ["
+                                              << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << ","
+                                              << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() << "].";
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. Valor inferior ao minimo permitido   ["
+                                              << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << "].";
+                                        break;
+                                    }
                                 case 3:
                                     wInfo << move_to(0, iInfo++) << set_color(4) << "A propriedade '" << nome << "' nao existe.";
                                     break;

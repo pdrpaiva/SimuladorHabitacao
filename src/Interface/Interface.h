@@ -7,6 +7,9 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
+#include <fstream>
+#include <unistd.h>
 #include "../../lib/Terminal.h"
 #include "../Terreno/Terreno.h"
 

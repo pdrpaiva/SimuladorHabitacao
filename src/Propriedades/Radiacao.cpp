@@ -4,6 +4,6 @@
 
 #include "Radiacao.h"
 
-Radiacao::Radiacao(): Propriedade("Radiacao", "Becquerel", 0, NULL) {}
+Radiacao::Radiacao(): Propriedade("Radiacao", "Becquerel", 0, 0) {}
 
 Radiacao::~Radiacao() = default;

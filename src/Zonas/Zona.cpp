@@ -3,18 +3,6 @@
 //
 
 #include "Zona.h"
-#include "../Sensores/Sensor.h"
-#include "../Sensores/TemperaturaSensor.h"
-#include "../Sensores/MovimentoSensor.h"
-#include "../Sensores/LuminosidadeSensor.h"
-#include "../Sensores/RadiacaoSensor.h"
-#include "../Sensores/HumidadeSensor.h"
-#include "../Sensores/SomSensor.h"
-#include "../Sensores/FumoSensor.h"
-#include "../Aparelhos/AspersorAparelho.h"
-#include "../Aparelhos/AquecedorAparelho.h"
-#include "../Aparelhos/RefrigeradorAparelho.h"
-#include "../Aparelhos/LampadaAparelho.h"
 
 
 using namespace std;
@@ -138,6 +126,8 @@ int Zona::removeComp(char tipo, string idComp) {
 
         return 3;
     }
+
+    return 0;
 }
 
 Propriedade *Zona::getPropriedade(std::string nome) {
@@ -156,7 +146,7 @@ int Zona::alteraPropriedade(const string& nome, int valor) {
     for (auto & propriedade : propriedades) {
         if (propriedade.first->getNome() == nome) {
             if(valor >= propriedade.first->getMin()){
-                if(valor <= propriedade.first->getMax() || propriedade.first->getMax() == NULL){
+                if(valor <= propriedade.first->getMax() || propriedade.first->getMax() == 0){
                     propriedade.second = valor;
                     return 1;
                 }
