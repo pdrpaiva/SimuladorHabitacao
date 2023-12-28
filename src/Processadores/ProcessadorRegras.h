@@ -9,16 +9,16 @@
 #include <string>
 #include "../Processadores/Regra.h"
 #include "../Aparelhos/Aparelho.h"
-#include "../Zonas/Zona.h"
 
 using namespace std;
+class Zona;
 
 class ProcessadorRegras {
 private:
     string idProcessador;
     static int nextIdProcessador;
     bool ligado;
-    Zona* zona;
+    //Zona* zona;
     vector<Regra*> regras;
     vector<Aparelho*> aparelhosAssoc;
 public:
@@ -26,4 +26,4 @@ public:
 };
 
 
-#endif //TRABALHO_PROCESSADORREGRAS_H
+#endif // TRABALHO_PROCESSADORREGRAS_H

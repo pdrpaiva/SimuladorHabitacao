@@ -3,6 +3,7 @@
 //
 
 #include "ProcessadorRegras.h"
+#include "../Zonas/Zona.h"
 
 int ProcessadorRegras::nextIdProcessador = 1;
 

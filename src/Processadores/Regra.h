@@ -7,7 +7,6 @@
 
 #include "../Sensores/Sensor.h"
 
-
 class Regra {
 private:
     string idRegra;
@@ -16,7 +15,7 @@ private:
 
 public:
     Regra(Sensor* sensor);
-    virtual ~Regra();
+    ///virtual ~Regra();
     const string &getIdRegra() const;
     Sensor *getSensorAssoc() const;
 };

@@ -7,7 +7,6 @@
 #include <vector>
 #include <map>
 #include "../Sensores/Sensor.h"
-#include "../Processadores/ProcessadorRegras.h"
 #include "../Propriedades/Propriedade.h"
 #include "../Propriedades/Temperatura.h"
 #include "../Propriedades/Humidade.h"
@@ -27,6 +26,7 @@
 #include "../Aparelhos/AquecedorAparelho.h"
 #include "../Aparelhos/RefrigeradorAparelho.h"
 #include "../Aparelhos/LampadaAparelho.h"
+#include "../Processadores/ProcessadorRegras.h"
 
 using namespace std;
 
