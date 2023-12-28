@@ -431,9 +431,9 @@ void Interface::executaComandos(const std::string &comando) {
                                     if (tipoComando == 'a' || tipoComando == 's' || tipoComando == 'r' ||
                                         tipoComando == 'l') {
                                         if (terreno->getHabitacao()->getZona(idZona)->adicionaAparelho(tipoComando)) {
-                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o aparelho ["
-                                                  << tipoComando
-                                                  << "] a zona [" << idZona << "].";
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o aparelho "
+                                                  << terreno->getHabitacao()->getZona(idZona)->getAparelhos().back()->getIdAparelho()
+                                                  << " na zona " << idZona << ".";
                                             //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosAp(),3) << set_color(14) << tipoComando;
                                             atualizaZona(idZona);
                                         } else {
@@ -450,9 +450,9 @@ void Interface::executaComandos(const std::string &comando) {
                                         tipoComando == 'd' || tipoComando == 'h' || tipoComando == 'o' ||
                                         tipoComando == 'f') {
                                         if (terreno->getHabitacao()->getZona(idZona)->adicionaSensor(tipoComando)) {
-                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor ["
-                                                  << tipoComando
-                                                  << "] a zona [" << idZona << "].";
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Adicionado o sensor "
+                                                  << terreno->getHabitacao()->getZona(idZona)->getSensores().back()->getIdSensor()
+                                                  << " na zona " << idZona << ".";
                                             //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosS(),1) << set_color(14) << tipoComando;
                                             atualizaZona(idZona);
                                         } else {
@@ -523,8 +523,9 @@ void Interface::executaComandos(const std::string &comando) {
                                     switch (terreno->getHabitacao()->getZona(idZona)->removeComp(spa, id)) {
                                         case 1: //valido
                                             processa();
-                                            wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho [" << id
-                                                  << "] foi removido da zona.";
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho "
+                                                  << id
+                                                  << " foi removido da zona " << idZona;
                                             atualizaZona(idZona);
                                             break;
                                         case 2: // nao existe nenhuma zona
@@ -543,8 +544,8 @@ void Interface::executaComandos(const std::string &comando) {
                                     switch (terreno->getHabitacao()->getZona(idZona)->removeComp(spa, id)) {
                                         case 1: //valido
                                             processa();
-                                            wInfo << move_to(0, iInfo++) << set_color(10) << "O sensor [" << id
-                                                  << "] foi removido da zona.";
+                                            wInfo << move_to(0, iInfo++) << set_color(10) << "O sensor " << id
+                                                  << " foi removido da zona " << idZona;
                                             atualizaZona(idZona);
                                             break;
                                         case 2: // nao existe nenhuma zona
