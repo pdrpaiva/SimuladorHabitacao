@@ -4,6 +4,17 @@
 
 #include "Regra.h"
 
-int Regra::cont = 0;
+int Regra::nextIdRegra = 1;
 
-Regra::Regra(float _x, float _y) : x(_x), y(_y){}
+Regra::Regra(Sensor *sensor) : sensorAssoc(sensor){
+    string idString = to_string(nextIdRegra++);
+    idRegra = 'r' + idString;
+}
+
+const string &Regra::getIdRegra() const {
+    return idRegra;
+}
+
+Sensor *Regra::getSensorAssoc() const {
+    return sensorAssoc;
+}

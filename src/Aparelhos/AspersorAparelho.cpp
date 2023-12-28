@@ -6,4 +6,4 @@
 
 AspersorAparelho::AspersorAparelho() : Aparelho("Aspersor"){}
 
-AspersorAparelho::~AspersorAparelho() {}
+AspersorAparelho::~AspersorAparelho() = default;

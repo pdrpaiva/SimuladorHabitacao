@@ -9,14 +9,16 @@
 
 
 class Regra {
-public:
-    Regra(float x, float y);
-
 private:
-    int id;
-    static int cont;
-    float x, y;
-    Sensor *sensorcontrol;
+    string idRegra;
+    static int nextIdRegra;
+    Sensor* sensorAssoc;
+
+public:
+    Regra(Sensor* sensor);
+    virtual ~Regra();
+    const string &getIdRegra() const;
+    Sensor *getSensorAssoc() const;
 };
 
 

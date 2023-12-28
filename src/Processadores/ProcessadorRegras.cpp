@@ -3,3 +3,10 @@
 //
 
 #include "ProcessadorRegras.h"
+
+int ProcessadorRegras::nextIdProcessador = 1;
+
+ProcessadorRegras::ProcessadorRegras(const int& idZona, const bool &tipo) :  ligado(tipo){
+    string idString = to_string(nextIdProcessador++);
+    idProcessador = 'p' + idString;
+}

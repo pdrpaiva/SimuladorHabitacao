@@ -6,13 +6,23 @@
 #define TRABALHO_PROCESSADORREGRAS_H
 
 #include <vector>
+#include <string>
 #include "../Processadores/Regra.h"
-using namespace std;
+#include "../Aparelhos/Aparelho.h"
+#include "../Zonas/Zona.h"
 
+using namespace std;
 
 class ProcessadorRegras {
 private:
+    string idProcessador;
+    static int nextIdProcessador;
+    bool ligado;
+    Zona* zona;
     vector<Regra*> regras;
+    vector<Aparelho*> aparelhosAssoc;
+public:
+    ProcessadorRegras(const int& idZona, const bool& tipo);
 };
 
 
