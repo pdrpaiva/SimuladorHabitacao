@@ -18,3 +18,7 @@ const string &Regra::getIdRegra() const {
 Sensor *Regra::getSensorAssoc() const {
     return sensorAssoc;
 }
+
+Regra::~Regra() {
+
+}

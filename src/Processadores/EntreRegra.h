@@ -13,7 +13,7 @@ private:
 
 public:
     EntreRegra(Sensor* sensor,const int& x,const int& y);
-    ~EntreRegra();
+    ~EntreRegra() = default;
 };
 
 #endif //TRABALHO_ENTREREGRA_H

@@ -12,7 +12,7 @@ private:
 
 public:
     IgualRegra(Sensor* sensor,const int& x);
-    ~IgualRegra();
+    ~IgualRegra() = default;
 };
 
 

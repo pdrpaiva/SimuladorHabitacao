@@ -13,7 +13,7 @@ private:
 
 public:
     ForaRegra(Sensor* sensor,const int& x,const int& y);
-    ~ForaRegra();
+    ~ForaRegra() = default;
 };
 
 

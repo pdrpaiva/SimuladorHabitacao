@@ -12,7 +12,7 @@ private:
 
 public:
     MenorRegra(Sensor* sensor,const int& x);
-    ~MenorRegra();
+    ~MenorRegra() = default;
 };
 
 
