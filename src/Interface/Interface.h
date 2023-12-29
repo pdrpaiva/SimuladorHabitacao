@@ -9,8 +9,6 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
-#include <iostream>
-#include <iomanip>
 #include <unistd.h>
 #include "../../lib/Terminal.h"
 #include "../Terreno/Terreno.h"
@@ -55,6 +53,7 @@ public:
     void constroiZona(int nLinhas,int nColunas);
     void limpaZona(int linha, int coluna);
     void limpaZona(int idZona);
+    void limpaLogs();
     void atualizaZona(int idZona);
 };
 #endif //TRABALHO_COMANDOS_H
