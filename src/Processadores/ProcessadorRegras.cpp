@@ -75,3 +75,22 @@ void ProcessadorRegras::setComando(const string &comando) {
         this->comando = "Liga";
     }
 }
+
+int ProcessadorRegras::RemoveRegra(const string &idRegra) {
+    //return 1 - válido
+    //return 2 - nao ha regras
+    //return 3 - nao existe nenhuma regra com esse id
+
+    if (regras.empty())
+        return 2;
+
+    for (auto it = regras.begin(); it != regras.end(); ++it) {
+        if ((*it)->getIdRegra() == idRegra) {
+            delete *it;
+            regras.erase(it);
+            return 1;
+        }
+    }
+
+    return 3;
+}

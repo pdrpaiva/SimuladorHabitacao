@@ -776,19 +776,43 @@ void Interface::executaComandos(const std::string &comando) {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
-            int idZona, idProcRegras, idRegra;
+            string idProcRegras, idRegra;
+            int idZona;
             string s = "Uso correto: rrem <ID zona> <ID proc. regras> <ID regra>";
             if (iss >> idZona >> idProcRegras >> idRegra) {
                 string extra;
                 if (iss >> extra) {
                     sintaxe(s);
                 } else {
-                    processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Regra [" << idRegra
-                          << "] removida do processador [" << idProcRegras << "] ";
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                    return;
+                    if (terreno->getHabitacao()->getZonas().empty()) {
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                    } else {
+                        if (terreno->getHabitacao()->getZona(idZona) == nullptr) {
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                            return;
+                        } else {
+                            switch (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->RemoveRegra(
+                                    idRegra)) {
+                                case 1:
+                                    processa();
+                                    wInfo << move_to(0, iInfo++) << set_color(10) << "A regra [" << idRegra <<
+                                          "] foi removida do processador [" << idProcRegras << "].";
+                                    break;
+                                case 2:
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "O processador [" << idProcRegras <<
+                                          "] ainda nao tem nenhuma regra.";
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "'rnova' para adicionar uma.";
+                                    break;
+                                case 3:
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "O processador [" << idProcRegras <<
+                                          "] nao tem nenhuma regra com esse ID.";
+                                    break;
+                            }
+                            return;
+                        }
+                    }
                 }
             } else {
                 sintaxe(s);
