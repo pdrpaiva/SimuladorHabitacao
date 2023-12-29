@@ -40,65 +40,57 @@ Zona::~Zona() {
     propriedades.clear();
 }
 
-bool Zona::adicionaSensor(char tipo) {
-    switch (tipo) {
-        case 't':
-            sensores.push_back(new TemperaturaSensor());
-            break;
-        case 'v':
-            sensores.push_back(new MovimentoSensor());
-            break;
-        case 'm':
-            sensores.push_back(new LuminosidadeSensor());
-            break;
-        case 'd':
-            sensores.push_back(new RadiacaoSensor());
-            break;
-        case 'h':
-            sensores.push_back(new HumidadeSensor());
-            break;
-        case 'o':
-            sensores.push_back(new SomSensor());
-            break;
-        case 'f':
-            sensores.push_back(new FumoSensor());
-            break;
-        default:
-            // Tipo desconhecido
-            return false;
-    }
+bool Zona::adicionaSensor(const string& tipo) {
+    if(tipo == "t")
+        sensores.push_back(new TemperaturaSensor());
+    else if(tipo == "v")
+        sensores.push_back(new MovimentoSensor());
+    else if(tipo == "m")
+        sensores.push_back(new LuminosidadeSensor());
+    else if(tipo == "d")
+        sensores.push_back(new RadiacaoSensor());
+    else if(tipo == "h")
+        sensores.push_back(new HumidadeSensor());
+    else if(tipo == "o")
+        sensores.push_back(new SomSensor());
+    else if(tipo == "f")
+        sensores.push_back(new FumoSensor());
+    else
+        return false;
+
     return true;
 }
 
-bool Zona::adicionaAparelho(char tipo) {
-    switch (tipo) {
-        case 'a':
-            aparelhos.push_back(new AquecedorAparelho());
-            break;
-        case 's':
-            aparelhos.push_back(new AspersorAparelho());
-            break;
-        case 'r':
-            aparelhos.push_back(new RefrigeradorAparelho());
-            break;
-        case 'l':
-            aparelhos.push_back(new LampadaAparelho());
-            break;
-        default:
-            // Tipo desconhecido
-            return false;
-    }
+bool Zona::adicionaAparelho(const string& tipo) {
+    if(tipo == "a")
+        aparelhos.push_back(new AquecedorAparelho());
+    else if(tipo == "s")
+        aparelhos.push_back(new AspersorAparelho());
+    else if(tipo == "r")
+        aparelhos.push_back(new RefrigeradorAparelho());
+    else if(tipo == "l")
+        aparelhos.push_back(new LampadaAparelho());
+    else
+        return false;
+
     return true;
 }
 
-int Zona::removeComp(char tipo, string idComp) {
+bool Zona::adicionaProcessador(const string &comando) {
+
+    processadores.push_back(new ProcessadorRegras(this->idZona,comando));
+
+    return true;
+}
+
+int Zona::removeComp(const string& tipo, const string& idComp) {
     //return 1 - válido
     //return 2 - nao ha sensores/aparelhos/processadores
     //return 3 - nao existe nenhum sensor/aparelho/processador com esse id
 
     //penso q este funcao de para simplificar, mas nao estava a conseguir
 
-    if(tipo == 's'){
+    if(tipo == "s"){
         if (sensores.empty())
             return 2;
 
@@ -112,7 +104,7 @@ int Zona::removeComp(char tipo, string idComp) {
 
         return 3;
     }
-    else if(tipo == 'a'){
+    else if(tipo == "a"){
         if (aparelhos.empty())
             return 2;
 
@@ -120,6 +112,20 @@ int Zona::removeComp(char tipo, string idComp) {
             if ((*it)->getIdAparelho() == idComp) {
                 delete *it;
                 aparelhos.erase(it);
+                return 1;
+            }
+        }
+
+        return 3;
+    }
+    else if(tipo == "p"){
+        if (processadores.empty())
+            return 2;
+
+        for (auto it = processadores.begin(); it != processadores.end(); ++it) {
+            if ((*it)->getIdProcessador() == idComp) {
+                delete *it;
+                processadores.erase(it);
                 return 1;
             }
         }

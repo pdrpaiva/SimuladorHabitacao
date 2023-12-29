@@ -34,8 +34,6 @@ class Zona {
 private:
     int idZona;
     static int nextIdZona;
-    //int nextPosAp;
-    //int NextPosS;
     int linhaZona;
     int colunaZona;
     int posZona;
@@ -47,10 +45,11 @@ public:
     Zona(int linha, int coluna);
     ~Zona();
 
-    bool adicionaSensor(char tipo);
-    bool adicionaAparelho(char tipo);
+    bool adicionaSensor(const string& tipo);
+    bool adicionaAparelho(const string& tipo);
+    bool adicionaProcessador(const string& comando);
 
-    int removeComp(char tipo, string idComp);
+    int removeComp(const string& tipo, const string& idComp);
 
     const vector<Sensor *> &getSensores() const;
     const vector<ProcessadorRegras *> &getProcessadores() const;

@@ -17,12 +17,16 @@ class ProcessadorRegras {
 private:
     string idProcessador;
     static int nextIdProcessador;
+    string comando;
     bool ligado;
     //Zona* zona;
     vector<Regra*> regras;
     vector<Aparelho*> aparelhosAssoc;
 public:
-    ProcessadorRegras(const int& idZona, const bool& tipo);
+    ProcessadorRegras(const int& idZona, const string& comando);
+
+    const string &getIdProcessador() const;
+    const string &getComando() const;
 };
 
 
