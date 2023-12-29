@@ -682,23 +682,44 @@ void Interface::executaComandos(const std::string &comando) {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
-            int idZona,idProcRegras;
-            string pcomando;
-            string s = "Uso correto: pmuda <ID zona> <ID proc. regras> <novo comando>";
+            if(!terreno->getHabitacao()->getZonas().empty()){
+                int idZona;
+                string idProcRegras, pcomando;
+                string s = "Uso correto: pmuda <ID zona> <ID proc. regras> <novo comando>";
 
-            if(iss >> idZona >> idProcRegras >> pcomando) {
-                string extra;
-                if (iss >> extra) {
-                    sintaxe(s);
+                if(iss >> idZona >> idProcRegras >> pcomando) {
+                    string extra;
+                    if (iss >> extra) {
+                        sintaxe(s);
+                    } else {
+                        processa();
+                        wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                        if(terreno->getHabitacao()->getZona(idZona) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                        }
+                        else {
+                            if(terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras) == nullptr){
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Esse processador nao existe.";
+                            }
+                            else {
+                                if(pcomando != "liga" && pcomando != "desliga") {
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Esse comando nao existe. liga/desliga";
+                                }
+                                else {
+                                    terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->setComando(pcomando);
+                                    wInfo << move_to(0, iInfo++) << set_color(10) << "O comando de " << idProcRegras
+                                          << " foi alterado para " << pcomando << ".";
+                                }
+                            }
+                        }
+                        return;
+                    }
                 } else {
-                    processa();
-                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Comando do processador [" << idProcRegras << "] da zona [" << idZona << "] ";
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "alterado para [" << pcomando << "].";
-                    return;
+                    sintaxe(s);
                 }
             } else {
-                sintaxe(s);
+                wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
             }
         }
     }

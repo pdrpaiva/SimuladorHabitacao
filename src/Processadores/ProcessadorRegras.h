@@ -32,6 +32,7 @@ public:
     const string &getComando() const;
     const vector<Regra *> &getRegras() const;
     int getNumRegras() const;
+    void setComando(const string &comando);
 };
 
 

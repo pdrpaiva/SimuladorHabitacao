@@ -16,11 +16,11 @@ ProcessadorRegras::ProcessadorRegras(const int& idZona, const string &comando){
     string idString = to_string(nextIdProcessador++);
     idProcessador = 'p' + idString;
     if (comando == "desliga"){
-        ligado = false;
+        this->ligado = false;
         this->comando = "Desliga";
     }
     else{
-        ligado = true;
+        this->ligado = true;
         this->comando = "Liga";
     }
 }
@@ -63,4 +63,15 @@ const vector<Regra *> &ProcessadorRegras::getRegras() const {
 
 int ProcessadorRegras::getNumRegras() const {
     return regras.size();
+}
+
+void ProcessadorRegras::setComando(const string &comando) {
+    if (comando == "desliga"){
+        this->ligado = false;
+        this->comando = "Desliga";
+    }
+    else{
+        this->ligado = true;
+        this->comando = "Liga";
+    }
 }
