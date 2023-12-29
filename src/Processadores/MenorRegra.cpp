@@ -5,3 +5,10 @@
 #include "MenorRegra.h"
 
 MenorRegra::MenorRegra(const string& nome,Sensor* sensor,const int &x) : Regra(nome,sensor), valorX(x){}
+
+bool MenorRegra::avaliar() {
+    if(getSensorAssoc()->getValor() < valorX)
+        return true;
+
+    return false;
+}

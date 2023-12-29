@@ -5,3 +5,10 @@
 #include "ForaRegra.h"
 
 ForaRegra::ForaRegra(const string& nome, Sensor* sensor,const int &x, const int &y) : Regra(nome,sensor), valorY(y), valorX(x){}
+
+bool ForaRegra::avaliar() {
+    if(getSensorAssoc()->getValor() < valorX && getSensorAssoc()->getValor() > valorY)
+        return true;
+
+    return false;
+}

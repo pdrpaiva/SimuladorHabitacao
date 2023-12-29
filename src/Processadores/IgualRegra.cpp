@@ -7,3 +7,10 @@
 IgualRegra::IgualRegra(const string& nome,Sensor* sensor,const int &x) : Regra(nome,sensor), valorX(x){
 
 }
+
+bool IgualRegra::avaliar() {
+    if(getSensorAssoc()->getValor() == valorX)
+        return true;
+
+    return false;
+}

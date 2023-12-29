@@ -13,6 +13,7 @@ private:
 public:
     MaiorRegra(const string& nome, Sensor* sensor,const int& x);
     ~MaiorRegra() = default;
+    bool avaliar() override;
 };
 
 

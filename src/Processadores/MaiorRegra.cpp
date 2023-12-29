@@ -5,3 +5,10 @@
 #include "MaiorRegra.h"
 
 MaiorRegra::MaiorRegra(const string& nome,Sensor* sensor,const int &x) : Regra(nome,sensor), valorX(x){}
+
+bool MaiorRegra::avaliar() {
+    if(getSensorAssoc()->getValor() > valorX)
+        return true;
+
+    return false;
+}

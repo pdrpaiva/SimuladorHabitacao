@@ -12,15 +12,13 @@
 
 int ProcessadorRegras::nextIdProcessador = 1;
 
-ProcessadorRegras::ProcessadorRegras(const int& idZona, const string &comando){
+ProcessadorRegras::ProcessadorRegras(Zona* zona, const string &comando) : zona(zona){
     string idString = to_string(nextIdProcessador++);
     idProcessador = 'p' + idString;
     if (comando == "desliga"){
-        this->ligado = false;
         this->comando = "Desliga";
     }
     else{
-        this->ligado = true;
         this->comando = "Liga";
     }
 }
@@ -35,6 +33,8 @@ bool ProcessadorRegras::adicionaRegra(const string &regra, Sensor* sensor, const
     else
         return false;
 
+    lePropriedade(sensor);
+
     return true;
 }
 
@@ -46,8 +46,20 @@ bool ProcessadorRegras::adicionaRegra(const string &regra, Sensor* sensor, const
     else
         return false;
 
+    lePropriedade(sensor);
+
     return true;
 }
+
+void ProcessadorRegras::lePropriedade(Sensor *sensor) {
+    for (auto & propriedade : zona->getPropriedades()) {
+        if (sensor->getTipo() == propriedade.first->getNome()){
+            sensor->setValor(propriedade.second);
+            return;
+        }
+    }
+}
+
 
 const string &ProcessadorRegras::getIdProcessador() const {
     return idProcessador;
@@ -67,11 +79,9 @@ int ProcessadorRegras::getNumRegras() const {
 
 void ProcessadorRegras::setComando(const string &comando) {
     if (comando == "desliga"){
-        this->ligado = false;
         this->comando = "Desliga";
     }
     else{
-        this->ligado = true;
         this->comando = "Liga";
     }
 }

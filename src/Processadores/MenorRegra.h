@@ -13,6 +13,7 @@ private:
 public:
     MenorRegra(const string& nome, Sensor* sensor,const int& x);
     ~MenorRegra() = default;
+    bool avaliar() override;
 };
 
 

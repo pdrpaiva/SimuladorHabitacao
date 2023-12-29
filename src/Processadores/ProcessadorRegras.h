@@ -18,15 +18,16 @@ private:
     string idProcessador;
     static int nextIdProcessador;
     string comando;
-    bool ligado;
-    //Zona* zona;
+    Zona* zona;
     vector<Regra*> regras;
     vector<Aparelho*> aparelhosAssoc;
 public:
-    ProcessadorRegras(const int& idZona, const string& comando);
+    ProcessadorRegras(Zona* zona, const string& comando);
 
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x);
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x, const int& y);
+
+    void lePropriedade(Sensor* sensor);
 
     const string &getIdProcessador() const;
     const string &getComando() const;

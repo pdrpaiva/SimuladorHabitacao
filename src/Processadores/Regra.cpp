@@ -26,3 +26,7 @@ Regra::~Regra() {
 const string &Regra::getNome() const {
     return nome;
 }
+
+bool Regra::avaliar() {
+    return false;
+}

@@ -78,7 +78,7 @@ bool Zona::adicionaAparelho(const string& tipo) {
 
 bool Zona::adicionaProcessador(const string &comando) {
 
-    processadores.push_back(new ProcessadorRegras(this->idZona,comando));
+    processadores.push_back(new ProcessadorRegras(this,comando));
 
     return true;
 }
