@@ -727,21 +727,48 @@ void Interface::executaComandos(const std::string &comando) {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
-            int idZona, idProcRegras;
-            string s = "Uso correto: rlista <ID zona> <ID proc. regras>";
-            if (iss >> idZona >> idProcRegras) {
-                string extra;
-                if (iss >> extra) {
-                    sintaxe(s);
+            if(!terreno->getHabitacao()->getZonas().empty()) {
+                int idZona;
+                string idProcRegras;
+                string s = "Uso correto: rlista <ID zona> <ID proc. regras>";
+                if (iss >> idZona >> idProcRegras) {
+                    string extra;
+                    if (iss >> extra) {
+                        sintaxe(s);
+                    } else {
+                        processa();
+                        wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                        if(terreno->getHabitacao()->getZona(idZona) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                        }
+                        else {
+                            if(terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras) == nullptr){
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Esse processador nao existe.";
+                            }
+                            else {
+                                limpaLogs();
+                                wInfo << move_to(0, iInfo++) << set_color(14) << "Regras do processador " << idProcRegras << " da zona " << idZona << ":";
+                                if (!terreno->getHabitacao()->getZona(idZona)->getSensores().empty()) {
+                                    for (auto &regra: terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->getRegras()) {
+                                        wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<regra->getIdRegra() << " | Sensor: " << regra->getSensorAssoc()->getIdSensor() << " " << regra->getSensorAssoc()->getTipo() << " | " << regra->getNome();
+                                    }
+                                }
+                                else {
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "O processador ainda nao tem nenhuma regra.";
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "'rnova' para adicionar uma.";
+                                }
+                                iInfo++;
+                            }
+                        }
+                        return;
+                    }
                 } else {
-                    processa();
-                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Comandos do processador [" << idProcRegras
-                          << "] da zona [" << idZona << "]:";
-                    return;
+                    sintaxe(s);
                 }
-            } else {
-                sintaxe(s);
+            }
+            else {
+                wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
             }
         }
     }
