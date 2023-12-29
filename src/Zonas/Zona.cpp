@@ -135,6 +135,36 @@ int Zona::removeComp(const string& tipo, const string& idComp) {
 
     return 0;
 }
+/*
+string Zona::zcomp() {
+    ostringstream oss;
+
+    oss << "Componentes da zona [" << this->idZona << "]:" << endl;
+    if (!getSensores().empty()) {
+        oss << "Sensores: " << endl;
+        for (auto &sensor: getSensores()) {
+            oss << "- ID: " << sensor->getIdSensor()
+                  << " Tipo: " << sensor->getTipo()  << endl;
+        }
+    }
+    if (!getAparelhos().empty()) {
+        oss << "Aparelhos: "  << endl;
+        for (auto &aparelho: getAparelhos()) {
+            oss << "- ID: " << aparelho->getIdAparelho()
+                  << " Tipo: " << aparelho->getTipo()  << endl;
+        }
+    }
+    if (!getProcessadores().empty()) {
+        oss << "Processsadores: "  << endl;
+        for (auto &processador: getProcessadores()) {
+            oss << "- ID: " << processador->getIdProcessador()
+                  << " Tipo: " << processador->getComando()  << endl;
+        }
+    }
+
+    return oss.str();
+}
+*/
 
 Propriedade *Zona::getPropriedade(std::string nome) {
     for (auto & propriedade : propriedades) {

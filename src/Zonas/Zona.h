@@ -6,6 +6,7 @@
 #define TRABALHO_ZONA_H
 #include <vector>
 #include <map>
+#include <sstream>
 #include "../Sensores/Sensor.h"
 #include "../Propriedades/Propriedade.h"
 #include "../Propriedades/Temperatura.h"
@@ -51,12 +52,13 @@ public:
 
     int removeComp(const string& tipo, const string& idComp);
 
+    //string zcomp();
+
     const vector<Sensor *> &getSensores() const;
     const vector<ProcessadorRegras *> &getProcessadores() const;
     const vector<Aparelho *> &getAparelhos() const;
     const map<Propriedade *, int> &getPropriedades() const;
 
-    //Sensor* getSensor(int idSens);
     Propriedade* getPropriedade(string nome);
     int alteraPropriedade(const string& nome,int valor);
 

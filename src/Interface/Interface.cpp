@@ -280,6 +280,7 @@ void Interface::executaComandos(const std::string &comando) {
                                               << " Tipo: " << processador->getComando();
                                     }
                                 }
+                                //wInfo << move_to(0, iInfo++) << set_color(11) << terreno->getHabitacao()->getZona(idZona)->zcomp();
                             } else {
                                 wInfo << move_to(0, iInfo++) << set_color(4) << "A zona [" << idZona
                                       << "] ainda nao tem nenhum componente.";
