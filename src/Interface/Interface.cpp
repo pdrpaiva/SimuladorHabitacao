@@ -1090,7 +1090,6 @@ void Interface::constroiZona(int linha, int coluna) {
             wZonas[posZona] << move_to(x, y+1) << set_color(0) << "S: -";
             wZonas[posZona] << move_to(x, y+2) << set_color(0) << "A: -";
             wZonas[posZona] << move_to(x, y+3) << set_color(0) << "P: -";
-            wZonas[posZona] << move_to(x, y+4) << set_color(0) << "R: -";
 
             break;
         case 2: //zona fora da habitacao
