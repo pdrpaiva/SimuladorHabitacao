@@ -11,7 +11,7 @@ private:
     int valorX;
 
 public:
-    MaiorRegra(Sensor* sensor,const int& x);
+    MaiorRegra(const string& nome, Sensor* sensor,const int& x);
     ~MaiorRegra() = default;
 };
 

@@ -25,8 +25,13 @@ private:
 public:
     ProcessadorRegras(const int& idZona, const string& comando);
 
+    bool adicionaRegra(const string& regra, Sensor* sensor, const int& x);
+    bool adicionaRegra(const string& regra, Sensor* sensor, const int& x, const int& y);
+
     const string &getIdProcessador() const;
     const string &getComando() const;
+    const vector<Regra *> &getRegras() const;
+    int getNumRegras() const;
 };
 
 

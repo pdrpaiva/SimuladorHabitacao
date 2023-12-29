@@ -11,7 +11,7 @@ private:
     int valorX;
 
 public:
-    MenorRegra(Sensor* sensor,const int& x);
+    MenorRegra(const string& nome, Sensor* sensor,const int& x);
     ~MenorRegra() = default;
 };
 

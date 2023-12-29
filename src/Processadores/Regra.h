@@ -11,12 +11,14 @@ class Regra {
 private:
     string idRegra;
     static int nextIdRegra;
+    string nome;
     Sensor* sensorAssoc;
 
 public:
-    Regra(Sensor* sensor);
+    Regra(const string& nome, Sensor* sensor);
     virtual ~Regra();
     const string &getIdRegra() const;
+    const string &getNome() const;
     Sensor *getSensorAssoc() const;
 };
 

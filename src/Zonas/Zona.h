@@ -62,6 +62,9 @@ public:
     Propriedade* getPropriedade(string nome);
     int alteraPropriedade(const string& nome,int valor);
 
+    ProcessadorRegras* getProcessador(const string& idProc);
+    Sensor* getSensor(const string& idSensor);
+
     //Getters e Setters
     int getIdZona() const;
     int getLinhaZona() const;

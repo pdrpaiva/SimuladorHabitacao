@@ -4,6 +4,6 @@
 
 #include "IgualRegra.h"
 
-IgualRegra::IgualRegra(Sensor* sensor,const int &x) : Regra(sensor), valorX(x){
+IgualRegra::IgualRegra(const string& nome,Sensor* sensor,const int &x) : Regra(nome,sensor), valorX(x){
 
 }

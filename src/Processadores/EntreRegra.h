@@ -12,7 +12,7 @@ private:
     int valorY;
 
 public:
-    EntreRegra(Sensor* sensor,const int& x,const int& y);
+    EntreRegra(const string& nome, Sensor* sensor,const int& x,const int& y);
     ~EntreRegra() = default;
 };
 

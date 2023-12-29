@@ -198,6 +198,24 @@ int Zona::alteraPropriedade(const string& nome, int valor) {
     return 3;
 }
 
+Sensor *Zona::getSensor(const string &idSensor) {
+    for (auto & sensor : sensores) {
+        if (sensor->getIdSensor() == idSensor)
+            return sensor;
+    }
+    return nullptr;
+}
+
+ProcessadorRegras *Zona::getProcessador(const string &idProc) {
+    for (auto & processador : processadores) {
+        if (processador->getIdProcessador() == idProc)
+            return processador;
+    }
+    return nullptr;
+}
+
+
+
 //Getters e Setters
 
 int Zona::getIdZona() const {

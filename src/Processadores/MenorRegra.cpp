@@ -4,4 +4,4 @@
 
 #include "MenorRegra.h"
 
-MenorRegra::MenorRegra(Sensor* sensor,const int &x) : Regra(sensor), valorX(x){}
+MenorRegra::MenorRegra(const string& nome,Sensor* sensor,const int &x) : Regra(nome,sensor), valorX(x){}

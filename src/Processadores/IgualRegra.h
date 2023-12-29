@@ -11,7 +11,7 @@ private:
     int valorX;
 
 public:
-    IgualRegra(Sensor* sensor,const int& x);
+    IgualRegra(const string& nome, Sensor* sensor,const int& x);
     ~IgualRegra() = default;
 };
 

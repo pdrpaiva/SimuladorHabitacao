@@ -4,4 +4,4 @@
 
 #include "ForaRegra.h"
 
-ForaRegra::ForaRegra(Sensor* sensor,const int &x, const int &y) : Regra(sensor), valorY(y), valorX(x){}
+ForaRegra::ForaRegra(const string& nome, Sensor* sensor,const int &x, const int &y) : Regra(nome,sensor), valorY(y), valorX(x){}

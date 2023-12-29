@@ -6,7 +6,7 @@
 
 int Regra::nextIdRegra = 1;
 
-Regra::Regra(Sensor *sensor) : sensorAssoc(sensor){
+Regra::Regra(const string& nome, Sensor *sensor) : nome(nome), sensorAssoc(sensor){
     string idString = to_string(nextIdRegra++);
     idRegra = 'r' + idString;
 }
@@ -21,4 +21,8 @@ Sensor *Regra::getSensorAssoc() const {
 
 Regra::~Regra() {
 
+}
+
+const string &Regra::getNome() const {
+    return nome;
 }

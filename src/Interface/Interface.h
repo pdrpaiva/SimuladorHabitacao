@@ -9,6 +9,8 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <iostream>
+#include <iomanip>
 #include <unistd.h>
 #include "../../lib/Terminal.h"
 #include "../Terreno/Terreno.h"

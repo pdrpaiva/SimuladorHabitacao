@@ -4,4 +4,4 @@
 
 #include "MaiorRegra.h"
 
-MaiorRegra::MaiorRegra(Sensor* sensor,const int &x) : Regra(sensor), valorX(x){}
+MaiorRegra::MaiorRegra(const string& nome,Sensor* sensor,const int &x) : Regra(nome,sensor), valorX(x){}
