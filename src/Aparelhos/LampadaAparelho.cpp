@@ -10,7 +10,7 @@ LampadaAparelho::LampadaAparelho(Zona* zona) : Aparelho(zona,"Lampada"){}
 LampadaAparelho::~LampadaAparelho() {}
 
 void LampadaAparelho::aoDesligar() {
-    getZona()->getPropriedade("Luz")->subValor(900);
+    getZona()->alteraPropriedade("Luz",getZona()->getValorProp("Luz")-900);
 }
 
 void LampadaAparelho::aoLigar() {

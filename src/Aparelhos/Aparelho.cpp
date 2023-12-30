@@ -22,10 +22,12 @@ bool Aparelho::enviaComando(const string &comando) {
     if(comando == "liga"){
         if(ligado) return false;
         setLigado(ligado);
+        aoLigar();
     }
     else if(comando == "desliga"){
         if(!ligado) return false;
         setDesligado(ligado);
+        aoDesligar();
     }
 
     return true;
@@ -33,10 +35,6 @@ bool Aparelho::enviaComando(const string &comando) {
 
 const string &Aparelho::getTipo() const {
     return tipo;
-}
-
-bool Aparelho::isLigado() const {
-    return ligado;
 }
 
 void Aparelho::setLigado(bool ligado) {
@@ -55,13 +53,5 @@ const string &Aparelho::getIdAparelho() const {
 
 Zona *Aparelho::getZona() const {
     return zona;
-}
-
-void Aparelho::aoLigar() {
-
-}
-
-void Aparelho::aoDesligar() {
-
 }
 

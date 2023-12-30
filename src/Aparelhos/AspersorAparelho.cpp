@@ -10,7 +10,7 @@ AspersorAparelho::AspersorAparelho(Zona* zona) : Aparelho(zona,"Aspersor"){}
 AspersorAparelho::~AspersorAparelho() = default;
 
 void AspersorAparelho::aoDesligar() {
-    getZona()->getPropriedade("Vibracao")->subValor(100);
+    getZona()->alteraPropriedade("Vibracao",getZona()->getValorProp("Vibracao")-100);
 }
 
 void AspersorAparelho::aoLigar() {

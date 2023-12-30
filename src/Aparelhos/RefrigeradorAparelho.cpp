@@ -10,7 +10,7 @@ RefrigeradorAparelho::RefrigeradorAparelho(Zona* zona) : Aparelho(zona,"Refriger
 RefrigeradorAparelho::~RefrigeradorAparelho() {}
 
 void RefrigeradorAparelho::aoDesligar() {
-    getZona()->getPropriedade("Som")->subValor(20);
+    getZona()->alteraPropriedade("Som",getZona()->getValorProp("Som")-20);
 }
 
 void RefrigeradorAparelho::aoLigar() {

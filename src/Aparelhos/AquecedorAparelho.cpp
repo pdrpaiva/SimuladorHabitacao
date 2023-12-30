@@ -10,7 +10,7 @@ AquecedorAparelho::AquecedorAparelho(Zona* zona) : Aparelho(zona,"Aquecedor"){}
 AquecedorAparelho::~AquecedorAparelho() {}
 
 void AquecedorAparelho::aoDesligar() {
-    getZona()->getPropriedade("Som")->subValor(5);
+    getZona()->alteraPropriedade("Som",getZona()->getValorProp("Som")-5);
 }
 
 void AquecedorAparelho::aoLigar() {

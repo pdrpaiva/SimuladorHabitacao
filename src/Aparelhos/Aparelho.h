@@ -23,13 +23,12 @@ public:
 
     bool enviaComando(const string& comando);
 
-    virtual void aoLigar();
-    virtual void aoDesligar();
+    virtual void aoLigar() = 0;
+    virtual void aoDesligar() = 0;
 
     //getters e setters
     const string &getIdAparelho() const;
     const string &getTipo() const;
-    bool isLigado() const;
     void setLigado(bool ligado);
     void setDesligado(bool ligado);
     Zona *getZona() const;
