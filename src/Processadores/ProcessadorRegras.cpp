@@ -69,6 +69,16 @@ bool ProcessadorRegras::adicionaAparelho(Aparelho *aparelho) {
     return true;
 }
 
+bool ProcessadorRegras::removeAparelho(const Aparelho* Aparelho) {
+    for (auto it = aparelhosAssoc.begin(); it != aparelhosAssoc.end(); ++it) {
+        if ((*it)->getIdAparelho() == Aparelho->getIdAparelho()) {
+            aparelhosAssoc.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+
 
 const string &ProcessadorRegras::getIdProcessador() const {
     return idProcessador;

@@ -27,7 +27,7 @@ public:
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x);
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x, const int& y);
     bool adicionaAparelho(Aparelho* aparelho);
-
+    bool removeAparelho(const Aparelho* aparelho);
     void lePropriedade(Sensor* sensor);
 
     const string &getIdProcessador() const;
