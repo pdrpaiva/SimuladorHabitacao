@@ -15,6 +15,7 @@ private:
     string idAparelho;
     static int nextIdAparelho;
     string tipo;
+    string comando;
     bool ligado;
     Zona* zona;
 public:
@@ -32,6 +33,7 @@ public:
     void setLigado();
     void setDesligado();
     Zona *getZona() const;
+    const string &getComando() const;
 };
 
 

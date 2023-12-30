@@ -278,7 +278,7 @@ void Interface::executaComandos(const std::string &comando) {
                             if (!terreno->getHabitacao()->getZona(idZona)->getAparelhos().empty()) {
                                 wInfo << move_to(0, iInfo++) << set_color(14) << "Aparelhos: ";
                                 for (auto &aparelho: terreno->getHabitacao()->getZona(idZona)->getAparelhos()) {
-                                    wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<aparelho->getIdAparelho() << " | " << "ultimo comando" << " | " << aparelho->getTipo();
+                                    wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<aparelho->getIdAparelho() << " | Ult.Comando: " << aparelho->getComando() << " | " << aparelho->getTipo();
                                 }
                             }
                             if (!terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()) {
@@ -975,8 +975,8 @@ void Interface::executaComandos(const std::string &comando) {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
-            int idZona, idAparelho;
-            string acomando;
+            int idZona;
+            string idAparelho, acomando;
             string s = "Uso correto: acom <ID zona> <ID aparelho> <comando>";
 
             if (iss >> idZona >> idAparelho >> acomando) {
@@ -984,11 +984,24 @@ void Interface::executaComandos(const std::string &comando) {
                 if (iss >> extra) {
                     sintaxe(s);
                 } else {
-                    processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Comando [" << acomando
-                          << "] enviado ao aparelho [" << idAparelho << "] ";
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
+                    if(existeZSPA(idZona,idAparelho)){
+                        if(acomando == "liga" || acomando == "desliga"){
+                            processa();
+                            if(terreno->getHabitacao()->getZona(idZona)->getAparelho(idAparelho)->recebeComando(acomando)){
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "Comando " << acomando
+                                      << " enviado ao aparelho " << idAparelho << ".";
+                                atualizaZona(idZona);
+                            }
+                            else {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "O aparelho " << idAparelho
+                                      << " ja se encontra " << acomando << "do.";
+                            }
+                        }
+                        else {
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Comando invalido. liga/desliga";
+                        }
+                    }
                     return;
                 }
             } else {

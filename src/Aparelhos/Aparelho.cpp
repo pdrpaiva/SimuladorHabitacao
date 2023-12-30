@@ -6,7 +6,7 @@
 #include "../Zonas/Zona.h"
 int Aparelho::nextIdAparelho = 1;
 
-Aparelho::Aparelho(Zona* zona, const string& tipo) : zona(zona),ligado(false),tipo(tipo){
+Aparelho::Aparelho(Zona* zona, const string& tipo) : zona(zona),ligado(false),tipo(tipo),comando("NULL"){
     string idString = to_string(nextIdAparelho++);
     idAparelho = 'a' + idString;
 }
@@ -29,6 +29,8 @@ bool Aparelho::recebeComando(const string &comando) {
         setDesligado();
         aoDesligar();
     }
+
+    this->comando = comando;
 
     return true;
 }
@@ -53,5 +55,9 @@ const string &Aparelho::getIdAparelho() const {
 
 Zona *Aparelho::getZona() const {
     return zona;
+}
+
+const string &Aparelho::getComando() const {
+    return comando;
 }
 
