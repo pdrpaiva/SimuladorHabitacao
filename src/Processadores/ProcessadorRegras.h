@@ -38,6 +38,7 @@ public:
     void setComando(const string &comando);
     int RemoveRegra(const string& idRegra);
     void AtivaComando();
+    static void setNextIdProcessador(int nextIdProcessador);
 };
 
 

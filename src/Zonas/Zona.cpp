@@ -39,6 +39,11 @@ Zona::~Zona() {
     }
 
     propriedades.clear();
+
+    sensores[0]->setNextIdSensor(1);
+    aparelhos[0]->setNextIdAparelho(1);
+    processadores[0]->getRegras()[0]->setNextIdRegra(1);
+    processadores[0]->setNextIdProcessador(1);
 }
 
 bool Zona::adicionaSensor(const string& tipo) {

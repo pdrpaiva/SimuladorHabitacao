@@ -23,6 +23,7 @@ public:
     const string &getIdRegra() const;
     const string &getNome() const;
     Sensor *getSensorAssoc() const;
+    static void setNextIdRegra(int nextIdRegra);
 };
 
 

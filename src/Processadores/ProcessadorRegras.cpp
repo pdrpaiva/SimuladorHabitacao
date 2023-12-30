@@ -144,3 +144,7 @@ void ProcessadorRegras::AtivaComando() {
         }
     }
 }
+
+void ProcessadorRegras::setNextIdProcessador(int nextIdProcessador) {
+    ProcessadorRegras::nextIdProcessador = nextIdProcessador;
+}

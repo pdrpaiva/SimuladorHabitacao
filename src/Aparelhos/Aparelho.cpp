@@ -61,3 +61,7 @@ const string &Aparelho::getComando() const {
     return comando;
 }
 
+void Aparelho::setNextIdAparelho(int nextIdAparelho) {
+    Aparelho::nextIdAparelho = nextIdAparelho;
+}
+

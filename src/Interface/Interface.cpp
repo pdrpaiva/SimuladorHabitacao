@@ -134,16 +134,13 @@ void Interface::executaComandos(const std::string &comando) {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
-
                 delete terreno->getHabitacao();
                 wHabitacao.clear();
                 for (auto &w: wZonas) {
                     w.clear();
                 }
                 wZonas.clear();
-
                 existeHab = false;
-
                 return;
             }
         }

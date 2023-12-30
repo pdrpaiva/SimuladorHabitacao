@@ -27,6 +27,6 @@ const string &Regra::getNome() const {
     return nome;
 }
 
-bool Regra::avaliar() {
-    return false;
+void Regra::setNextIdRegra(int nextIdRegra) {
+    Regra::nextIdRegra = nextIdRegra;
 }

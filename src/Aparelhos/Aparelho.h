@@ -34,6 +34,7 @@ public:
     void setDesligado();
     Zona *getZona() const;
     const string &getComando() const;
+    static void setNextIdAparelho(int nextIdAparelho);
 };
 
 

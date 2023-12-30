@@ -22,6 +22,7 @@ public:
     const string &getTipo() const;
     void setValor(int valor);
     int getValor() const;
+    static void setNextIdSensor(int nextIdSensor);
 };
 
 
