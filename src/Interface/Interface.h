@@ -55,5 +55,8 @@ public:
     void limpaZona(int idZona);
     void limpaLogs();
     void atualizaZona(int idZona);
+
+    //verificacoes
+    bool existeZSPA(const int &idZona = -1, const std::string &id = "");
 };
 #endif //TRABALHO_COMANDOS_H

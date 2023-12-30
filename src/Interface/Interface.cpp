@@ -211,10 +211,25 @@ void Interface::executaComandos(const std::string &comando) {
             if (iss >> extra) {
                 sintaxe(s);
             } else {
-                processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-
+                if(existeZSPA()) {
+                    processa();
+                    limpaLogs();
+                    wInfo << move_to(0, iInfo++) << set_color(11) << "Zonas da habitacao:";
+                    for (auto &z: terreno->getHabitacao()->getZonas()) {
+                        iInfo++;
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Zona [" << z->getIdZona() << "]";
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Sensores: " << z->getNumSensores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Processadores: "
+                              << z->getNumProcessadores();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Numero de Aparelhos: "
+                              << z->getNumAparelhos();
+                    }
+                }
+                /*
                 if (!terreno->getHabitacao()->getZonas().empty()) {
+                    processa();
+                    limpaLogs();
                     wInfo << move_to(0, iInfo++) << set_color(11) << "Zonas da habitacao:";
                     for (auto &z: terreno->getHabitacao()->getZonas()) {
                         iInfo++;
@@ -229,6 +244,7 @@ void Interface::executaComandos(const std::string &comando) {
                     wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                     wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
                 }
+                */
                 return;
             }
         }
@@ -245,6 +261,38 @@ void Interface::executaComandos(const std::string &comando) {
                     sintaxe(s);
                 } else {
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+
+                    if(existeZSPA(idZona)){
+                        if (terreno->getHabitacao()->getZona(idZona)->getNumAparelhos() != 0 || terreno->getHabitacao()->getZona(idZona)->getNumProcessadores() != 0 || terreno->getHabitacao()->getZona(idZona)->getNumSensores() != 0) {
+                            processa();
+                            limpaLogs();
+                            wInfo << move_to(0, iInfo++) << set_color(14) << "Componentes da zona [" << idZona << "]:";
+                            if (!terreno->getHabitacao()->getZona(idZona)->getSensores().empty()) {
+                                wInfo << move_to(0, iInfo++) << set_color(14) << "Sensores: ";
+                                for (auto &sensor: terreno->getHabitacao()->getZona(idZona)->getSensores()) {
+                                    wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<sensor->getIdSensor() << " | " << sensor->getValor() << " | " << sensor->getTipo();
+                                }
+                            }
+                            if (!terreno->getHabitacao()->getZona(idZona)->getAparelhos().empty()) {
+                                wInfo << move_to(0, iInfo++) << set_color(14) << "Aparelhos: ";
+                                for (auto &aparelho: terreno->getHabitacao()->getZona(idZona)->getAparelhos()) {
+                                    wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<aparelho->getIdAparelho() << " | " << "ultimo comando" << " | " << aparelho->getTipo();
+                                }
+                            }
+                            if (!terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()) {
+                                wInfo << move_to(0, iInfo++) << set_color(14) << "Processsadores: ";
+                                for (auto &processador: terreno->getHabitacao()->getZona(idZona)->getProcessadores()) {
+                                    wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<processador->getIdProcessador() << " | Regras: " << processador->getNumRegras() << " | " << processador->getComando();
+                                }
+                            }
+                            iInfo++;
+                        } else {
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "A zona [" << idZona
+                                  << "] ainda nao tem nenhum componente.";
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
+                        }
+                    }
+                    /*
                     if(terreno->getHabitacao()->getZonas().empty()){
                         wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                         wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
@@ -254,36 +302,9 @@ void Interface::executaComandos(const std::string &comando) {
                             wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                         }
                         else {
-                            if (terreno->getHabitacao()->getZona(idZona)->getNumAparelhos() != 0 || terreno->getHabitacao()->getZona(idZona)->getNumProcessadores() != 0 || terreno->getHabitacao()->getZona(idZona)->getNumSensores() != 0) {
-                                processa();
-                                limpaLogs();
-                                wInfo << move_to(0, iInfo++) << set_color(14) << "Componentes da zona [" << idZona << "]:";
-                                if (!terreno->getHabitacao()->getZona(idZona)->getSensores().empty()) {
-                                    wInfo << move_to(0, iInfo++) << set_color(14) << "Sensores: ";
-                                    for (auto &sensor: terreno->getHabitacao()->getZona(idZona)->getSensores()) {
-                                        wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<sensor->getIdSensor() << " | " << sensor->getValor() << " | " << sensor->getTipo();
-                                    }
-                                }
-                                if (!terreno->getHabitacao()->getZona(idZona)->getAparelhos().empty()) {
-                                    wInfo << move_to(0, iInfo++) << set_color(14) << "Aparelhos: ";
-                                    for (auto &aparelho: terreno->getHabitacao()->getZona(idZona)->getAparelhos()) {
-                                        wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<aparelho->getIdAparelho() << " | " << "ultimo comando" << " | " << aparelho->getTipo();
-                                    }
-                                }
-                                if (!terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()) {
-                                    wInfo << move_to(0, iInfo++) << set_color(14) << "Processsadores: ";
-                                    for (auto &processador: terreno->getHabitacao()->getZona(idZona)->getProcessadores()) {
-                                        wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<processador->getIdProcessador() << " | Regras: " << processador->getNumRegras() << " | " << processador->getComando();
-                                    }
-                                }
-                                iInfo++;
-                            } else {
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona [" << idZona
-                                      << "] ainda nao tem nenhum componente.";
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para adicionar um.";
-                            }
+
                         }
-                    }
+                    }*/
                     return;
                 }
             } else {
@@ -304,6 +325,21 @@ void Interface::executaComandos(const std::string &comando) {
                 } else {
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
 
+                    if(existeZSPA(idZona)){
+                        processa();
+                        limpaLogs();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Propriedades da zona [" << idZona << "]:";
+                        for (auto &propriedade: terreno->getHabitacao()->getZona(idZona)->getPropriedades()) {
+                            //if(propriedade->getValor() != NULL)
+                            iInfo++;
+                            wInfo << move_to(0, iInfo++) << set_color(11) << "- Nome: " << propriedade.first->getNome();
+                            wInfo << move_to(0, iInfo++) << set_color(11) << "- Valor: " << propriedade.second
+                                  << " "
+                                  << propriedade.first->getUnidade();
+                        }
+                        return;
+                    }
+                    /*
                     if(terreno->getHabitacao()->getZonas().empty()){
                         wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                         wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
@@ -313,20 +349,9 @@ void Interface::executaComandos(const std::string &comando) {
                             wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                         }
                         else {
-                            processa();
-                            limpaLogs();
-                            wInfo << move_to(0, iInfo++) << set_color(11) << "Propriedades da zona [" << idZona << "]:";
-                            for (auto &propriedade: terreno->getHabitacao()->getZona(idZona)->getPropriedades()) {
-                                //if(propriedade->getValor() != NULL)
-                                iInfo++;
-                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Nome: " << propriedade.first->getNome();
-                                wInfo << move_to(0, iInfo++) << set_color(11) << "- Valor: " << propriedade.second
-                                      << " "
-                                      << propriedade.first->getUnidade();
-                            }
-                            return;
+
                         }
-                    }
+                    }*/
                 }
             } else {
                 sintaxe(s);
@@ -348,6 +373,37 @@ void Interface::executaComandos(const std::string &comando) {
                 } else {
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
 
+                    if(existeZSPA(idZona)){
+                        processa();
+                        switch (terreno->getHabitacao()->getZona(idZona)->alteraPropriedade(nome,valor)) {
+                            case 1:
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "O valor da propriedade " << nome << " foi atualizado.";
+                                if (terreno->getHabitacao()->getZona(idZona)->getSensorByProp(nome) != nullptr) {
+                                    terreno->getHabitacao()->getZona(idZona)->getSensorByProp(nome)->setValor(valor);
+                                }
+                                break;
+                            case 2:
+                                if (terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() != 0)
+                                {
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. O valor nao esta no intervalo";
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "permitido ["
+                                          << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << ","
+                                          << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() << "].";
+                                    break;
+                                }
+                                else
+                                {
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. Valor inferior ao minimo permitido   ["
+                                          << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << "].";
+                                    break;
+                                }
+                            case 3:
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "A propriedade '" << nome << "' nao existe.";
+                                break;
+                        }
+                        return;
+                    }
+                    /*
                     if(terreno->getHabitacao()->getZonas().empty()){
                         wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                         wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
@@ -357,36 +413,9 @@ void Interface::executaComandos(const std::string &comando) {
                             wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                             return;
                         } else {
-                            processa();
-                            switch (terreno->getHabitacao()->getZona(idZona)->alteraPropriedade(nome,valor)) {
-                                case 1:
-                                    wInfo << move_to(0, iInfo++) << set_color(10) << "O valor da propriedade " << nome << " foi atualizado.";
-                                    if (terreno->getHabitacao()->getZona(idZona)->getSensorByProp(nome) != nullptr) {
-                                        terreno->getHabitacao()->getZona(idZona)->getSensorByProp(nome)->setValor(valor);
-                                    }
-                                    break;
-                                case 2:
-                                    if (terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() != 0)
-                                    {
-                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. O valor nao esta no intervalo";
-                                        wInfo << move_to(0, iInfo++) << set_color(4) << "permitido ["
-                                              << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << ","
-                                              << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() << "].";
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Erro. Valor inferior ao minimo permitido   ["
-                                              << terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMin() << "].";
-                                        break;
-                                    }
-                                case 3:
-                                    wInfo << move_to(0, iInfo++) << set_color(4) << "A propriedade '" << nome << "' nao existe.";
-                                    break;
-                            }
-                            return;
+
                         }
-                    }
+                    }*/
                 }
             } else {
                 sintaxe(s);
@@ -408,6 +437,61 @@ void Interface::executaComandos(const std::string &comando) {
                 } else {
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
 
+                    if(existeZSPA(idZona)){
+                        if (spa != 's' && spa != 'p' && spa != 'a') {
+                            sintaxe(s);
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Erro de sintaxe.";
+                        } else {
+                            if (spa == 'p') {
+                                processa();
+                                if (tipoComando == "liga" || tipoComando == "desliga") {
+                                    if(terreno->getHabitacao()->getZona(idZona)->adicionaProcessador(tipoComando)) {
+                                        wInfo << move_to(0, iInfo++) << set_color(10)
+                                              << "Foi adicionado um processador na zona " << idZona << ".";
+                                        atualizaZona(idZona);
+                                    }
+                                } else {
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Esse comando nao existe. liga/desliga";
+                                }
+                                return;
+                            } else if (spa == 'a') {
+                                processa();
+                                if (tipoComando == "a" || tipoComando == "s" || tipoComando == "r" ||
+                                    tipoComando == "l") {
+                                    if (terreno->getHabitacao()->getZona(idZona)->adicionaAparelho(tipoComando)) {
+                                        wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um aparelho na zona " << idZona << ".";
+                                        //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosAp(),3) << set_color(14) << tipoComando;
+                                        atualizaZona(idZona);
+                                    } else {
+                                        wInfo << move_to(0, iInfo++) << set_color(4)
+                                              << "Nao foi possivel adicionar o aparelho.";
+                                    }
+                                } else {
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Esse aparelho nao existe.";
+                                }
+                                return;
+                            } else if (spa == 's') {
+                                processa();
+                                if (tipoComando == "t" || tipoComando == "v" || tipoComando == "m" ||
+                                    tipoComando == "d" || tipoComando == "h" || tipoComando == "o" ||
+                                    tipoComando == "f") {
+                                    if (terreno->getHabitacao()->getZona(idZona)->adicionaSensor(tipoComando)) {
+                                        wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um sensor na zona " << idZona << ".";
+                                        //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosS(),1) << set_color(14) << tipoComando;
+                                        atualizaZona(idZona);
+                                    } else {
+                                        wInfo << move_to(0, iInfo++) << set_color(4)
+                                              << "Nao foi possivel adicionar o sensor.";
+                                    }
+                                } else {
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "Esse sensor nao existe.";
+                                }
+                                return;
+                            }
+                        }
+                    }
+                }
+                    /*
                     if(terreno->getHabitacao()->getZonas().empty()){
                         wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                         wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
@@ -417,59 +501,8 @@ void Interface::executaComandos(const std::string &comando) {
                             wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                             return;
                         } else {
-                            if (spa != 's' && spa != 'p' && spa != 'a') {
-                                sintaxe(s);
-                            } else {
-                                if (spa == 'p') {
-                                    processa();
-                                    if (tipoComando == "liga" || tipoComando == "desliga") {
-                                        if(terreno->getHabitacao()->getZona(idZona)->adicionaProcessador(tipoComando)) {
-                                            wInfo << move_to(0, iInfo++) << set_color(10)
-                                                  << "Foi adicionado um processador na zona " << idZona << ".";
-                                            atualizaZona(idZona);
-                                        }
-                                    } else {
-                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Esse comando nao existe. liga/desliga";
-                                    }
-                                    return;
-                                } else if (spa == 'a') {
-                                    processa();
-                                    if (tipoComando == "a" || tipoComando == "s" || tipoComando == "r" ||
-                                        tipoComando == "l") {
-                                        if (terreno->getHabitacao()->getZona(idZona)->adicionaAparelho(tipoComando)) {
-                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um aparelho na zona " << idZona << ".";
-                                            //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosAp(),3) << set_color(14) << tipoComando;
-                                            atualizaZona(idZona);
-                                        } else {
-                                            wInfo << move_to(0, iInfo++) << set_color(4)
-                                                  << "Nao foi possivel adicionar o aparelho.";
-                                        }
-                                    } else {
-                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Esse aparelho nao existe.";
-                                    }
-                                    return;
-                                } else if (spa == 's') {
-                                    processa();
-                                    if (tipoComando == "t" || tipoComando == "v" || tipoComando == "m" ||
-                                        tipoComando == "d" || tipoComando == "h" || tipoComando == "o" ||
-                                        tipoComando == "f") {
-                                        if (terreno->getHabitacao()->getZona(idZona)->adicionaSensor(tipoComando)) {
-                                            wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um sensor na zona " << idZona << ".";
-                                            //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosS(),1) << set_color(14) << tipoComando;
-                                            atualizaZona(idZona);
-                                        } else {
-                                            wInfo << move_to(0, iInfo++) << set_color(4)
-                                                  << "Nao foi possivel adicionar o sensor.";
-                                        }
-                                    } else {
-                                        wInfo << move_to(0, iInfo++) << set_color(4) << "Esse sensor nao existe.";
-                                    }
-                                    return;
-                                }
-                            }
-                        }
                     }
-                }
+                }*/
             } else {
                 sintaxe(s);
             }
@@ -685,7 +718,7 @@ void Interface::executaComandos(const std::string &comando) {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
-            if(!terreno->getHabitacao()->getZonas().empty()){
+            //if(!terreno->getHabitacao()->getZonas().empty()){
                 int idZona;
                 string idProcRegras, pcomando;
                 string s = "Uso correto: pmuda <ID zona> <ID proc. regras> <novo comando>";
@@ -695,8 +728,20 @@ void Interface::executaComandos(const std::string &comando) {
                     if (iss >> extra) {
                         sintaxe(s);
                     } else {
-                        processa();
                         wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+
+                        if(existeZSPA(idZona,idProcRegras)){
+                            if(pcomando != "liga" && pcomando != "desliga") {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Esse comando nao existe. liga/desliga";
+                            }
+                            else {
+                                processa();
+                                terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->setComando(pcomando);
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "O comando de " << idProcRegras
+                                      << " foi alterado para " << pcomando << ".";
+                            }
+                        }
+                        /*
                         if(terreno->getHabitacao()->getZona(idZona) == nullptr){
                             wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                         }
@@ -709,21 +754,22 @@ void Interface::executaComandos(const std::string &comando) {
                                     wInfo << move_to(0, iInfo++) << set_color(4) << "Esse comando nao existe. liga/desliga";
                                 }
                                 else {
+                                    processa();
                                     terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->setComando(pcomando);
                                     wInfo << move_to(0, iInfo++) << set_color(10) << "O comando de " << idProcRegras
                                           << " foi alterado para " << pcomando << ".";
                                 }
                             }
-                        }
+                        }*/
                         return;
                     }
                 } else {
                     sintaxe(s);
                 }
-            } else {
+            /*} else {
                 wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
                 wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
-            }
+            }*/
         }
     }
     else if (cmd == "rlista") {
@@ -806,17 +852,17 @@ void Interface::executaComandos(const std::string &comando) {
                                     idRegra)) {
                                 case 1:
                                     processa();
-                                    wInfo << move_to(0, iInfo++) << set_color(10) << "A regra [" << idRegra <<
-                                          "] foi removida do processador [" << idProcRegras << "].";
+                                    wInfo << move_to(0, iInfo++) << set_color(10) << "A regra " << idRegra <<
+                                          " foi removida do processador " << idProcRegras << ".";
                                     break;
                                 case 2:
-                                    wInfo << move_to(0, iInfo++) << set_color(4) << "O processador [" << idProcRegras <<
-                                          "] ainda nao tem nenhuma regra.";
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "O processador " << idProcRegras <<
+                                          " ainda nao tem nenhuma regra.";
                                     wInfo << move_to(0, iInfo++) << set_color(4) << "'rnova' para adicionar uma.";
                                     break;
                                 case 3:
-                                    wInfo << move_to(0, iInfo++) << set_color(4) << "O processador [" << idProcRegras <<
-                                          "] nao tem nenhuma regra com esse ID.";
+                                    wInfo << move_to(0, iInfo++) << set_color(4) << "O processador " << idProcRegras <<
+                                          " nao tem nenhuma regra com esse ID.";
                                     break;
                             }
                             return;
@@ -1264,3 +1310,67 @@ void Interface::limpaLogs() {
     wInfo << move_to(0, 0) << set_color(3) << "Logs:";
 }
 
+bool Interface::existeZSPA(const int &idZona, const std::string &id){
+
+    if (idZona == -1 && id.empty()) { //0 parametros
+
+        if(terreno->getHabitacao()->getZonas().empty()){
+            wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+            wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+            return false;
+        }
+
+    } else if (idZona != -1 && id.empty()) { //1 parametro - idZona
+
+        if(terreno->getHabitacao()->getZonas().empty()){
+            wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+            wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+            return false;
+        }
+
+        if(terreno->getHabitacao()->getZona(idZona) == nullptr){
+            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+            return false;
+        }
+
+    } else if (idZona != -1 && !id.empty()) { //2 parametros - idzona + idSPA
+
+        if(terreno->getHabitacao()->getZonas().empty()){
+            wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+            wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+            return false;
+        }
+
+        if(terreno->getHabitacao()->getZona(idZona) == nullptr){
+            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+            return false;
+        }
+
+        if(id[0] != 'p' && id[0] != 's' && id[0] != 'a' && id[0] != 'A'){
+            wInfo << move_to(0, iInfo++) << set_color(4) << "ID do invalido.";
+            return false;
+        }
+
+        if(id[0] == 'p'){
+            if (terreno->getHabitacao()->getZona(idZona)->getProcessador(id) == nullptr){
+                wInfo << move_to(0, iInfo++) << set_color(4) << "Esse processador nao existe.";
+                return false;
+            }
+        }
+        else if(id[0] == 's'){
+            if (terreno->getHabitacao()->getZona(idZona)->getSensor(id) == nullptr){
+                wInfo << move_to(0, iInfo++) << set_color(4) << "Esse sensor nao existe.";
+                return false;
+            }
+        }
+        else if(id[0] == 'a' || id[0] == 'A'){
+            if (terreno->getHabitacao()->getZona(idZona)->getAparelho(id) == nullptr){
+                wInfo << move_to(0, iInfo++) << set_color(4) << "Esse aparelho nao existe.";
+                return false;
+            }
+        }
+
+    }
+
+    return true;
+}

@@ -1,3 +1,1 @@
-verificao caso o ficheiro de texto nao exista
-
-limpar a janela dos logs quando se fizer comandos grandes tipo zcomp e zprops
+o comando cmrem na interface pode ser MUITO MAIS otimizado
