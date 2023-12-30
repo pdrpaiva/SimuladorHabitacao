@@ -50,6 +50,7 @@ public:
     void processa();
     bool Sair() const;
     void constroiHabitacao(int nLinhas,int nColunas);
+    void avanca(int it);
     void constroiZona(int nLinhas,int nColunas);
     void limpaZona(int linha, int coluna);
     void limpaZona(int idZona);

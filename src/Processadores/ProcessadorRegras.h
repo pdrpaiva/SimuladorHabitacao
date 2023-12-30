@@ -37,6 +37,7 @@ public:
     int getNumRegras() const;
     void setComando(const string &comando);
     int RemoveRegra(const string& idRegra);
+    void AtivaComando();
 };
 
 

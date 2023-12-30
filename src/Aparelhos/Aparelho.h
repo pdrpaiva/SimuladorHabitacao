@@ -21,7 +21,7 @@ public:
     Aparelho(Zona* zona, const string& tipo);
     virtual ~Aparelho();
 
-    bool enviaComando(const string& comando);
+    bool recebeComando(const string& comando);
 
     virtual void aoLigar() = 0;
     virtual void aoDesligar() = 0;

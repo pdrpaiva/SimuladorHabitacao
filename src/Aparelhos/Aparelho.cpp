@@ -15,7 +15,7 @@ Aparelho::~Aparelho() {
 
 }
 
-bool Aparelho::enviaComando(const string &comando) {
+bool Aparelho::recebeComando(const string &comando) {
     //return true valido
     //return false ja esta ligado/desligado
 

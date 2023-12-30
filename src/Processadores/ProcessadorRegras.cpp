@@ -131,3 +131,16 @@ int ProcessadorRegras::RemoveRegra(const string &idRegra) {
 
     return 3;
 }
+
+void ProcessadorRegras::AtivaComando() {
+    if (comando == "Liga"){
+        for (auto & aparelho : aparelhosAssoc) {
+            aparelho->recebeComando("liga");
+        }
+    }
+    else{
+        for (auto & aparelho : aparelhosAssoc) {
+            aparelho->recebeComando("desliga");
+        }
+    }
+}

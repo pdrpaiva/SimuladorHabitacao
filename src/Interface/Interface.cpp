@@ -57,6 +57,7 @@ void Interface::executaComandos(const std::string &comando) {
                 sintaxe(s);
             } else {
                 processa();
+                avanca(1);
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou 1 instante.";
                 terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + 1);
@@ -76,6 +77,7 @@ void Interface::executaComandos(const std::string &comando) {
                     sintaxe(s);
                 } else {
                     processa();
+                    avanca(n);
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                     wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou [" << n << "] instantes.";
                     terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + n);
@@ -1194,6 +1196,22 @@ void Interface::constroiHabitacao(int nLinhas, int nColunas) {
     }
 
     terreno->criaHabitacao(nLinhas,nColunas);
+}
+
+void Interface::avanca(int it) {
+    for (int i = 0; i < it; i++) {
+        for (auto &z: terreno->getHabitacao()->getZonas()) {
+            for (auto &p: z->getProcessadores()) {
+                bool ativar = true;
+                for (auto &r: p->getRegras()) {
+                    if (!r->avaliar())
+                        ativar = false;
+                }
+                if (ativar)
+                    p->AtivaComando();
+            }
+        }
+    }
 }
 
 void Interface::constroiZona(int linha, int coluna) {
