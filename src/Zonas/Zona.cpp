@@ -198,6 +198,14 @@ int Zona::alteraPropriedade(const string& nome, int valor) {
     return 3;
 }
 
+int Zona::getValorProp(string nome) const {
+    for (auto & propriedade : propriedades) {
+        if (propriedade.first->getNome() == nome)
+            return propriedade.second;
+    }
+    return 0;
+}
+
 Sensor *Zona::getSensor(const string &idSensor) {
     for (auto & sensor : sensores) {
         if (sensor->getIdSensor() == idSensor)
@@ -218,6 +226,14 @@ ProcessadorRegras *Zona::getProcessador(const string &idProc) {
     for (auto & processador : processadores) {
         if (processador->getIdProcessador() == idProc)
             return processador;
+    }
+    return nullptr;
+}
+
+Aparelho *Zona::getAparelho(const string &idAparelho) {
+    for (auto & aparelho : aparelhos) {
+        if (aparelho->getIdAparelho() == idAparelho)
+            return aparelho;
     }
     return nullptr;
 }
@@ -272,14 +288,6 @@ void Zona::setPosZona(int pos) {
 
 int Zona::getPosZona() const {
     return posZona;
-}
-
-int Zona::getValorProp(string nome) const {
-    for (auto & propriedade : propriedades) {
-        if (propriedade.first->getNome() == nome)
-            return propriedade.second;
-    }
-    return 0;
 }
 
 void Zona::setNextIdZona(int nextIdZona) {

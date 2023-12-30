@@ -67,6 +67,8 @@ public:
     Sensor* getSensor(const string& idSensor);
     Sensor* getSensorByProp(const string& prop);
 
+    Aparelho* getAparelho(const string& idAparelho);
+
     //Getters e Setters
     int getIdZona() const;
     int getLinhaZona() const;

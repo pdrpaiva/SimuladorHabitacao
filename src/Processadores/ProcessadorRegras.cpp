@@ -60,6 +60,11 @@ void ProcessadorRegras::lePropriedade(Sensor *sensor) {
     }
 }
 
+bool ProcessadorRegras::adicionaAparelho(Aparelho *aparelho) {
+    aparelhosAssoc.push_back(aparelho);
+    return true;
+}
+
 
 const string &ProcessadorRegras::getIdProcessador() const {
     return idProcessador;

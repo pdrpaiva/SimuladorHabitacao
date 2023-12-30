@@ -832,19 +832,41 @@ void Interface::executaComandos(const std::string &comando) {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
-            int idZona, idProcRegras, idAparelho;
+            int idZona;
+            string idProcRegras, idAparelho;
             string s = "Uso correto: asoc <ID zona> <ID proc. regras> <ID aparelho>";
             if (iss >> idZona >> idProcRegras >> idAparelho) {
                 string extra;
                 if (iss >> extra) {
                     sintaxe(s);
                 } else {
-                    processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << idProcRegras
-                          << "] associado ao aparelho [" << idAparelho << "] ";
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "da zona [" << idZona << "].";
-                    return;
+                    if (terreno->getHabitacao()->getZonas().empty()) {
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "A habitacao ainda nao tem nenhuma zona";
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "inicilizada. 'znova' para criar uma.";
+                    } else {
+                        if (terreno->getHabitacao()->getZona(idZona) == nullptr) {
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
+                            return;
+                        } else if (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Esse processador nao existe.";
+                        }
+                        else if (terreno->getHabitacao()->getZona(idZona)->getAparelho(idAparelho) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Esse aparelho nao existe.";
+                        }
+                        else{
+                            if (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->adicionaAparelho(
+                                    terreno->getHabitacao()->getZona(idZona)->getAparelho(idAparelho))) {
+                                processa();
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho [" << idAparelho <<
+                                      "] foi associado ao";
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "processador [" << idProcRegras << "].";
+                            } else {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao foi possivel associar o aparelho ao processador.";
+                            }
+                            return;
+                        }
+                    }
                 }
             } else {
                 sintaxe(s);
