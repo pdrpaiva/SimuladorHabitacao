@@ -61,6 +61,10 @@ void ProcessadorRegras::lePropriedade(Sensor *sensor) {
 }
 
 bool ProcessadorRegras::adicionaAparelho(Aparelho *aparelho) {
+    for (auto & aparelhoAssoc : aparelhosAssoc) {
+        if (aparelhoAssoc->getIdAparelho() == aparelho->getIdAparelho())
+            return false;
+    }
     aparelhosAssoc.push_back(aparelho);
     return true;
 }

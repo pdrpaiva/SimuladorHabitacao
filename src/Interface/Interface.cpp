@@ -862,7 +862,9 @@ void Interface::executaComandos(const std::string &comando) {
                                       "] foi associado ao";
                                 wInfo << move_to(0, iInfo++) << set_color(10) << "processador [" << idProcRegras << "].";
                             } else {
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao foi possivel associar o aparelho ao processador.";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "O aparelho [" << idAparelho <<
+                                      "] ja esta associado ";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "ao processador [" << idProcRegras << "].";
                             }
                             return;
                         }
