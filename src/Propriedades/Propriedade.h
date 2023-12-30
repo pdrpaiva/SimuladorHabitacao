@@ -14,10 +14,12 @@ private:
     string unidade;
     int min;
     int max;
-
 public:
     Propriedade(string nome, string unidade,int min, int max);
     virtual ~Propriedade();
+
+    void addValor(const int& valor);
+    void subValor(const int& valor);
 
     string getNome() const;
     string getUnidade() const;
@@ -27,3 +29,4 @@ public:
 
 
 #endif //TRABALHO_PROPRIEDADE_H
+

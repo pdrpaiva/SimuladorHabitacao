@@ -858,13 +858,13 @@ void Interface::executaComandos(const std::string &comando) {
                             if (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->adicionaAparelho(
                                     terreno->getHabitacao()->getZona(idZona)->getAparelho(idAparelho))) {
                                 processa();
-                                wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho [" << idAparelho <<
-                                      "] foi associado ao";
-                                wInfo << move_to(0, iInfo++) << set_color(10) << "processador [" << idProcRegras << "].";
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "O aparelho " << idAparelho <<
+                                      " foi associado ao";
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "processador " << idProcRegras << ".";
                             } else {
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "O aparelho [" << idAparelho <<
-                                      "] ja esta associado ";
-                                wInfo << move_to(0, iInfo++) << set_color(4) << "ao processador [" << idProcRegras << "].";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "O aparelho " << idAparelho <<
+                                      " ja esta associado ";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "ao processador " << idProcRegras << ".";
                             }
                             return;
                         }

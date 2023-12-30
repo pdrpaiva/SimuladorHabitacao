@@ -38,6 +38,8 @@ private:
     int linhaZona;
     int colunaZona;
     int posZona;
+
+    int instancia;
     vector<Sensor*> sensores;
     vector<ProcessadorRegras*> processadores;
     vector<Aparelho*> aparelhos;

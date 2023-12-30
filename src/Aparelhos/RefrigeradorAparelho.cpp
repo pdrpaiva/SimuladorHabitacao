@@ -3,7 +3,16 @@
 //
 
 #include "RefrigeradorAparelho.h"
+#include "../Zonas/Zona.h"
 
-RefrigeradorAparelho::RefrigeradorAparelho() : Aparelho("Refrigerador"){}
+RefrigeradorAparelho::RefrigeradorAparelho(Zona* zona) : Aparelho(zona,"Refrigerador"){}
 
 RefrigeradorAparelho::~RefrigeradorAparelho() {}
+
+void RefrigeradorAparelho::aoDesligar() {
+    getZona()->getPropriedade("Som")->subValor(20);
+}
+
+void RefrigeradorAparelho::aoLigar() {
+    //ainda temos q pensar
+}

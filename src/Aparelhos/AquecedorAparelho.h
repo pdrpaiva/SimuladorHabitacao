@@ -6,12 +6,16 @@
 #define TRABALHO_AQUECEDORAPARELHO_H
 #include "Aparelho.h"
 
+class Zona;
 class AquecedorAparelho : public Aparelho{
 private:
 
 public:
-    AquecedorAparelho();
+    AquecedorAparelho(Zona* zona);
     ~AquecedorAparelho();
+
+    void aoDesligar() override;
+    void aoLigar() override;
 };
 
 

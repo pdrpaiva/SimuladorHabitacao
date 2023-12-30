@@ -3,7 +3,20 @@
 //
 
 #include "AquecedorAparelho.h"
+#include "../Zonas/Zona.h"
 
-AquecedorAparelho::AquecedorAparelho() : Aparelho("Aquecedor"){}
+AquecedorAparelho::AquecedorAparelho(Zona* zona) : Aparelho(zona,"Aquecedor"){}
 
 AquecedorAparelho::~AquecedorAparelho() {}
+
+void AquecedorAparelho::aoDesligar() {
+    getZona()->getPropriedade("Som")->subValor(5);
+}
+
+void AquecedorAparelho::aoLigar() {
+    //ainda temos q pensar
+}
+
+
+
+

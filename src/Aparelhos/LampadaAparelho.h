@@ -6,12 +6,16 @@
 #define TRABALHO_LAMPADAAPARELHO_H
 #include "Aparelho.h"
 
+class Zona;
 class LampadaAparelho : public Aparelho{
 private:
 
 public:
-    LampadaAparelho();
+    LampadaAparelho(Zona* zona);
     ~LampadaAparelho();
+
+    void aoDesligar() override;
+    void aoLigar() override;
 };
 
 

@@ -6,12 +6,16 @@
 #define TRABALHO_ASPERSORAPARELHO_H
 #include "Aparelho.h"
 
+class Zona;
 class AspersorAparelho : public Aparelho{
 private:
 
 public:
-    AspersorAparelho();
+    AspersorAparelho(Zona* zona);
     ~AspersorAparelho();
+
+    void aoDesligar() override;
+    void aoLigar() override;
 };
 
 

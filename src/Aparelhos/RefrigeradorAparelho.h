@@ -6,12 +6,16 @@
 #define TRABALHO_REFRIGERADORAPARELHO_H
 #include "Aparelho.h"
 
+class Zona;
 class RefrigeradorAparelho : public Aparelho{
 private:
 
 public:
-    RefrigeradorAparelho();
+    RefrigeradorAparelho(Zona* zona);
     ~RefrigeradorAparelho();
+
+    void aoDesligar() override;
+    void aoLigar() override;
 };
 
 

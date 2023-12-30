@@ -13,6 +13,7 @@ Zona::Zona(int linha, int coluna) : linhaZona(linha),colunaZona(coluna){
     idZona = nextIdZona++;
     //nextPosAp = 1;
     //NextPosS = 1;
+    instancia = 0;
     propriedades[new Temperatura] = 0;
     propriedades[new Humidade] = 0;
     propriedades[new Luz] = 0;
@@ -63,13 +64,13 @@ bool Zona::adicionaSensor(const string& tipo) {
 
 bool Zona::adicionaAparelho(const string& tipo) {
     if(tipo == "a")
-        aparelhos.push_back(new AquecedorAparelho());
+        aparelhos.push_back(new AquecedorAparelho(this));
     else if(tipo == "s")
-        aparelhos.push_back(new AspersorAparelho());
+        aparelhos.push_back(new AspersorAparelho(this));
     else if(tipo == "r")
-        aparelhos.push_back(new RefrigeradorAparelho());
+        aparelhos.push_back(new RefrigeradorAparelho(this));
     else if(tipo == "l")
-        aparelhos.push_back(new LampadaAparelho());
+        aparelhos.push_back(new LampadaAparelho(this));
     else
         return false;
 

@@ -8,6 +8,7 @@
 #include <cctype>
 
 using namespace std;
+class Zona;
 
 class Aparelho {
 private:
@@ -15,16 +16,23 @@ private:
     static int nextIdAparelho;
     string tipo;
     bool ligado;
+    Zona* zona;
 public:
-    Aparelho(const string& tipo);
+    Aparelho(Zona* zona, const string& tipo);
     virtual ~Aparelho();
+
+    bool enviaComando(const string& comando);
+
+    virtual void aoLigar();
+    virtual void aoDesligar();
 
     //getters e setters
     const string &getIdAparelho() const;
     const string &getTipo() const;
     bool isLigado() const;
-    void setLigado();
-    void setDesligado();
+    void setLigado(bool ligado);
+    void setDesligado(bool ligado);
+    Zona *getZona() const;
 };
 
 

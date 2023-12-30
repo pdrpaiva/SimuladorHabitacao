@@ -9,11 +9,10 @@
 #include "Propriedade.h"
 using namespace std;
 
-
 class Temperatura: public Propriedade {
 public:
-Temperatura();
-~Temperatura() override;
+    Temperatura();
+    ~Temperatura() override;
 };
 
 

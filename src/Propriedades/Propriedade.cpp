@@ -8,6 +8,14 @@ using namespace std;
 Propriedade::Propriedade(string _nome, string _unidade, int _min, int _max)
 :nome(_nome), unidade(_unidade), min(_min), max(_max){}
 
+void Propriedade::subValor(const int &valor) {
+    //adiciona o valor ao int do mapa
+}
+
+void Propriedade::addValor(const int &valor) {
+    //adiciona o valor ao int do mapa
+}
+
 string Propriedade::getNome() const {return nome;}
 
 string Propriedade::getUnidade() const {return unidade;}
