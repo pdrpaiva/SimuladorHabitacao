@@ -1209,6 +1209,7 @@ void Interface::avanca(int it) {
                 }
                 if (ativar)
                     p->AtivaComando();
+                atualizaZona(z->getIdZona());
             }
         }
     }
