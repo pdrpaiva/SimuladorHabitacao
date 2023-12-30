@@ -61,9 +61,11 @@ public:
 
     Propriedade* getPropriedade(string nome);
     int alteraPropriedade(const string& nome,int valor);
+    int getValorProp(string nome) const;
 
     ProcessadorRegras* getProcessador(const string& idProc);
     Sensor* getSensor(const string& idSensor);
+    Sensor* getSensorByProp(const string& prop);
 
     //Getters e Setters
     int getIdZona() const;
@@ -74,7 +76,6 @@ public:
     int getNumAparelhos() const;
     void setPosZona(int pos);
     int getPosZona() const;
-    int getValorProp(string nome) const;
     //int getNextPosAp();
     //int getNextPosS();
 };

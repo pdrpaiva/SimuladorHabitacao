@@ -206,6 +206,14 @@ Sensor *Zona::getSensor(const string &idSensor) {
     return nullptr;
 }
 
+Sensor *Zona::getSensorByProp(const std::string &prop) {
+    for (auto & sensor : sensores) {
+        if (sensor->getTipo() == prop)
+            return sensor;
+    }
+    return nullptr;
+}
+
 ProcessadorRegras *Zona::getProcessador(const string &idProc) {
     for (auto & processador : processadores) {
         if (processador->getIdProcessador() == idProc)

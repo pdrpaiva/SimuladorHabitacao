@@ -361,6 +361,9 @@ void Interface::executaComandos(const std::string &comando) {
                             switch (terreno->getHabitacao()->getZona(idZona)->alteraPropriedade(nome,valor)) {
                                 case 1:
                                     wInfo << move_to(0, iInfo++) << set_color(10) << "O valor da propriedade " << nome << " foi atualizado.";
+                                    if (terreno->getHabitacao()->getZona(idZona)->getSensorByProp(nome) != nullptr) {
+                                        terreno->getHabitacao()->getZona(idZona)->getSensorByProp(nome)->setValor(valor);
+                                    }
                                     break;
                                 case 2:
                                     if (terreno->getHabitacao()->getZona(idZona)->getPropriedade(nome)->getMax() != 0)
