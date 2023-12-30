@@ -78,6 +78,7 @@ public:
     int getPosZona() const;
     //int getNextPosAp();
     //int getNextPosS();
+    static void setNextIdZona(int nextIdZona);
 };
 
 

@@ -281,6 +281,10 @@ int Zona::getValorProp(string nome) const {
     }
     return 0;
 }
+
+void Zona::setNextIdZona(int nextIdZona) {
+    Zona::nextIdZona = nextIdZona;
+}
 /*
 int Zona::getNextPosAp() {
     ++nextPosAp;

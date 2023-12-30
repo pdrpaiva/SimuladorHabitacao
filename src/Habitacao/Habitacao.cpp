@@ -12,7 +12,7 @@ using namespace std;
 using namespace term;
 
 Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas), instancia(0){
-
+    zonas[0]->setNextIdZona(1);
 }
 
 Habitacao::~Habitacao() {
