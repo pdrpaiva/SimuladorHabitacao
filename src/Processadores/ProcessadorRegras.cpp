@@ -69,6 +69,14 @@ const string &ProcessadorRegras::getComando() const {
     return comando;
 }
 
+const Regra *ProcessadorRegras::getRegra(const string &idRegra) const {
+    for (auto & regra : regras) {
+        if (regra->getIdRegra() == idRegra)
+            return regra;
+    }
+    return nullptr;
+}
+
 const vector<Regra *> &ProcessadorRegras::getRegras() const {
     return regras;
 }

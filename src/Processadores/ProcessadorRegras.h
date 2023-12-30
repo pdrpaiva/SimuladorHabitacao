@@ -31,6 +31,7 @@ public:
 
     const string &getIdProcessador() const;
     const string &getComando() const;
+    const Regra* getRegra(const string& idRegra) const;
     const vector<Regra *> &getRegras() const;
     int getNumRegras() const;
     void setComando(const string &comando);

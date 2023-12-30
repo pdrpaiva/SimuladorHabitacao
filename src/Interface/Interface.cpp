@@ -795,7 +795,13 @@ void Interface::executaComandos(const std::string &comando) {
                         if (terreno->getHabitacao()->getZona(idZona) == nullptr) {
                             wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                             return;
-                        } else {
+                        } else if (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Esse processador nao existe.";
+                        }
+                        else if (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->getRegra(idRegra) == nullptr){
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Essa regra nao existe.";
+                        }
+                        else{
                             switch (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->RemoveRegra(
                                     idRegra)) {
                                 case 1:
