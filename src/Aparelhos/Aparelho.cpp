@@ -21,12 +21,12 @@ bool Aparelho::enviaComando(const string &comando) {
 
     if(comando == "liga"){
         if(ligado) return false;
-        setLigado(ligado);
+        setLigado();
         aoLigar();
     }
     else if(comando == "desliga"){
         if(!ligado) return false;
-        setDesligado(ligado);
+        setDesligado();
         aoDesligar();
     }
 
@@ -37,12 +37,12 @@ const string &Aparelho::getTipo() const {
     return tipo;
 }
 
-void Aparelho::setLigado(bool ligado) {
+void Aparelho::setLigado() {
     Aparelho::ligado = true;
     idAparelho[0] = toupper(Aparelho::idAparelho[0]);
 }
 
-void Aparelho::setDesligado(bool ligado) {
+void Aparelho::setDesligado() {
     Aparelho::ligado = false;
     idAparelho[0] = tolower(Aparelho::idAparelho[0]);
 }

@@ -29,8 +29,8 @@ public:
     //getters e setters
     const string &getIdAparelho() const;
     const string &getTipo() const;
-    void setLigado(bool ligado);
-    void setDesligado(bool ligado);
+    void setLigado();
+    void setDesligado();
     Zona *getZona() const;
 };
 
