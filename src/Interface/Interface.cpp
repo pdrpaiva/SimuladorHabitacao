@@ -1347,7 +1347,7 @@ bool Interface::existeZSPA(const int &idZona, const std::string &id){
         }
 
         if(id[0] != 'p' && id[0] != 's' && id[0] != 'a' && id[0] != 'A'){
-            wInfo << move_to(0, iInfo++) << set_color(4) << "ID do invalido.";
+            wInfo << move_to(0, iInfo++) << set_color(4) << "ID invalido.";
             return false;
         }
 
