@@ -7,14 +7,9 @@
 #include "Sensor.h"
 
 class LuminosidadeSensor : public Sensor{
-private:
-    float luz; //lumens
 public:
-    LuminosidadeSensor();
-
-    float getLuz() const;
-
-    void setLuz(float luz);
+    LuminosidadeSensor(int valor);
+    ~LuminosidadeSensor();
 };
 
 

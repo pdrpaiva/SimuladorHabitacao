@@ -7,12 +7,9 @@
 #include "Sensor.h"
 
 class TemperaturaSensor : public Sensor{
-private:
-    float temperatura; //celsius
 public:
-    TemperaturaSensor();
-    double getTemperatura() const;
-    void setTemperatura(float temperatura);
+    TemperaturaSensor(int valor);
+    ~TemperaturaSensor();
 };
 
 

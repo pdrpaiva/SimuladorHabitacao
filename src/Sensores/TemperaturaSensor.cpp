@@ -4,12 +4,6 @@
 
 #include "TemperaturaSensor.h"
 
-TemperaturaSensor::TemperaturaSensor() : Sensor("Temperatura"), temperatura(0.0) {}
+TemperaturaSensor::TemperaturaSensor(int _valor) : Sensor("Temperatura", _valor) {}
 
-double TemperaturaSensor::getTemperatura() const {
-    return temperatura;
-}
-
-void TemperaturaSensor::setTemperatura(float temperatura) {
-    TemperaturaSensor::temperatura = temperatura;
-}
+TemperaturaSensor::~TemperaturaSensor() {}

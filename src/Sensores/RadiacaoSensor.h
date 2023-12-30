@@ -7,14 +7,9 @@
 #include "Sensor.h"
 
 class RadiacaoSensor : public Sensor{
-private:
-    float radiacao; //Becquerel
 public:
-    RadiacaoSensor();
-
-    float getRadiacao() const;
-
-    void setRadiacao(float radiacao);
+    RadiacaoSensor(int valor);
+    ~RadiacaoSensor();
 };
 
 

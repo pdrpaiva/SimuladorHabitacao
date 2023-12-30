@@ -4,12 +4,6 @@
 
 #include "MovimentoSensor.h"
 
-MovimentoSensor::MovimentoSensor() : Sensor("Movimento"){}
+MovimentoSensor::MovimentoSensor(int _valor) : Sensor("Movimento", _valor){}
 
-float MovimentoSensor::getVibracao() const {
-    return vibracao;
-}
-
-void MovimentoSensor::setVibracao(float vibracao) {
-    MovimentoSensor::vibracao = vibracao;
-}
+MovimentoSensor::~MovimentoSensor() {}

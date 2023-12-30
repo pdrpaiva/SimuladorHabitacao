@@ -42,19 +42,19 @@ Zona::~Zona() {
 
 bool Zona::adicionaSensor(const string& tipo) {
     if(tipo == "t")
-        sensores.push_back(new TemperaturaSensor());
+        sensores.push_back(new TemperaturaSensor(Zona::getValorProp("Temperatura")));
     else if(tipo == "v")
-        sensores.push_back(new MovimentoSensor());
+        sensores.push_back(new MovimentoSensor(Zona::getValorProp("Vibracao")));
     else if(tipo == "m")
-        sensores.push_back(new LuminosidadeSensor());
+        sensores.push_back(new LuminosidadeSensor(Zona::getValorProp("Luz")));
     else if(tipo == "d")
-        sensores.push_back(new RadiacaoSensor());
+        sensores.push_back(new RadiacaoSensor(Zona::getValorProp("Radiacao")));
     else if(tipo == "h")
-        sensores.push_back(new HumidadeSensor());
+        sensores.push_back(new HumidadeSensor(Zona::getValorProp("Humidade")));
     else if(tipo == "o")
-        sensores.push_back(new SomSensor());
+        sensores.push_back(new SomSensor(Zona::getValorProp("Som")));
     else if(tipo == "f")
-        sensores.push_back(new FumoSensor());
+        sensores.push_back(new FumoSensor(Zona::getValorProp("Fumo")));
     else
         return false;
 
@@ -264,6 +264,14 @@ void Zona::setPosZona(int pos) {
 
 int Zona::getPosZona() const {
     return posZona;
+}
+
+int Zona::getValorProp(string nome) const {
+    for (auto & propriedade : propriedades) {
+        if (propriedade.first->getNome() == nome)
+            return propriedade.second;
+    }
+    return 0;
 }
 /*
 int Zona::getNextPosAp() {

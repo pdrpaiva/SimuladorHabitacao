@@ -7,12 +7,9 @@
 #include "Sensor.h"
 
 class FumoSensor : public Sensor{
-private:
-    float fumo; //%
 public:
-    FumoSensor();
-    float getFumo() const;
-    void setFumo(float fumo);
+    FumoSensor(int valor);
+    ~FumoSensor();
 };
 
 

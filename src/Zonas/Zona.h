@@ -74,6 +74,7 @@ public:
     int getNumAparelhos() const;
     void setPosZona(int pos);
     int getPosZona() const;
+    int getValorProp(string nome) const;
     //int getNextPosAp();
     //int getNextPosS();
 };

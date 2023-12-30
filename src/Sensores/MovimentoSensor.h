@@ -7,14 +7,9 @@
 #include "Sensor.h"
 
 class MovimentoSensor : public Sensor{
-private:
-    float vibracao; //hertz
 public:
-    MovimentoSensor();
-
-    float getVibracao() const;
-
-    void setVibracao(float vibracao);
+    MovimentoSensor(int valor);
+    ~MovimentoSensor();
 };
 
 

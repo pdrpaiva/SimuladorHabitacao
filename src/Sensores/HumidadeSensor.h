@@ -7,12 +7,9 @@
 #include "Sensor.h"
 
 class HumidadeSensor : public Sensor {
-private:
-    float humidade; // %
 public:
-    HumidadeSensor();
-    float getHumidade() const;
-    void setHumidade(float humidade);
+    HumidadeSensor(int valor);
+    ~HumidadeSensor();
 };
 
 

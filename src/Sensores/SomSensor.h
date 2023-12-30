@@ -7,14 +7,9 @@
 #include "Sensor.h"
 
 class SomSensor : public Sensor{
-private:
-    float som; //decibeis
 public:
-    SomSensor();
-
-    float getSom() const;
-
-    void setSom(float som);
+    SomSensor(int valor);
+    ~SomSensor();
 };
 
 

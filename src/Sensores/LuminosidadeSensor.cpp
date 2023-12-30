@@ -4,12 +4,6 @@
 
 #include "LuminosidadeSensor.h"
 
-LuminosidadeSensor::LuminosidadeSensor() : Sensor("Luminosidade"){}
+LuminosidadeSensor::LuminosidadeSensor(int _valor) : Sensor("Luminosidade", _valor){}
 
-float LuminosidadeSensor::getLuz() const {
-    return luz;
-}
-
-void LuminosidadeSensor::setLuz(float luz) {
-    LuminosidadeSensor::luz = luz;
-}
+LuminosidadeSensor::~LuminosidadeSensor() {}

@@ -4,12 +4,6 @@
 
 #include "HumidadeSensor.h"
 
-HumidadeSensor::HumidadeSensor() : Sensor("Humidade"){}
+HumidadeSensor::HumidadeSensor(int _valor) : Sensor("Humidade", _valor){}
 
-float HumidadeSensor::getHumidade() const {
-    return humidade;
-}
-
-void HumidadeSensor::setHumidade(float humidade) {
-    HumidadeSensor::humidade = humidade;
-}
+HumidadeSensor::~HumidadeSensor() {}

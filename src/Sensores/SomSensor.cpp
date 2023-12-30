@@ -4,12 +4,6 @@
 
 #include "SomSensor.h"
 
-SomSensor::SomSensor() : Sensor("Som"){}
+SomSensor::SomSensor(int _valor) : Sensor("Som", _valor){}
 
-float SomSensor::getSom() const {
-    return som;
-}
-
-void SomSensor::setSom(float som) {
-    SomSensor::som = som;
-}
+SomSensor::~SomSensor() {}

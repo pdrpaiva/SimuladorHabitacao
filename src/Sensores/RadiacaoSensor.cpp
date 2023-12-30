@@ -4,12 +4,6 @@
 
 #include "RadiacaoSensor.h"
 
-RadiacaoSensor::RadiacaoSensor() : Sensor("Radiacao"){}
+RadiacaoSensor::RadiacaoSensor(int _valor) : Sensor("Radiacao", _valor){}
 
-float RadiacaoSensor::getRadiacao() const {
-    return radiacao;
-}
-
-void RadiacaoSensor::setRadiacao(float radiacao) {
-    RadiacaoSensor::radiacao = radiacao;
-}
+RadiacaoSensor::~RadiacaoSensor(){}
