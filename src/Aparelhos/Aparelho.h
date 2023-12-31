@@ -18,11 +18,12 @@ private:
     string comando;
     bool ligado;
     Zona* zona;
+    int counterLigado;
 public:
     Aparelho(Zona* zona, const string& tipo);
     virtual ~Aparelho();
 
-    bool recebeComando(const string& comando);
+    virtual bool recebeComando(const string& comando);
 
     virtual void aoLigar() = 0;
     virtual void aoDesligar() = 0;
@@ -30,10 +31,15 @@ public:
     //getters e setters
     const string &getIdAparelho() const;
     const string &getTipo() const;
+    bool isLigado() const;
     void setLigado();
     void setDesligado();
+    int getCounterLigado() const;
+    void incrementaCounterLigado();
+    void resetCounterLigado();
     Zona *getZona() const;
     const string &getComando() const;
+    void setComando(const string &comando);
     static void setNextIdAparelho(int nextIdAparelho);
 };
 

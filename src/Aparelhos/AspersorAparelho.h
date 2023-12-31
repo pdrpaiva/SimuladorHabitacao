@@ -16,6 +16,7 @@ public:
 
     void aoDesligar() override;
     void aoLigar() override;
+    bool recebeComando(const string& comando) override;
 };
 
 
