@@ -98,7 +98,7 @@ void Interface::executaComandos(const std::string &comando) {
                 sintaxe(s,limite);
             } else {
                 processa();
-
+                limpaLogs();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 if(existeHab){
                     delete terreno->getHabitacao();
@@ -132,6 +132,7 @@ void Interface::executaComandos(const std::string &comando) {
                 sintaxe(s);
             } else {
                 processa();
+                limpaLogs();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
                 wInfo << move_to(0, iInfo++) << set_color(10) << "Habitacao eliminada.";
                 delete terreno->getHabitacao();

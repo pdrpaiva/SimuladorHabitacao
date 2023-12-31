@@ -14,8 +14,9 @@ void AquecedorAparelho::aoDesligar() {
 }
 
 void AquecedorAparelho::aoLigar() {
-    //ainda temos q pensar
+
 }
+
 
 
 
