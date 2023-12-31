@@ -79,7 +79,7 @@ void Interface::executaComandos(const std::string &comando) {
                     processa();
                     avanca(n);
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou [" << n << "] instantes.";
+                    wInfo << move_to(0, iInfo++) << set_color(10) << "Avancou " << n << " instantes.";
                     terreno->getHabitacao()->setInstancia(terreno->getHabitacao()->getInstancia() + n);
                     return;
                 }
@@ -459,7 +459,8 @@ void Interface::executaComandos(const std::string &comando) {
                                 if (tipoComando == "a" || tipoComando == "s" || tipoComando == "r" ||
                                     tipoComando == "l") {
                                     if (terreno->getHabitacao()->getZona(idZona)->adicionaAparelho(tipoComando)) {
-                                        wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um aparelho na zona " << idZona << ".";
+                                        wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um "
+                                        << terreno->getHabitacao()->getZona(idZona)->getAparelhos().back()->getTipo() << " na zona " << idZona << ".";
                                         //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosAp(),3) << set_color(14) << tipoComando;
                                         atualizaZona(idZona);
                                     } else {
@@ -476,7 +477,9 @@ void Interface::executaComandos(const std::string &comando) {
                                     tipoComando == "d" || tipoComando == "h" || tipoComando == "o" ||
                                     tipoComando == "f") {
                                     if (terreno->getHabitacao()->getZona(idZona)->adicionaSensor(tipoComando)) {
-                                        wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um sensor na zona " << idZona << ".";
+                                        wInfo << move_to(0, iInfo++) << set_color(10) << "Foi adicionado um sensor de "
+                                        << terreno->getHabitacao()->getZona(idZona)->getSensores().back()->getTipo();
+                                        wInfo << move_to(0, iInfo++) << set_color(10) << "na zona " << idZona << ".";
                                         //wZonas[terreno->getHabitacao()->getZona(idZona)->getPosZona()] << move_to(terreno->getHabitacao()->getZona(idZona)->getNextPosS(),1) << set_color(14) << tipoComando;
                                         atualizaZona(idZona);
                                     } else {
