@@ -15,7 +15,7 @@ private:
     int habLinhas;
     int habColunas;
 
-    int instancia = 0;
+    int instancia = 1;
 public:
     Habitacao(int nLinhas, int nColunas);
     ~Habitacao();

@@ -83,6 +83,8 @@ public:
     //int getNextPosAp();
     //int getNextPosS();
     static void setNextIdZona(int nextIdZona);
+    int getInstancia() const;
+    void setInstancia(int instancia);
 };
 
 

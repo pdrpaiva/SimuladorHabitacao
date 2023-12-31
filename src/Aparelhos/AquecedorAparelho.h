@@ -16,6 +16,7 @@ public:
 
     void aoDesligar() override;
     void aoLigar() override;
+    void atualiza() override;
 };
 
 

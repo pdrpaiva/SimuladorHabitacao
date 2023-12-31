@@ -6,6 +6,7 @@
 #define TRABALHO_APARELHO_H
 #include <string>
 #include <cctype>
+#include <sstream>
 
 using namespace std;
 class Zona;
@@ -18,7 +19,7 @@ private:
     string comando;
     bool ligado;
     Zona* zona;
-    int counterLigado;
+    int counterLigado = 0;
 public:
     Aparelho(Zona* zona, const string& tipo);
     virtual ~Aparelho();
@@ -27,6 +28,7 @@ public:
 
     virtual void aoLigar() = 0;
     virtual void aoDesligar() = 0;
+    virtual void atualiza() = 0;
 
     //getters e setters
     const string &getIdAparelho() const;

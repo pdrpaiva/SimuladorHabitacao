@@ -20,17 +20,19 @@ bool Aparelho::recebeComando(const string &comando) {
     //return false ja esta ligado/desligado
 
     if(comando == "liga"){
+        counterLigado++;
         if(ligado) {
-            incrementaCounterLigado();
+            atualiza();
             return false;
         }
-        setLigado();
         aoLigar();
+        setLigado();
     }
     else if(comando == "desliga"){
         if(!ligado) return false;
-        setDesligado();
         aoDesligar();
+        setDesligado();
+        counterLigado = 0;
     }
 
     this->comando = comando;

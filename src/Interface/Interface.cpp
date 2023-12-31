@@ -1229,6 +1229,8 @@ void Interface::avanca(int it) {
                 }
                 if (ativar)
                     p->AtivaComando();
+                    //wComandos << move_to(0, 2) << set_color(4) << p->AtivaComando();
+
                 atualizaZona(z->getIdZona());
             }
         }
