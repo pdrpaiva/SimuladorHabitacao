@@ -12,3 +12,11 @@ bool ForaRegra::avaliar() {
 
     return false;
 }
+
+int ForaRegra::getValorX() const {
+    return valorX;
+}
+
+int ForaRegra::getValorY() const {
+    return valorY;
+}

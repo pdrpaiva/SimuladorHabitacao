@@ -14,6 +14,7 @@ public:
     IgualRegra(const string& nome, Sensor* sensor,const int& x);
     ~IgualRegra() = default;
     bool avaliar() override;
+    int getValorX() const override;
 };
 
 

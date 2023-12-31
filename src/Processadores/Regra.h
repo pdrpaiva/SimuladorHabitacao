@@ -24,6 +24,8 @@ public:
     const string &getNome() const;
     Sensor *getSensorAssoc() const;
     static void setNextIdRegra(int nextIdRegra);
+    virtual int getValorX() const;
+    virtual int getValorY() const;
 };
 
 

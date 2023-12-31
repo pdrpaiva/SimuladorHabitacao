@@ -14,6 +14,7 @@ public:
     MenorRegra(const string& nome, Sensor* sensor,const int& x);
     ~MenorRegra() = default;
     bool avaliar() override;
+    int getValorX() const override;
 };
 
 

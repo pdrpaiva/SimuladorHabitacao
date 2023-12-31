@@ -30,3 +30,11 @@ const string &Regra::getNome() const {
 void Regra::setNextIdRegra(int nextIdRegra) {
     Regra::nextIdRegra = nextIdRegra;
 }
+
+int Regra::getValorX() const {
+    return 0;
+}
+
+int Regra::getValorY() const {
+    return 0;
+}

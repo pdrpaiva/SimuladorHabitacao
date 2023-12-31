@@ -15,6 +15,8 @@ public:
     ForaRegra(const string& nome, Sensor* sensor,const int& x,const int& y);
     ~ForaRegra() = default;
     bool avaliar() override;
+    int getValorX() const override;
+    int getValorY() const override;
 };
 
 

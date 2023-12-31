@@ -12,3 +12,8 @@ bool MaiorRegra::avaliar() {
 
     return false;
 }
+
+int MaiorRegra::getValorX() const {
+    return valorX;
+}
+

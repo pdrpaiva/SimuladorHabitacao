@@ -14,3 +14,7 @@ bool IgualRegra::avaliar() {
 
     return false;
 }
+
+int IgualRegra::getValorX() const {
+    return valorX;
+}

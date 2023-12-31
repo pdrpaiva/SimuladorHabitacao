@@ -14,3 +14,13 @@ bool EntreRegra::avaliar() {
 
     return false;
 }
+
+int EntreRegra::getValorY() const {
+    return valorY;
+}
+
+int EntreRegra::getValorX() const {
+    return valorX;
+}
+
+

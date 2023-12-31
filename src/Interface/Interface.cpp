@@ -798,7 +798,16 @@ void Interface::executaComandos(const std::string &comando) {
                                 wInfo << move_to(0, iInfo++) << set_color(14) << "Regras do processador " << idProcRegras << " da zona " << idZona << ":";
                                 if (!terreno->getHabitacao()->getZona(idZona)->getSensores().empty()) {
                                     for (auto &regra: terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras)->getRegras()) {
-                                        wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<regra->getIdRegra() << " | Sensor: " << regra->getSensorAssoc()->getIdSensor() << " " << regra->getSensorAssoc()->getTipo() << " | " << regra->getNome();
+                                        if(regra->getNome() == "entre" || regra->getNome() == "fora"){
+                                            wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<regra->getIdRegra()
+                                            << " | " << regra->getSensorAssoc()->getIdSensor() << " " << regra->getSensorAssoc()->getTipo()
+                                            << " | " << regra->getNome() << " (" << regra->getValorX()  << " e " << regra->getValorY() << ")";
+                                        }
+                                        else {
+                                            wInfo << move_to(0, iInfo++) << set_color(11) << "- " <<regra->getIdRegra()
+                                                  << " | " << regra->getSensorAssoc()->getIdSensor() << " " << regra->getSensorAssoc()->getTipo()
+                                                  << " | " << regra->getNome() << " (" << regra->getValorX() << ")";
+                                        }
                                     }
                                 }
                                 else {

@@ -12,3 +12,7 @@ bool MenorRegra::avaliar() {
 
     return false;
 }
+
+int MenorRegra::getValorX() const {
+    return valorX;
+}

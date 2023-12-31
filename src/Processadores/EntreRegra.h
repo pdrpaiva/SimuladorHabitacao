@@ -15,6 +15,9 @@ public:
     EntreRegra(const string& nome, Sensor* sensor,const int& x,const int& y);
     ~EntreRegra() = default;
     bool avaliar() override;
+    int getValorY() const override;
+    int getValorX() const override;
+
 };
 
 #endif //TRABALHO_ENTREREGRA_H
