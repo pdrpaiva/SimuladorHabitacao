@@ -658,7 +658,6 @@ void Interface::executaComandos(const std::string &comando) {
                             break;
                         }
                     }
-
                     if(!sensorExiste){
                         wInfo << move_to(0, iInfo++) << set_color(4) << "O sensor " << idSensor << " nao existe.";
                     }
@@ -670,7 +669,11 @@ void Interface::executaComandos(const std::string &comando) {
                             if (terreno->getHabitacao()->getZona(idZona) == nullptr) {
                                 wInfo << move_to(0, iInfo++) << set_color(4) << "Essa zona nao existe.";
                                 return;
-                            } else {
+                            }
+                            if (terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras) == nullptr) {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Esse processador nao existe.";
+                                return;
+                            }else {
                                 if (regra == "entre" || regra == "fora") {
                                     if (iss >> x >> y) {
                                         if (iss >> extra) {
