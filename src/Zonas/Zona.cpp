@@ -70,12 +70,12 @@ bool Zona::adicionaSensor(const string& tipo) {
 bool Zona::adicionaAparelho(const string& tipo) {
     if(tipo == "a")
         aparelhos.push_back(new AquecedorAparelho(this));
-    /*else if(tipo == "s")
-        aparelhos.push_back(new AspersorAparelho(this));
+    else if(tipo == "s")
+       aparelhos.push_back(new AspersorAparelho(this));
     else if(tipo == "r")
         aparelhos.push_back(new RefrigeradorAparelho(this));
     else if(tipo == "l")
-        aparelhos.push_back(new LampadaAparelho(this));*/
+        aparelhos.push_back(new LampadaAparelho(this));
     else
         return false;
 

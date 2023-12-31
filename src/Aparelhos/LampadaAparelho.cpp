@@ -16,3 +16,7 @@ void LampadaAparelho::aoDesligar() {
 void LampadaAparelho::aoLigar() {
     //ainda temos q pensar
 }
+
+void LampadaAparelho::atualiza() {
+
+}

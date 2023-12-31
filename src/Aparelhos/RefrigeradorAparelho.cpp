@@ -16,3 +16,7 @@ void RefrigeradorAparelho::aoDesligar() {
 void RefrigeradorAparelho::aoLigar() {
     //ainda temos q pensar
 }
+
+void RefrigeradorAparelho::atualiza() {
+
+}

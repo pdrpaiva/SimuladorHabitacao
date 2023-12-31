@@ -49,3 +49,7 @@ bool AspersorAparelho::recebeComando(const string &comando) {
 
     return true;
 }
+
+void AspersorAparelho::atualiza() {
+
+}
