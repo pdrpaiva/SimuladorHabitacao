@@ -6,4 +6,4 @@ as propriedades só estão a ser alteradas se o sensor estiver associado ao proc
 
 min e max das propriedades, em alguns construtores há propriedades com valor min 0 e max 0 também
 
-uma propriedade de uma zona só é visivel se a zona tiver um sensor para essa propriedade? 
+o valor do sensor qnd se faz zcomp nao essta a funcionnar
