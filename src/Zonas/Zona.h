@@ -51,6 +51,7 @@ public:
     bool adicionaSensor(const string& tipo);
     bool adicionaAparelho(const string& tipo);
     bool adicionaProcessador(const string& comando);
+    bool restauraProcessador(ProcessadorRegras* proc);
 
     int removeComp(const string& tipo, const string& idComp);
 

@@ -23,6 +23,7 @@ private:
     vector<Aparelho*> aparelhosAssoc;
 public:
     ProcessadorRegras(Zona* zona, const string& comando);
+    ProcessadorRegras(ProcessadorRegras& original);
 
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x);
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x, const int& y);
@@ -40,6 +41,7 @@ public:
     void AtivaComando();
     static void setNextIdProcessador(int nextIdProcessador);
     const vector<Aparelho *> &getAparelhosAssoc() const;
+    Zona *getZona() const;
 };
 
 

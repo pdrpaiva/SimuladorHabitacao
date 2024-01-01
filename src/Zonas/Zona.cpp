@@ -89,6 +89,11 @@ bool Zona::adicionaProcessador(const string &comando) {
     return true;
 }
 
+bool Zona::restauraProcessador(ProcessadorRegras *proc) {
+    processadores.push_back(new ProcessadorRegras(*proc));
+    return true;
+}
+
 int Zona::removeComp(const string& tipo, const string& idComp) {
     //return 1 - válido
     //return 2 - nao ha sensores/aparelhos/processadores

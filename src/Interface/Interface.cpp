@@ -1026,21 +1026,34 @@ void Interface::executaComandos(const std::string &comando) {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
-            int idZona, idProcRegras;
-            string nome;
+            int idZona;
+            string idProcRegras, nomeSave;
             string s = "Uso correto: psalva <ID zona> <ID proc. regras> <nome>";
 
-            if (iss >> idZona >> idProcRegras >> nome) {
+            if (iss >> idZona >> idProcRegras >> nomeSave) {
                 string extra;
                 if (iss >> extra) {
                     sintaxe(s);
                 } else {
-                    processa();
-                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Regras do processador [" << idProcRegras
-                          << "] da zona [" << idZona << "] ";
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "guardadas [" << nome << "] na memoria.";
-                    return;
+                    bool encontrou = false;
+                    for(auto &ps : terreno->getHabitacao()->getProcGuardados()){
+                        if(ps.first == nomeSave)
+                            encontrou = true;
+                    }
+                    if(encontrou){
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "Ja existe um processador guardado com esse nome";
+                    }
+                    else {
+                        if(existeZSPA(idZona,idProcRegras)){
+                            processa();
+                            terreno->getHabitacao()->guardaProc(nomeSave,terreno->getHabitacao()->getZona(idZona)->getProcessador(idProcRegras));
+                            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                            wInfo << move_to(0, iInfo++) << set_color(10) << "O processador " << idProcRegras
+                                  << " da zona " << idZona;
+                            wInfo << move_to(0, iInfo++) << set_color(10) << " foi guardado na memoria.";
+                            return;
+                        }
+                    }
                 }
             } else {
                 sintaxe(s);
@@ -1059,16 +1072,28 @@ void Interface::executaComandos(const std::string &comando) {
                 if (iss >> extra) {
                     sintaxe(s);
                 } else {
-                    processa();
                     wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Processador [" << nome
-                          << "] reposto com sucesso.";
-                    return;
+
+                    if(terreno->getHabitacao()->getProcGuardado(nome) == nullptr){
+                        wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum processador guardado com esse nome";
+                    }
+                    else {
+                        processa();
+                        int idZonaProc = terreno->getHabitacao()->getProcGuardado(nome)->getZona()->getIdZona();
+                        bool existeZona = false;
+                        if(existeZSPA(idZonaProc)){
+                            terreno->getHabitacao()->getZona(idZonaProc)->restauraProcessador(terreno->getHabitacao()->getProcGuardado(nome));
+                            wInfo << move_to(0, iInfo++) << set_color(10) << "Processador " << nome << " reposto com sucesso.";
+                            atualizaZona(idZonaProc);
+                            return;
+                        }
+                    }
                 }
             } else {
                 sintaxe(s);
             }
         }
+        return;
     }
     else if (cmd == "prem") {
         if (!existeHab) {
@@ -1083,10 +1108,19 @@ void Interface::executaComandos(const std::string &comando) {
                     sintaxe(s);
                 } else {
                     processa();
-                    wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "Copia [" << nome
-                          << "] com as regras do processador ";
-                    wInfo << move_to(0, iInfo++) << set_color(10) << "eliminada da memoria.";
+                    switch (terreno->getHabitacao()->apagaCopiaProc(nome)) {
+                        case 1:
+                            wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                            wInfo << move_to(0, iInfo++) << set_color(10) << "A copia " << nome << " foi eliminada da memoria.";
+                            break;
+                        case 2:
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum processor guardado em memoria.";
+                            break;
+
+                        case 3:
+                            wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existe nenhum processor guardado com esse nome";
+                            break;
+                    }
                     return;
                 }
             } else {
@@ -1106,10 +1140,22 @@ void Interface::executaComandos(const std::string &comando) {
             } else {
                 processa();
                 wInfo << move_to(0, iInfo++) << set_color(0) << comando;
-                wInfo << move_to(0, iInfo++) << set_color(10) << "Copias de processadores guardadas em memoria:";
-                return;
+
+                if(terreno->getHabitacao()->getProcGuardados().empty())
+                    wInfo << move_to(0, iInfo++) << set_color(4) << "Nao existem processadores guardados.";
+                else{
+                    limpaLogs();
+                    wInfo << move_to(0, iInfo++) << set_color(11) << "Processadores guardados em memoria:";
+                    for (auto &p: terreno->getHabitacao()->getProcGuardados()) {
+                        iInfo++;
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Nome da Copia: " << p.first;
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Id do Processador: " << p.second->getIdProcessador();
+                        wInfo << move_to(0, iInfo++) << set_color(11) << "Id da Zona: " << p.second->getZona()->getIdZona();
+                    }
+                }
             }
         }
+        return;
     }
     else if (cmd == "exec") {
         string nomeFich;

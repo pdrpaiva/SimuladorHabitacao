@@ -59,6 +59,42 @@ int Habitacao::removeZona(int idZona) {
     return 3;
 }
 
+bool Habitacao::guardaProc(const string &nomeSave, ProcessadorRegras* proc) {
+    procGuardados.insert(make_pair(nomeSave,new ProcessadorRegras(*proc)));
+    return true;
+}
+
+int Habitacao::apagaCopiaProc(const string &nomeSave) {
+    //return 1 - apagado
+    //return 2 - nao ha processadores guardados
+    //return 3 - nao existe nenhum processador guardado com esse nome
+
+    if(getProcGuardados().empty())
+        return 2;
+
+    if(getProcGuardado(nomeSave) == nullptr)
+        return 3;
+
+    auto it = procGuardados.find(nomeSave);
+    if (it != procGuardados.end()) {
+        delete it->second;
+        procGuardados.erase(it);
+        return 1;
+    }
+
+    return 3;
+}
+
+
+ProcessadorRegras *Habitacao::getProcGuardado(const string &nome) {
+    for (auto & proc : procGuardados) {
+        if (proc.first == nome)
+            return proc.second;
+    }
+    return nullptr;
+}
+
+
 const vector<Zona *> &Habitacao::getZonas() const {
     return zonas;
 }
@@ -85,4 +121,8 @@ Zona* Habitacao::getZona(int idZona) {
             return zona;
     }
     return nullptr;
+}
+
+const map<string, ProcessadorRegras *> &Habitacao::getProcGuardados() const {
+    return procGuardados;
 }

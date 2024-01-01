@@ -23,6 +23,15 @@ ProcessadorRegras::ProcessadorRegras(Zona* zona, const string &comando) : zona(z
     }
 }
 
+ProcessadorRegras::ProcessadorRegras(ProcessadorRegras &original) {
+    idProcessador = original.idProcessador;
+    comando = original.comando;
+    zona = original.zona;
+    for(auto &r : original.regras){
+        regras.push_back(r);
+    }
+}
+
 bool ProcessadorRegras::adicionaRegra(const string &regra, Sensor* sensor, const int &x) {
     if (regra == "igual_a")
         regras.push_back(new IgualRegra(regra,sensor,x));
@@ -151,4 +160,8 @@ void ProcessadorRegras::setNextIdProcessador(int nextIdProcessador) {
 
 const vector<Aparelho *> &ProcessadorRegras::getAparelhosAssoc() const {
     return aparelhosAssoc;
+}
+
+Zona *ProcessadorRegras::getZona() const {
+    return zona;
 }

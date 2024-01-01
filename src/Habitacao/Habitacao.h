@@ -16,12 +16,17 @@ private:
     int habColunas;
 
     int instancia = 1;
+
+    map<string, ProcessadorRegras*> procGuardados;
 public:
     Habitacao(int nLinhas, int nColunas);
     ~Habitacao();
 
     int adicionaZona(int linha, int coluna);
     int removeZona(int idZona);
+    bool guardaProc(const string& nomeSave, ProcessadorRegras* proc);
+    int apagaCopiaProc(const string& nomeSave);
+    ProcessadorRegras* getProcGuardado(const string& nome);
 
     const vector<Zona *> &getZonas() const;
     Zona* getZona(int idZona);
@@ -31,6 +36,7 @@ public:
     void setInstancia(int instancia);
     int getHabLinhas() const;
     int getHabColunas() const;
+    const map<string, ProcessadorRegras *> &getProcGuardados() const;
 };
 
 
