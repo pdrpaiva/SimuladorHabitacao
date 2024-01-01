@@ -1241,9 +1241,9 @@ void Interface::avanca(int it) {
                     }
                     if (ativar)
                         p->AtivaComando();
+                    else
+                        a->recebeComando(a->getComando());
                 }
-                if (!aparelhoAssoc)
-                    a->recebeComando(a->getComando());
             }
             atualizaZona(z->getIdZona());
         }
