@@ -22,6 +22,7 @@ void AquecedorAparelho::aoLigar() {
 }
 
 void AquecedorAparelho::atualiza() {
+    incrementaCounterLigado();
     if(getZona()->getValorProp("Temperatura") <= 50) {
         if(getCounterLigado() % 3 == 0){
             getZona()->alteraPropriedade("Temperatura",getZona()->getValorProp("Temperatura")+1);

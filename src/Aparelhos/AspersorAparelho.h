@@ -9,7 +9,7 @@
 class Zona;
 class AspersorAparelho : public Aparelho{
 private:
-
+    int counterdesligado;
 public:
     AspersorAparelho(Zona* zona);
     ~AspersorAparelho();
@@ -18,6 +18,9 @@ public:
     void aoLigar() override;
     void atualiza() override;
     bool recebeComando(const string& comando) override;
+    void incrementaCounterDesligado();
+    int getCounterDesligado() const;
+    void resetCounterDesligado();
 };
 
 

@@ -14,10 +14,13 @@ void RefrigeradorAparelho::aoDesligar() {
 }
 
 void RefrigeradorAparelho::aoLigar() {
-    getZona()->alteraPropriedade("Som",getZona()->getValorProp("Som")+20);
+    
 }
 
 void RefrigeradorAparelho::atualiza() {
+    incrementaCounterLigado();
+    if (getCounterLigado() == 1)
+        getZona()->alteraPropriedade("Som",getZona()->getValorProp("Som")+20);
     if(getCounterLigado() % 3 == 0){
         getZona()->alteraPropriedade("Temperatura",getZona()->getValorProp("Temperatura")-1);
     }

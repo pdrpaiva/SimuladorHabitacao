@@ -22,5 +22,3 @@ int EntreRegra::getValorY() const {
 int EntreRegra::getValorX() const {
     return valorX;
 }
-
-

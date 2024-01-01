@@ -1230,10 +1230,6 @@ void Interface::avanca(int it) {
             bool aparelhoAssoc = false;
             for(auto &a : z->getAparelhos()){
                 for (auto &p: z->getProcessadores()) {
-                    for(auto &assoc : p->getAparelhosAssoc()){
-                        if(assoc->getIdAparelho() == a->getIdAparelho())
-                            aparelhoAssoc = true;
-                    }
                     bool ativar = true;
                     for (auto &r: p->getRegras()) {
                         if (!r->avaliar())
@@ -1241,14 +1237,17 @@ void Interface::avanca(int it) {
                     }
                     if (ativar)
                         p->AtivaComando();
-                    else
-                        a->recebeComando(a->getComando());
                 }
+                if (a->isLigado())
+                    a->atualiza();
+                else if (a->getTipo() == "Aspersor")
+                    a->atualiza();
             }
             atualizaZona(z->getIdZona());
         }
     }
 }
+
 
 void Interface::constroiZona(int linha, int coluna) {
     int x = 0, y = 0;

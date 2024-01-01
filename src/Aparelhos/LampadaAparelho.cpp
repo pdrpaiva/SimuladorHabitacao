@@ -14,9 +14,11 @@ void LampadaAparelho::aoDesligar() {
 }
 
 void LampadaAparelho::aoLigar() {
-    getZona()->alteraPropriedade("Luz",getZona()->getValorProp("Luz")+900);
+
 }
 
 void LampadaAparelho::atualiza() {
-
+    incrementaCounterLigado();
+    if (getCounterLigado() == 1)
+        getZona()->alteraPropriedade("Luz",getZona()->getValorProp("Luz")+900);
 }
