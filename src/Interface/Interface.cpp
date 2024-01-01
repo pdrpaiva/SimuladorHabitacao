@@ -1482,18 +1482,33 @@ bool Interface::existeZSPA(const int &idZona, const std::string &id){
         }
 
         if(id[0] == 'p'){
+            if(terreno->getHabitacao()->getZona(idZona)->getProcessadores().empty()){
+                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum processador.";
+                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para criar um.";
+                return false;
+            }
             if (terreno->getHabitacao()->getZona(idZona)->getProcessador(id) == nullptr){
                 wInfo << move_to(0, iInfo++) << set_color(4) << "Esse processador nao existe.";
                 return false;
             }
         }
         else if(id[0] == 's'){
+            if(terreno->getHabitacao()->getZona(idZona)->getSensores().empty()){
+                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum sensor.";
+                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para criar um.";
+                return false;
+            }
             if (terreno->getHabitacao()->getZona(idZona)->getSensor(id) == nullptr){
                 wInfo << move_to(0, iInfo++) << set_color(4) << "Esse sensor nao existe.";
                 return false;
             }
         }
         else if(id[0] == 'a' || id[0] == 'A'){
+            if(terreno->getHabitacao()->getZona(idZona)->getAparelhos().empty()){
+                wInfo << move_to(0, iInfo++) << set_color(4) << "A zona ainda nao tem nenhum aparelho.";
+                wInfo << move_to(0, iInfo++) << set_color(4) << "'cnovo' para criar um.";
+                return false;
+            }
             if (terreno->getHabitacao()->getZona(idZona)->getAparelho(id) == nullptr){
                 wInfo << move_to(0, iInfo++) << set_color(4) << "Esse aparelho nao existe.";
                 return false;
