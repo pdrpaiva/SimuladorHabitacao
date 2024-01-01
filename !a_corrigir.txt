@@ -3,3 +3,5 @@ o comando cmrem na interface pode ser MUITO MAIS otimizado
 se estiver a ler o id de um aparelho do txt vai bugar, pq o 'a' vai mudando ao lonogo do programa
 
 as propriedades só estão a ser alteradas se o sensor estiver associado ao processador
+
+min e max das propriedades, em alguns construtores há propriedades com valor min 0 e max 0 também
