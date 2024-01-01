@@ -12,15 +12,15 @@
 
 int ProcessadorRegras::nextIdProcessador = 1;
 
-ProcessadorRegras::ProcessadorRegras(Zona* zona, const string &comando) : zona(zona){
+ProcessadorRegras::ProcessadorRegras(Zona* zona, const string &comando) : zona(zona),comando(comando){
     string idString = to_string(nextIdProcessador++);
     idProcessador = 'p' + idString;
-    if (comando == "desliga"){
+    /*if (comando == "desliga"){
         this->comando = "Desliga";
     }
     else{
         this->comando = "Liga";
-    }
+    }*/
 }
 
 ProcessadorRegras::ProcessadorRegras(ProcessadorRegras &original) {
@@ -114,12 +114,13 @@ int ProcessadorRegras::getNumRegras() const {
 }
 
 void ProcessadorRegras::setComando(const string &comando) {
-    if (comando == "desliga"){
+    /*if (comando == "desliga"){
         this->comando = "Desliga";
     }
     else{
         this->comando = "Liga";
-    }
+    }*/
+    this->comando = comando;
 }
 
 int ProcessadorRegras::RemoveRegra(const string &idRegra) {
@@ -142,7 +143,7 @@ int ProcessadorRegras::RemoveRegra(const string &idRegra) {
 }
 
 void ProcessadorRegras::AtivaComando() {
-    if (comando == "Liga"){
+    if (comando == "liga"){
         for (auto & aparelho : aparelhosAssoc) {
             aparelho->recebeComando("liga");
         }

@@ -510,8 +510,8 @@ void Interface::executaComandos(const std::string &comando) {
                 sintaxe(s);
             }
         }
-    }
-    else if (cmd == "crem") {
+    } /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*else if (cmd == "crem") {
         if (!existeHab) {
             sintaxe(naoExisteHab);
         } else {
@@ -607,6 +607,34 @@ void Interface::executaComandos(const std::string &comando) {
                 sintaxe(s);
             }
         }
+    }*/ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    else if (cmd == "crem") {
+        if (!existeHab) {
+            sintaxe(naoExisteHab);
+        } else {
+            int idZona;
+            string id;
+            string spa;
+            string s = "Uso correto: crem <ID zona> <s | p | a> <ID>";
+            if (iss >> idZona >> spa >> id) {
+                string extra;
+                if (iss >> extra) {
+                    sintaxe(s);
+                } else {
+                    if (spa != "s" && spa != "p" && spa != "a") {
+                        sintaxe(s);
+                    } else {
+                        processa();
+                        wInfo << move_to(0, iInfo++) << set_color(0) << comando;
+                        if(existeZSPA(idZona,id))
+                            wInfo << move_to(0, iInfo++) << set_color(10) << terreno->getHabitacao()->getZona(idZona)->removeComp(spa, id);
+                    }
+                }
+            } else {
+                sintaxe(s);
+            }
+        }
+        return;
     }
     else if (cmd == "rnova") {
         if (!existeHab) {
@@ -1150,7 +1178,10 @@ void Interface::executaComandos(const std::string &comando) {
                         iInfo++;
                         wInfo << move_to(0, iInfo++) << set_color(11) << "Nome da Copia: " << p.first;
                         wInfo << move_to(0, iInfo++) << set_color(11) << "Id do Processador: " << p.second->getIdProcessador();
-                        wInfo << move_to(0, iInfo++) << set_color(11) << "Id da Zona: " << p.second->getZona()->getIdZona();
+                        if(terreno->getHabitacao()->getZona(p.second->getZona()->getIdZona()) == nullptr)
+                            wInfo << move_to(0, iInfo++) << set_color(11) << "Id da Zona: A zona deixou de existir.";
+                        else
+                            wInfo << move_to(0, iInfo++) << set_color(11) << "Id da Zona: " << p.second->getZona()->getIdZona();
                     }
                 }
             }

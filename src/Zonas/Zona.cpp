@@ -94,57 +94,41 @@ bool Zona::restauraProcessador(ProcessadorRegras *proc) {
     return true;
 }
 
-int Zona::removeComp(const string& tipo, const string& idComp) {
-    //return 1 - válido
-    //return 2 - nao ha sensores/aparelhos/processadores
-    //return 3 - nao existe nenhum sensor/aparelho/processador com esse id
-
-    //penso q este funcao de para simplificar, mas nao estava a conseguir
+string Zona::removeComp(const string& tipo, const string& idComp) {
+    ostringstream oss;
+    string nome;
 
     if(tipo == "s"){
-        if (sensores.empty())
-            return 2;
-
         for (auto it = sensores.begin(); it != sensores.end(); ++it) {
             if ((*it)->getIdSensor() == idComp) {
                 delete *it;
                 sensores.erase(it);
-                return 1;
+                nome = "sensor";
             }
         }
-
-        return 3;
     }
     else if(tipo == "a"){
-        if (aparelhos.empty())
-            return 2;
-
         for (auto it = aparelhos.begin(); it != aparelhos.end(); ++it) {
             if ((*it)->getIdAparelho() == idComp) {
                 delete *it;
                 aparelhos.erase(it);
-                return 1;
+                nome = "aparelho";
             }
         }
-
-        return 3;
     }
     else if(tipo == "p"){
-        if (processadores.empty())
-            return 2;
-
         for (auto it = processadores.begin(); it != processadores.end(); ++it) {
             if ((*it)->getIdProcessador() == idComp) {
                 delete *it;
                 processadores.erase(it);
-                return 1;
+                nome = "processador";
             }
         }
-
-        return 3;
     }
 
-    return 0;
+    oss << "O " << nome << " " << idComp << " foi removido da zona " << getIdZona() << ".";
+
+    return oss.str();
 }
 /*
 string Zona::zcomp() {

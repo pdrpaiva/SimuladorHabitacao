@@ -53,7 +53,7 @@ public:
     bool adicionaProcessador(const string& comando);
     bool restauraProcessador(ProcessadorRegras* proc);
 
-    int removeComp(const string& tipo, const string& idComp);
+    string removeComp(const string& tipo, const string& idComp);
 
     //string zcomp();
 
