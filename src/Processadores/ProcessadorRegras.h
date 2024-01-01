@@ -39,6 +39,7 @@ public:
     int RemoveRegra(const string& idRegra);
     void AtivaComando();
     static void setNextIdProcessador(int nextIdProcessador);
+    const vector<Aparelho *> &getAparelhosAssoc() const;
 };
 
 

@@ -1227,18 +1227,25 @@ void Interface::constroiHabitacao(int nLinhas, int nColunas) {
 void Interface::avanca(int it) {
     for (int i = 0; i < it; i++) {
         for (auto &z: terreno->getHabitacao()->getZonas()) {
-            for (auto &p: z->getProcessadores()) {
-                bool ativar = true;
-                for (auto &r: p->getRegras()) {
-                    if (!r->avaliar())
-                        ativar = false;
+            bool aparelhoAssoc = false;
+            for(auto &a : z->getAparelhos()){
+                for (auto &p: z->getProcessadores()) {
+                    for(auto &assoc : p->getAparelhosAssoc()){
+                        if(assoc->getIdAparelho() == a->getIdAparelho())
+                            aparelhoAssoc = true;
+                    }
+                    bool ativar = true;
+                    for (auto &r: p->getRegras()) {
+                        if (!r->avaliar())
+                            ativar = false;
+                    }
+                    if (ativar)
+                        p->AtivaComando();
                 }
-                if (ativar)
-                    p->AtivaComando();
-                    //wComandos << move_to(0, 2) << set_color(4) << p->AtivaComando();
-
-                atualizaZona(z->getIdZona());
+                if (!aparelhoAssoc)
+                    a->recebeComando(a->getComando());
             }
+            atualizaZona(z->getIdZona());
         }
     }
 }

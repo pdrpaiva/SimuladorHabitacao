@@ -148,3 +148,7 @@ void ProcessadorRegras::AtivaComando() {
 void ProcessadorRegras::setNextIdProcessador(int nextIdProcessador) {
     ProcessadorRegras::nextIdProcessador = nextIdProcessador;
 }
+
+const vector<Aparelho *> &ProcessadorRegras::getAparelhosAssoc() const {
+    return aparelhosAssoc;
+}
