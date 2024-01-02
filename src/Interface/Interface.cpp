@@ -1304,6 +1304,9 @@ void Interface::constroiHabitacao(int nLinhas, int nColunas) {
 void Interface::avanca(int it) {
     for (int i = 0; i < it; i++) {
         for (auto &z: terreno->getHabitacao()->getZonas()) {
+            for (auto &s: z->getSensores()) {
+                s->setValor(z->getValorProp(s->getTipo()));
+            }
             bool aparelhoAssoc = false;
             for(auto &a : z->getAparelhos()){
                 for (auto &p: z->getProcessadores()) {
