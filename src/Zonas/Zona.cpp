@@ -90,8 +90,17 @@ bool Zona::adicionaProcessador(const string &comando) {
 }
 
 bool Zona::restauraProcessador(ProcessadorRegras *proc) {
-    processadores.push_back(new ProcessadorRegras(*proc));
-    return true;
+    bool encontrou = false;
+    for(auto p : getProcessadores()){
+        if(p->getIdProcessador() == proc->getIdProcessador())
+            encontrou = true;
+    }
+    if(encontrou)
+        return false;
+    else{
+        processadores.push_back(new ProcessadorRegras(*proc));
+        return true;
+    }
 }
 
 string Zona::removeComp(const string& tipo, const string& idComp) {

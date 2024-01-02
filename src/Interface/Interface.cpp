@@ -1110,10 +1110,14 @@ void Interface::executaComandos(const std::string &comando) {
                         int idZonaProc = terreno->getHabitacao()->getProcGuardado(nome)->getZona()->getIdZona();
                         bool existeZona = false;
                         if(existeZSPA(idZonaProc)){
-                            terreno->getHabitacao()->getZona(idZonaProc)->restauraProcessador(terreno->getHabitacao()->getProcGuardado(nome));
-                            wInfo << move_to(0, iInfo++) << set_color(10) << "Processador " << nome << " reposto com sucesso.";
-                            atualizaZona(idZonaProc);
-                            return;
+                            if(terreno->getHabitacao()->getZona(idZonaProc)->restauraProcessador(terreno->getHabitacao()->getProcGuardado(nome))){
+                                wInfo << move_to(0, iInfo++) << set_color(10) << "Processador " << nome << " reposto com sucesso.";
+                                atualizaZona(idZonaProc);
+                            }
+                            else {
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "Nao foi possivel adicionar o save " << nome << ".";
+                                wInfo << move_to(0, iInfo++) << set_color(4) << "O original ainda existe.";
+                            }
                         }
                     }
                 }
