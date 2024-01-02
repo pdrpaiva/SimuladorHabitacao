@@ -5,6 +5,7 @@
 #ifndef TRABALHO_ASPERSORAPARELHO_H
 #define TRABALHO_ASPERSORAPARELHO_H
 #include "Aparelho.h"
+#include "../Zonas/Zona.h"
 
 class Zona;
 class AspersorAparelho : public Aparelho{

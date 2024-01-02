@@ -12,7 +12,7 @@ using namespace std;
 class Luz: public Propriedade {
 public:
     Luz();
-    ~Luz() override;
+    ~Luz();
 };
 
 

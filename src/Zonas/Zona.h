@@ -39,7 +39,6 @@ private:
     int colunaZona;
     int posZona;
 
-    int instancia;
     vector<Sensor*> sensores;
     vector<ProcessadorRegras*> processadores;
     vector<Aparelho*> aparelhos;
@@ -79,11 +78,7 @@ public:
     int getNumAparelhos() const;
     void setPosZona(int pos);
     int getPosZona() const;
-    //int getNextPosAp();
-    //int getNextPosS();
     static void setNextIdZona(int nextIdZona);
-    int getInstancia() const;
-    void setInstancia(int instancia);
 };
 
 

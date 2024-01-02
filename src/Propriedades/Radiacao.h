@@ -12,7 +12,7 @@ using namespace std;
 class Radiacao: public Propriedade {
 public:
     Radiacao();
-    ~Radiacao() override;
+    ~Radiacao();
 };
 
 

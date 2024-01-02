@@ -3,7 +3,6 @@
 //
 
 #include "Aparelho.h"
-#include "../Zonas/Zona.h"
 int Aparelho::nextIdAparelho = 1;
 
 Aparelho::Aparelho(Zona* zona, const string& tipo) : zona(zona),ligado(false),tipo(tipo),comando("NULL"), counterLigado(0){
@@ -82,7 +81,4 @@ void Aparelho::setComando(const string &comando) {
     Aparelho::comando = comando;
 }
 
-void Aparelho::setNextIdAparelho(int nextIdAparelho) {
-    Aparelho::nextIdAparelho = nextIdAparelho;
-}
 

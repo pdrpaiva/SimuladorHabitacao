@@ -12,7 +12,7 @@ using namespace std;
 class Fumo: public Propriedade {
 public:
     Fumo();
-    ~Fumo() override;
+    ~Fumo();
 };
 
 

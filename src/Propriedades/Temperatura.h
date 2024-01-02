@@ -12,7 +12,7 @@ using namespace std;
 class Temperatura: public Propriedade {
 public:
     Temperatura();
-    ~Temperatura() override;
+    ~Temperatura();
 };
 
 

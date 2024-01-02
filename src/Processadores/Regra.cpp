@@ -27,10 +27,6 @@ const string &Regra::getNome() const {
     return nome;
 }
 
-void Regra::setNextIdRegra(int nextIdRegra) {
-    Regra::nextIdRegra = nextIdRegra;
-}
-
 int Regra::getValorX() const {
     return 0;
 }

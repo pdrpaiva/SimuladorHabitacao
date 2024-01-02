@@ -6,8 +6,12 @@
 #define TRABALHO_HABITACAO_H
 #include <vector>
 #include <iostream>
+#include <string>
+#include <fstream>
 #include "../../lib/Terminal.h"
 #include "../Zonas/Zona.h"
+using namespace std;
+using namespace term;
 
 class Habitacao {
 private:

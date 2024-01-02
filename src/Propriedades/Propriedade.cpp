@@ -3,7 +3,6 @@
 //
 
 #include "Propriedade.h"
-using namespace std;
 
 Propriedade::Propriedade(string _nome, string _unidade, int _min, int _max)
 :nome(_nome), unidade(_unidade), min(_min), max(_max){}

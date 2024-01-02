@@ -5,15 +5,10 @@
 #include "Zona.h"
 
 
-using namespace std;
-
 int Zona::nextIdZona = 1;
 
 Zona::Zona(int linha, int coluna) : linhaZona(linha),colunaZona(coluna){
     idZona = nextIdZona++;
-    //nextPosAp = 1;
-    //NextPosS = 1;
-    instancia = 0;
     propriedades[new Temperatura] = 0;
     propriedades[new Humidade] = 0;
     propriedades[new Luz] = 0;
@@ -39,11 +34,6 @@ Zona::~Zona() {
     }
 
     propriedades.clear();
-
-    /*sensores[0]->setNextIdSensor(1);
-    aparelhos[0]->setNextIdAparelho(1);
-    processadores[0]->getRegras()[0]->setNextIdRegra(1);
-    processadores[0]->setNextIdProcessador(1);*/
 }
 
 bool Zona::adicionaSensor(const string& tipo) {
@@ -113,6 +103,8 @@ string Zona::removeComp(const string& tipo, const string& idComp) {
                 delete *it;
                 sensores.erase(it);
                 nome = "sensor";
+                oss << "O " << nome << " " << idComp << " foi removido da zona " << getIdZona() << ".";
+                return oss.str();
             }
         }
     }
@@ -122,6 +114,8 @@ string Zona::removeComp(const string& tipo, const string& idComp) {
                 delete *it;
                 aparelhos.erase(it);
                 nome = "aparelho";
+                oss << "O " << nome << " " << idComp << " foi removido da zona " << getIdZona() << ".";
+                return oss.str();
             }
         }
     }
@@ -131,44 +125,13 @@ string Zona::removeComp(const string& tipo, const string& idComp) {
                 delete *it;
                 processadores.erase(it);
                 nome = "processador";
+                oss << "O " << nome << " " << idComp << " foi removido da zona " << getIdZona() << ".";
+                return oss.str();
             }
         }
     }
-
-    oss << "O " << nome << " " << idComp << " foi removido da zona " << getIdZona() << ".";
-
-    return oss.str();
+    return "Nao foi possivel remover o componente.";
 }
-/*
-string Zona::zcomp() {
-    ostringstream oss;
-
-    oss << "Componentes da zona [" << this->idZona << "]:" << endl;
-    if (!getSensores().empty()) {
-        oss << "Sensores: " << endl;
-        for (auto &sensor: getSensores()) {
-            oss << "- ID: " << sensor->getIdSensor()
-                  << " Tipo: " << sensor->getTipo()  << endl;
-        }
-    }
-    if (!getAparelhos().empty()) {
-        oss << "Aparelhos: "  << endl;
-        for (auto &aparelho: getAparelhos()) {
-            oss << "- ID: " << aparelho->getIdAparelho()
-                  << " Tipo: " << aparelho->getTipo()  << endl;
-        }
-    }
-    if (!getProcessadores().empty()) {
-        oss << "Processsadores: "  << endl;
-        for (auto &processador: getProcessadores()) {
-            oss << "- ID: " << processador->getIdProcessador()
-                  << " Tipo: " << processador->getComando()  << endl;
-        }
-    }
-
-    return oss.str();
-}
-*/
 
 Propriedade *Zona::getPropriedade(std::string nome) {
     for (auto & propriedade : propriedades) {
@@ -297,22 +260,3 @@ int Zona::getPosZona() const {
 void Zona::setNextIdZona(int nextIdZona) {
     Zona::nextIdZona = nextIdZona;
 }
-
-int Zona::getInstancia() const {
-    return instancia;
-}
-
-void Zona::setInstancia(int instancia) {
-    Zona::instancia = instancia;
-}
-/*
-int Zona::getNextPosAp() {
-    ++nextPosAp;
-    return nextPosAp++;
-}
-
-int Zona::getNextPosS() {
-    ++NextPosS;
-    return NextPosS++;
-}
-*/

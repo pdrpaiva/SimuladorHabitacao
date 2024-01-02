@@ -3,7 +3,6 @@
 //
 
 #include "RefrigeradorAparelho.h"
-#include "../Zonas/Zona.h"
 
 RefrigeradorAparelho::RefrigeradorAparelho(Zona* zona) : Aparelho(zona,"Refrigerador"){}
 

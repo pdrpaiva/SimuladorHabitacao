@@ -22,7 +22,7 @@ private:
     int counterLigado = 0;
 public:
     Aparelho(Zona* zona, const string& tipo);
-    virtual ~Aparelho();
+    ~Aparelho();
 
     virtual bool recebeComando(const string& comando);
 
@@ -42,7 +42,6 @@ public:
     Zona *getZona() const;
     const string &getComando() const;
     void setComando(const string &comando);
-    static void setNextIdAparelho(int nextIdAparelho);
 };
 
 

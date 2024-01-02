@@ -12,7 +12,7 @@ using namespace std;
 class Vibracao:public Propriedade {
 public:
     Vibracao();
-    ~Vibracao() override;
+    ~Vibracao();
 };
 
 

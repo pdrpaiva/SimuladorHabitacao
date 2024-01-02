@@ -3,7 +3,6 @@
 //
 
 #include "AspersorAparelho.h"
-#include "../Zonas/Zona.h"
 
 AspersorAparelho::AspersorAparelho(Zona* zona) : Aparelho(zona,"Aspersor"){}
 

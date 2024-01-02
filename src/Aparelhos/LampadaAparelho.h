@@ -5,6 +5,7 @@
 #ifndef TRABALHO_LAMPADAAPARELHO_H
 #define TRABALHO_LAMPADAAPARELHO_H
 #include "Aparelho.h"
+#include "../Zonas/Zona.h"
 
 class Zona;
 class LampadaAparelho : public Aparelho{

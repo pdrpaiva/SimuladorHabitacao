@@ -9,6 +9,11 @@
 #include <string>
 #include "../Processadores/Regra.h"
 #include "../Aparelhos/Aparelho.h"
+#include "IgualRegra.h"
+#include "MenorRegra.h"
+#include "MaiorRegra.h"
+#include "ForaRegra.h"
+#include "EntreRegra.h"
 
 using namespace std;
 class Zona;
@@ -41,8 +46,6 @@ public:
     void setComando(const string &comando);
     int RemoveRegra(const string& idRegra);
     void AtivaComando();
-    static void setNextIdProcessador(int nextIdProcessador);
-    const vector<Aparelho *> &getAparelhosAssoc() const;
     Zona *getZona() const;
 };
 

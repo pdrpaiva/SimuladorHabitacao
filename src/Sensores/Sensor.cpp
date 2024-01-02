@@ -30,7 +30,3 @@ int Sensor::getValor() const {
 void Sensor::setValor(int valor) {
     Sensor::valor = valor;
 }
-
-void Sensor::setNextIdSensor(int nextIdSensor) {
-    Sensor::nextIdSensor = nextIdSensor;
-}

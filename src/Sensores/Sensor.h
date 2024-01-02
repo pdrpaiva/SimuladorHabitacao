@@ -16,13 +16,12 @@ private:
     int valor;
 public:
     Sensor(const string& tipo, int valor);
-    virtual ~Sensor();
+    ~Sensor();
 
     const string &getIdSensor() const;
     const string &getTipo() const;
     void setValor(int valor);
     int getValor() const;
-    static void setNextIdSensor(int nextIdSensor);
 };
 
 

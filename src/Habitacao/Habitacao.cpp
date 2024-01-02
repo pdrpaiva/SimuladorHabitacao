@@ -2,14 +2,7 @@
 // Created by Utilizador on 27/10/2023.
 //
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <fstream>
-#include <unistd.h>
 #include "Habitacao.h"
-using namespace std;
-using namespace term;
 
 Habitacao::Habitacao(int nLinhas, int nColunas) :  habLinhas(nLinhas), habColunas(nColunas), instancia(0){
     zonas[0]->setNextIdZona(1);

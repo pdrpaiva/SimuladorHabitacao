@@ -3,7 +3,6 @@
 //
 
 #include "LampadaAparelho.h"
-#include "../Zonas/Zona.h"
 
 LampadaAparelho::LampadaAparelho(Zona* zona) : Aparelho(zona,"Lampada"){}
 

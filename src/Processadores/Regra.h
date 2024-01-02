@@ -16,7 +16,7 @@ private:
 
 public:
     Regra(const string& nome, Sensor* sensor);
-    virtual ~Regra();
+    ~Regra();
 
     virtual bool avaliar() = 0;
     virtual Regra * duplica()const = 0;
@@ -25,7 +25,6 @@ public:
     const string &getIdRegra() const;
     const string &getNome() const;
     Sensor *getSensorAssoc() const;
-    static void setNextIdRegra(int nextIdRegra);
     virtual int getValorX() const;
     virtual int getValorY() const;
 };

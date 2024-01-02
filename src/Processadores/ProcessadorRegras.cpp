@@ -4,11 +4,7 @@
 
 #include "ProcessadorRegras.h"
 #include "../Zonas/Zona.h"
-#include "IgualRegra.h"
-#include "MenorRegra.h"
-#include "MaiorRegra.h"
-#include "ForaRegra.h"
-#include "EntreRegra.h"
+
 
 int ProcessadorRegras::nextIdProcessador = 1;
 
@@ -126,12 +122,6 @@ int ProcessadorRegras::getNumRegras() const {
 }
 
 void ProcessadorRegras::setComando(const string &comando) {
-    /*if (comando == "desliga"){
-        this->comando = "Desliga";
-    }
-    else{
-        this->comando = "Liga";
-    }*/
     this->comando = comando;
 }
 
@@ -165,14 +155,6 @@ void ProcessadorRegras::AtivaComando() {
             aparelho->recebeComando("desliga");
         }
     }
-}
-
-void ProcessadorRegras::setNextIdProcessador(int nextIdProcessador) {
-    ProcessadorRegras::nextIdProcessador = nextIdProcessador;
-}
-
-const vector<Aparelho *> &ProcessadorRegras::getAparelhosAssoc() const {
-    return aparelhosAssoc;
 }
 
 Zona *ProcessadorRegras::getZona() const {
