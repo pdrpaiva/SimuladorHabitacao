@@ -17,3 +17,7 @@ int MaiorRegra::getValorX() const {
     return valorX;
 }
 
+Regra *MaiorRegra::duplica() const {
+    return new MaiorRegra(*this);
+}
+

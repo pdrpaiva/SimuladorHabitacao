@@ -17,6 +17,7 @@ public:
     bool avaliar() override;
     int getValorX() const override;
     int getValorY() const override;
+    Regra * duplica() const override;
 };
 
 

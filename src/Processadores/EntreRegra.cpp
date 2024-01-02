@@ -22,3 +22,8 @@ int EntreRegra::getValorY() const {
 int EntreRegra::getValorX() const {
     return valorX;
 }
+
+Regra *EntreRegra::duplica() const {
+    return new EntreRegra(*this);
+
+}

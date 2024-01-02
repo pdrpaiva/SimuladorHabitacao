@@ -24,6 +24,7 @@ private:
 public:
     ProcessadorRegras(Zona* zona, const string& comando);
     ProcessadorRegras(ProcessadorRegras& original);
+    ProcessadorRegras& operator=(const ProcessadorRegras& original);
 
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x);
     bool adicionaRegra(const string& regra, Sensor* sensor, const int& x, const int& y);

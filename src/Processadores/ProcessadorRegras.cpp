@@ -23,13 +23,32 @@ ProcessadorRegras::ProcessadorRegras(Zona* zona, const string &comando) : zona(z
     }*/
 }
 
-ProcessadorRegras::ProcessadorRegras(ProcessadorRegras &original) {
-    idProcessador = original.idProcessador;
+ProcessadorRegras::ProcessadorRegras(ProcessadorRegras &original) : idProcessador(original.idProcessador), comando(original.comando) , zona(original.zona){
+    /*idProcessador = original.idProcessador;
     comando = original.comando;
     zona = original.zona;
     for(auto &r : original.regras){
         regras.push_back(r);
     }
+    */
+    *this = original;
+}
+
+ProcessadorRegras &ProcessadorRegras::operator=(const ProcessadorRegras &original) {
+    if(this == &original){
+        return *this;
+    }
+
+    for( int i = 0 ; i < regras.size() ; i++){
+        delete regras[i];
+    }
+    regras.clear();
+
+    for( int i = 0 ; i < original.regras.size() ; i++){
+        regras.push_back(original.regras[i]->duplica());
+    }
+
+    return *this;
 }
 
 bool ProcessadorRegras::adicionaRegra(const string &regra, Sensor* sensor, const int &x) {

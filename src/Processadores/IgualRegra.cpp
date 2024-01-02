@@ -18,3 +18,7 @@ bool IgualRegra::avaliar() {
 int IgualRegra::getValorX() const {
     return valorX;
 }
+
+Regra *IgualRegra::duplica() const {
+    return new IgualRegra(*this);
+}

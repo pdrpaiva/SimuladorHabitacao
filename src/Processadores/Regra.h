@@ -19,6 +19,8 @@ public:
     virtual ~Regra();
 
     virtual bool avaliar() = 0;
+    virtual Regra * duplica()const = 0;
+
 
     const string &getIdRegra() const;
     const string &getNome() const;

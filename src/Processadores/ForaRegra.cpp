@@ -20,3 +20,7 @@ int ForaRegra::getValorX() const {
 int ForaRegra::getValorY() const {
     return valorY;
 }
+
+Regra *ForaRegra::duplica() const {
+    return new ForaRegra(*this);
+}

@@ -16,3 +16,7 @@ bool MenorRegra::avaliar() {
 int MenorRegra::getValorX() const {
     return valorX;
 }
+
+Regra *MenorRegra::duplica() const {
+    return new MenorRegra(*this);
+}

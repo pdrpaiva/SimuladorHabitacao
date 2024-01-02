@@ -14,8 +14,8 @@ public:
     MaiorRegra(const string& nome, Sensor* sensor,const int& x);
     ~MaiorRegra() = default;
     bool avaliar() override;
-
     int getValorX() const override;
+    Regra * duplica() const override;
 };
 
 
