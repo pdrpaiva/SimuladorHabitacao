@@ -23,6 +23,7 @@ private:
     vector<Aparelho*> aparelhosAssoc;
 public:
     ProcessadorRegras(Zona* zona, const string& comando);
+    ~ProcessadorRegras();
     ProcessadorRegras(ProcessadorRegras& original);
     ProcessadorRegras& operator=(const ProcessadorRegras& original);
 

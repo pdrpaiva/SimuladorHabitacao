@@ -55,8 +55,6 @@ public:
 
     string removeComp(const string& tipo, const string& idComp);
 
-    //string zcomp();
-
     const vector<Sensor *> &getSensores() const;
     const vector<ProcessadorRegras *> &getProcessadores() const;
     const vector<Aparelho *> &getAparelhos() const;

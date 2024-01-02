@@ -15,22 +15,15 @@ int ProcessadorRegras::nextIdProcessador = 1;
 ProcessadorRegras::ProcessadorRegras(Zona* zona, const string &comando) : zona(zona),comando(comando){
     string idString = to_string(nextIdProcessador++);
     idProcessador = 'p' + idString;
-    /*if (comando == "desliga"){
-        this->comando = "Desliga";
+}
+
+ProcessadorRegras::~ProcessadorRegras() {
+    for(Regra* regra : regras){
+        delete regra;
     }
-    else{
-        this->comando = "Liga";
-    }*/
 }
 
 ProcessadorRegras::ProcessadorRegras(ProcessadorRegras &original) : idProcessador(original.idProcessador), comando(original.comando) , zona(original.zona){
-    /*idProcessador = original.idProcessador;
-    comando = original.comando;
-    zona = original.zona;
-    for(auto &r : original.regras){
-        regras.push_back(r);
-    }
-    */
     *this = original;
 }
 
