@@ -46,7 +46,7 @@ void Interface::executaComandos(const std::string &comando) {
     }
 
     string naoExisteHab = "Nao existe nenhuma habitacao neste momento. 'hnova' para criar uma.";
-
+    iInfo++;
     if(cmd == "prox") {
         if (!existeHab) {
             sintaxe(naoExisteHab);
