@@ -1,4 +1,4 @@
-# SimularHabitacao
+# Simular de uma Habitacao Inteligente
 
 Simulador em C++ de uma habitação inteligente controlada por componentes de domótica interligados entre si.
 
